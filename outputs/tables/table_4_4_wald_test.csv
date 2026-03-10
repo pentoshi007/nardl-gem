@@ -1,2 +1,2 @@
-"Test","F_Statistic","DF1","DF2","P_Value","Decision","CPT_Plus","CPT_Minus"
-"Wald: CPT+ = CPT-",1.1114,1,217,0.293,"Fail to reject H₀ at 5%",0.019258,0.00058
+"Test","F_Statistic","DF1","DF2","P_Value","P_Value_Display","Decision","CPT_Plus","CPT_Minus","Effect_Pos_10pp","Effect_Neg_10pp"
+"Wald: CPT+ = CPT-",1.3835,1,218,0.2408,"0.2408","Fail to reject H₀ at 5%: asymmetry not statistically significant",0.021296,0.000598,0.213,-0.006

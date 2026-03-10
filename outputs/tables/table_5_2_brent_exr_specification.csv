@@ -1,0 +1,3 @@
+"Specification","CPT_Plus","CPT_Minus","Gap","CPT_Plus_P","CPT_Minus_P","Asym_P_Value","EXR_Coefficient","EXR_P_Value","EXR_L1_Coefficient","EXR_L1_P_Value","Effect_Pos_10pp","Effect_Neg_10pp","AIC","Adj_R2"
+"Primary (INR oil)",0.021296,0.000598,0.020698,0.122,0.9375,0.2408,NA,NA,NA,NA,0.213,-0.006,440.77,0.4492
+"Brent USD + EXR",0.027458,-0.002116,0.025343,0.0933,0.7792,0.1443,0.039619,0.0287,-0.033484,0.0883,0.2746,0.0212,438.79,0.4575
