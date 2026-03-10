@@ -38,6 +38,7 @@ Estimate short-run monthly inflation pass-through for India over April 2004 to D
 3. Distinguish clearly between economic significance and statistical significance.
 4. Report that headline CPI in India is influenced heavily by food inflation, so oil effects may be muted in aggregate inflation.
 5. Use HAC/Newey-West inference for all main regression tables and linear restrictions.
+6. If the formal asymmetry test remains weak, position the dissertation around short-run pass-through magnitude and the exchange-rate channel, with asymmetry treated as a secondary empirical question.
 
 **Full pipeline:**
 
@@ -110,7 +111,11 @@ This sample is long enough to cover:
 3. Keep column names unchanged if possible and clean them in R.
 
 **Optional extension, not required for the main dissertation**
-- If a consistent monthly series for CPI Fuel and Light or Core CPI is available for a long enough period, use it as an appendix extension. Do not let this delay the main analysis.
+- If internet access is available, use the official MoSPI CPI API for an appendix-only `Fuel and Light` series:
+  - back series: `2011-2012`
+  - current series: `2013 onward`
+- Treat this as a shorter appendix sample, not as a replacement for the main `2004-2024` headline CPI model.
+- If the API is unavailable, skip this appendix cleanly and keep the main dissertation unchanged.
 
 ### 1.4 Folder Structure
 
@@ -395,6 +400,16 @@ H1: CPT_plus != CPT_minus
 3. Do not treat a large ratio like `CPT_plus / |CPT_minus|` as proof by itself.
 4. Use magnitude, sign, and robustness as supporting evidence, not as a substitute for inference.
 
+**How to strengthen asymmetry inference without p-hacking:**
+1. Keep headline CPI as the main dependent variable, but if a consistent monthly series exists, add appendix-only extensions using CPI Fuel and Light or a cleaner core CPI measure. A more directly exposed price index usually carries a stronger oil signal than headline CPI.
+2. Add an appendix-only local projection exercise for horizons `0` to `6` or `0` to `12` months, following Jordà (2005), to compare dynamic responses to positive and negative oil shocks. Keep the ADL as the main model.
+3. If technically feasible, report bootstrap or block-bootstrap p-values for the cumulative asymmetry restriction as a small-sample sensitivity check. Label this clearly as supplementary inference.
+4. Use the Brent + EXR specification to show whether the exchange-rate channel sharpens the interpretation, but do not replace the main model only because it gives a smaller p-value.
+5. Do not add break dummies, change lag orders, or swap models simply because they make the Wald p-value look better. Those are sensitivity checks, not the main identification strategy.
+
+**Practical lesson:**  
+In this dissertation, the weakest point is likely to be the formal asymmetry test. The honest way to improve it is better signal and better identification, not cosmetic changes to the regression.
+
 **Console output example:**
 
 ```text
@@ -456,8 +471,9 @@ Run the following on the primary asymmetric ADL:
 
 | Check | What changes | Why it matters |
 |------|------|------|
-| 1. Lag sensitivity | estimate `q = 0, 1, 2, 3` | checks sensitivity to lag length |
+| 1. Lag sensitivity | estimate the full `p = 1:4`, `q = 0:3` grid on a common sample | checks whether conclusions depend heavily on lag choices |
 | 2. Brent + EXR model | replace `Oil_INR` asymmetry with `Brent` asymmetry plus `dlnEXR` controls | checks separate exchange-rate channel |
+| Appendix. Fuel and Light CPI | use official MoSPI subgroup CPI on the shorter available sample | checks whether a more directly oil-exposed price index shows a stronger signal |
 | 3. No COVID dummy | remove `D_covid` | checks outlier dependence |
 | 4. Winsorized oil shocks | cap top and bottom 1% of oil changes | checks influence of extreme months |
 | 5. Rolling window | 60-month rolling re-estimation | checks time variation and stability |
@@ -468,6 +484,7 @@ For robustness checks, report coefficients and p-values. Do not label a model "c
 **Required outputs:**
 - `outputs/tables/table_5_1_lag_sensitivity.csv`
 - `outputs/tables/table_5_2_brent_exr_specification.csv`
+- `outputs/tables/table_a_1_fuel_light_appendix.csv` if the official MoSPI appendix runs successfully
 - `outputs/tables/table_5_3_covid_sensitivity.csv`
 - `outputs/tables/table_5_4_winsorized.csv`
 - `outputs/figures/fig_7_rolling_window.png`
@@ -505,6 +522,7 @@ For robustness checks, report coefficients and p-values. Do not label a model "c
 | `table_4_6_diagnostics.csv` | diagnostic test summary | Chapter 4 |
 | `table_5_1_lag_sensitivity.csv` | lag sensitivity results | Chapter 5 |
 | `table_5_2_brent_exr_specification.csv` | Brent + EXR robustness vs main model | Chapter 5 |
+| `table_a_1_fuel_light_appendix.csv` | appendix-only Fuel and Light CPI results on shorter official sample | Appendix |
 | `table_5_3_covid_sensitivity.csv` | with and without COVID dummy | Chapter 5 |
 | `table_5_4_winsorized.csv` | original vs winsorized results | Chapter 5 |
 
@@ -588,6 +606,18 @@ This section gives realistic benchmarks for India. It does **not** give targets 
 | Diagnostics | serial correlation and RESET should ideally pass; BP may fail | heteroskedasticity is manageable with HAC inference |
 | Model fit | moderate, not perfect | adjusted `R^2` around `0.35` to `0.50` is reasonable |
 
+**Weakest point to acknowledge upfront:**  
+In headline CPI work on India, the formal asymmetry test is often the weakest part. That is usually not a coding error. It reflects the fact that headline CPI mixes food, services, policy intervention, and imported energy costs. If the asymmetry p-value stays above `0.05`, the dissertation should shift emphasis toward:
+- the existence and magnitude of positive oil pass-through,
+- the role of the exchange-rate channel,
+- and the institutional comparison before and after deregulation.
+
+**Best honest routes to stronger asymmetry evidence:**
+1. Add appendix regressions using CPI Fuel and Light or a cleaner non-food measure if a long monthly series is available. For this project, an official MoSPI Fuel and Light subgroup sample from `2011-2024` is acceptable as a shorter appendix.
+2. Add appendix local projections for positive and negative shocks.
+3. Add appendix bootstrap inference for the cumulative asymmetry restriction.
+4. Do not try to "fix" the Wald test by searching across many break dummies or ad hoc specifications.
+
 **How to read your current results if they look like this:**
 - positive oil shocks raise inflation,
 - negative shocks have much smaller or noisier effects,
@@ -633,11 +663,12 @@ then the dissertation is still valid and relevant. That is not a weak result. It
 - Main interpretation in plain language.
 
 ### Chapter 5 - Robustness and Alternative Specification
-- Lag sensitivity.
+- Full `p x q` lag-grid sensitivity on a common sample.
 - Brent + EXR specification.
 - COVID sensitivity.
 - Winsorized specification.
 - Rolling window stability.
+- Optional appendix: local projections and stronger price-index extensions if data are available.
 - Summary of what changes and what does not.
 
 ### Chapter 6 - Discussion and Policy Implications
@@ -670,6 +701,12 @@ These are model answers to help in the viva. Keep them honest and simple.
 **Q: Your asymmetry test is not significant. Does that mean your dissertation failed?**
 
 > "No. My main result is that positive oil shocks are associated with higher CPI inflation in India, and that result is economically meaningful. The asymmetry test asks a narrower question: whether positive and negative pass-through are statistically different. In my sample, the point estimates suggest asymmetry, but the formal test does not reject symmetry at the 5% level. I report that directly. That is still a valid finding, especially in headline CPI where food and policy effects add noise."
+
+---
+
+**Q: The weakest point of your study is the Wald test. How would you improve the dissertation without manipulating the result?**
+
+> "I would not try to improve the p-value by searching for a lucky specification. The right improvement is to strengthen the signal. The first option is an appendix using a more directly exposed price index such as CPI Fuel and Light if a consistent monthly series is available. The second is an appendix local-projection analysis to trace dynamic responses to positive and negative shocks. The third is bootstrap inference for the cumulative restriction. Those steps improve credibility without changing the core finding dishonestly."
 
 ---
 
@@ -706,6 +743,8 @@ Use these as the core bibliography for the working draft. Verify citation format
 Bacon, R. W. (1991). Rockets and feathers: The asymmetric speed of adjustment of UK retail gasoline prices to cost changes. *Energy Economics*, 13(3), 211-218.
 
 Hamilton, J. D. (2003). What is an oil shock? *Journal of Econometrics*, 113(2), 363-398.
+
+Jordà, Ò. (2005). Estimation and inference of impulse responses by local projections. *American Economic Review*, 95(1), 161-182.
 
 Kilian, L. (2009). Not all oil price shocks are alike: Disentangling demand and supply shocks in the crude oil market. *American Economic Review*, 99(3), 1053-1069.
 
@@ -767,8 +806,11 @@ Copy this prompt and give it to the AI together with this file:
 > 13. For the IIP series, compute the splice factor from the overlap period instead of hard-coding it.  
 > 14. Use `tryCatch()` around each major section so one error does not stop the script.  
 > 15. In the final summary, if the asymmetry test is insignificant, state: "Point estimates suggest asymmetry, but it is not statistically significant at the 5% level."  
-> 16. Name the robustness output file `outputs/tables/table_5_2_brent_exr_specification.csv`.  
-> 17. Do not fabricate results, do not hard-code expected values, and do not describe a finding as significant unless the estimated p-value supports that claim.
+> 16. Report the full lag-sensitivity grid over `p = 1:4` and `q = 0:3` on a common sample, but keep the pre-specified main model clearly marked.  
+> 17. Name the robustness output file `outputs/tables/table_5_2_brent_exr_specification.csv`.  
+> 18. If internet access is available, fetch the official MoSPI CPI `Fuel and Light` subgroup through the CPI API and add an appendix-only extension on the shorter available sample. Do not replace the main headline CPI model. If the API call fails, skip this appendix cleanly.  
+> 19. If feasible, add appendix-only local projections for horizons `0` to `6` or `0` to `12` months for positive and negative oil shocks, keeping the ADL as the main specification.  
+> 20. Do not fabricate results, do not hard-code expected values, and do not describe a finding as significant unless the estimated p-value supports that claim.
 
 ---
 

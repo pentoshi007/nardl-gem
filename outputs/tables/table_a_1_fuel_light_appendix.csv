@@ -1,0 +1,2 @@
+"Dependent_Variable","Source","Sample_Start","Sample_End","N","CPT_Plus","CPT_Minus","Gap","CPT_Plus_P","CPT_Minus_P","Asym_P_Value","Effect_Pos_10pp","Effect_Neg_10pp","Adj_R2"
+"CPI Fuel and Light (All India Combined)","Official MoSPI CPI API","2011-05-01","2024-12-01",164,0.060848,0.010808,0.050039,0.0337,0.6649,0.2647,0.6085,-0.1081,0.2144

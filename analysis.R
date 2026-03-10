@@ -15,7 +15,8 @@ cat("═════════════════════════
 
 required_packages <- c(
   "tidyverse", "readxl", "tseries", "lmtest", "sandwich",
-  "car", "strucchange", "stargazer", "patchwork", "scales", "zoo"
+  "car", "strucchange", "stargazer", "patchwork", "scales", "zoo",
+  "jsonlite"
 )
 
 for (pkg in required_packages) {
@@ -70,6 +71,62 @@ extract_linear_test <- function(model, restriction, vcov_mat, label) {
     P_Value = unname(test$`Pr(>F)`[2]),
     stringsAsFactors = FALSE
   )
+}
+
+fetch_mospi_cpi_group <- function(years, series, group_code,
+                                  sector_code = 3, state_code = 99,
+                                  base_year = "2012") {
+  base_url <- "https://api.mospi.gov.in/api/cpi/getCPIIndex"
+  page <- 1
+  out <- list()
+
+  repeat {
+    query <- list(
+      base_year = base_year,
+      series = series,
+      year = paste(years, collapse = ","),
+      month_code = paste(1:12, collapse = ","),
+      state_code = state_code,
+      group_code = group_code,
+      sector_code = sector_code,
+      page = page,
+      Format = "JSON"
+    )
+
+    url <- paste0(
+      base_url, "?",
+      paste(
+        paste0(
+          names(query), "=",
+          vapply(query, function(x) utils::URLencode(as.character(x), reserved = TRUE), character(1))
+        ),
+        collapse = "&"
+      )
+    )
+
+    raw_txt <- tryCatch(paste(readLines(url, warn = FALSE), collapse = ""), error = function(e) "")
+    if (identical(raw_txt, "")) {
+      break
+    }
+
+    payload <- tryCatch(jsonlite::fromJSON(raw_txt), error = function(e) NULL)
+    if (is.null(payload) || !isTRUE(payload$statusCode) || is.null(payload$data) || nrow(payload$data) == 0) {
+      break
+    }
+
+    out[[length(out) + 1]] <- as.data.frame(payload$data, stringsAsFactors = FALSE)
+
+    total_pages <- tryCatch(as.integer(payload$meta_data$totalPages), error = function(e) NA_integer_)
+    if (is.na(total_pages) || page >= total_pages) {
+      break
+    }
+    page <- page + 1
+  }
+
+  if (length(out) == 0) {
+    return(data.frame())
+  }
+  bind_rows(out)
 }
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -985,6 +1042,111 @@ if (file.exists("outputs/tables/table_5_2_usd_specification.csv")) {
 write.csv(usd_out, "outputs/tables/table_5_2_brent_exr_specification.csv", row.names = FALSE)
 cat("  ✓ File saved: outputs/tables/table_5_2_brent_exr_specification.csv\n")
 
+# --- Appendix: CPI Fuel and Light (official MoSPI API) ---
+cat("\n  --- Appendix: CPI Fuel and Light (official MoSPI API) ---\n")
+fuel_appendix_out <- NULL
+tryCatch({
+  fuel_back <- fetch_mospi_cpi_group(2011:2012, series = "Back", group_code = 5)
+  fuel_current <- fetch_mospi_cpi_group(2013:2024, series = "Current", group_code = 5)
+  fuel_api <- bind_rows(fuel_back, fuel_current) %>%
+    mutate(
+      year = as.integer(year),
+      month_num = match(month, month.name),
+      fuel_cpi = as.numeric(index),
+      date = as.Date(sprintf("%04d-%02d-01", year, month_num))
+    ) %>%
+    filter(!is.na(date), !is.na(fuel_cpi)) %>%
+    distinct(date, .keep_all = TRUE) %>%
+    arrange(date) %>%
+    select(date, fuel_cpi, group, subgroup, sector, state, baseyear)
+
+  if (nrow(fuel_api) >= 120) {
+    write.csv(fuel_api, "data/processed/cpi_fuel_light_all_india_combined.csv", row.names = FALSE)
+    cat("    ✓ File saved: data/processed/cpi_fuel_light_all_india_combined.csv\n")
+    cat(sprintf("    ✓ Official Fuel & Light sample: %s to %s  (N = %d)\n",
+                min(fuel_api$date), max(fuel_api$date), nrow(fuel_api)))
+
+    df_fuel <- df %>%
+      inner_join(fuel_api %>% select(date, fuel_cpi), by = "date") %>%
+      arrange(date)
+
+    df_fuel$ln_fuel_cpi <- log(df_fuel$fuel_cpi)
+    df_fuel$dlnFuelCPI <- c(NA, 100 * diff(df_fuel$ln_fuel_cpi))
+    for (lag_i in 1:4) {
+      df_fuel[[paste0("dlnFuelCPI_L", lag_i)]] <- dplyr::lag(df_fuel$dlnFuelCPI, lag_i)
+    }
+
+    fuel_sample_lag <- paste0("dlnFuelCPI_L", best_p)
+    df_fuel_est <- df_fuel %>% filter(complete.cases(
+      dlnFuelCPI, !!sym(fuel_sample_lag), dlnOil_pos_L3, dlnOil_neg_L3, dlnIIP
+    ))
+
+    fuel_rhs <- c(
+      paste0("dlnFuelCPI_L", 1:best_p),
+      paste0("dlnOil_pos_L", 0:3),
+      paste0("dlnOil_neg_L", 0:3),
+      "dlnIIP", "D_petrol", "D_diesel", "D_covid",
+      paste0("M", 1:11)
+    )
+    fuel_rhs <- fuel_rhs[vapply(fuel_rhs, function(term) length(unique(df_fuel_est[[term]])) > 1, logical(1))]
+    fuel_formula <- as.formula(paste("dlnFuelCPI ~", paste(fuel_rhs, collapse = " + ")))
+
+    fuel_model <- lm(fuel_formula, data = df_fuel_est)
+    fuel_nw <- NeweyWest(fuel_model, lag = nw_lag_length(nrow(df_fuel_est)), prewhite = FALSE)
+    fuel_cpt_pos <- sum(coef(fuel_model)[grep("^dlnOil_pos_L", names(coef(fuel_model)))])
+    fuel_cpt_neg <- sum(coef(fuel_model)[grep("^dlnOil_neg_L", names(coef(fuel_model)))])
+    fuel_pos_test <- extract_linear_test(
+      fuel_model,
+      sum_restriction(grep("^dlnOil_pos_L", names(coef(fuel_model)), value = TRUE)),
+      fuel_nw,
+      "H0: Fuel CPI CPT+ = 0"
+    )
+    fuel_neg_test <- extract_linear_test(
+      fuel_model,
+      sum_restriction(grep("^dlnOil_neg_L", names(coef(fuel_model)), value = TRUE)),
+      fuel_nw,
+      "H0: Fuel CPI CPT- = 0"
+    )
+    fuel_asym_test <- extract_linear_test(
+      fuel_model,
+      sum_restriction(
+        grep("^dlnOil_pos_L", names(coef(fuel_model)), value = TRUE),
+        paste(grep("^dlnOil_neg_L", names(coef(fuel_model)), value = TRUE), collapse = " + ")
+      ),
+      fuel_nw,
+      "H0: Fuel CPI CPT+ = Fuel CPI CPT-"
+    )
+
+    fuel_appendix_out <- data.frame(
+      Dependent_Variable = "CPI Fuel and Light (All India Combined)",
+      Source = "Official MoSPI CPI API",
+      Sample_Start = as.character(min(df_fuel_est$date)),
+      Sample_End = as.character(max(df_fuel_est$date)),
+      N = nrow(df_fuel_est),
+      CPT_Plus = round(fuel_cpt_pos, 6),
+      CPT_Minus = round(fuel_cpt_neg, 6),
+      Gap = round(fuel_cpt_pos - abs(fuel_cpt_neg), 6),
+      CPT_Plus_P = round(fuel_pos_test$P_Value, 4),
+      CPT_Minus_P = round(fuel_neg_test$P_Value, 4),
+      Asym_P_Value = round(fuel_asym_test$P_Value, 4),
+      Effect_Pos_10pp = round(fuel_cpt_pos * 10, 4),
+      Effect_Neg_10pp = round(fuel_cpt_neg * (-10), 4),
+      Adj_R2 = round(summary(fuel_model)$adj.r.squared, 4),
+      stringsAsFactors = FALSE
+    )
+    write.csv(fuel_appendix_out, "outputs/tables/table_a_1_fuel_light_appendix.csv", row.names = FALSE)
+    cat("    ✓ File saved: outputs/tables/table_a_1_fuel_light_appendix.csv\n")
+    cat(sprintf("    Fuel CPI appendix: CPT+=%.6f, CPT-=%.6f, p(CPT+)=%s, p(asym)=%s\n",
+                fuel_cpt_pos, fuel_cpt_neg,
+                format_p_value(fuel_pos_test$P_Value),
+                format_p_value(fuel_asym_test$P_Value)))
+  } else {
+    cat("    ⚠ Official Fuel & Light appendix skipped: insufficient API data\n")
+  }
+}, error = function(e) {
+  cat(sprintf("    ⚠ Official Fuel & Light appendix skipped: %s\n", e$message))
+})
+
 # --- Check 3: COVID sensitivity ---
 cat("\n  --- Check 3: COVID Sensitivity ---\n")
 nocovid_formula <- update(asym_formula, . ~ . - D_covid)
@@ -1204,5 +1366,15 @@ cat(sprintf("  Brent+EXR model     = CPT+ %.6f (+10%% shock → %.4f pp), p = %s
             cpt_usd_pos, cpt_usd_pos * 10, format_p_value(usd_pos_test$P_Value)))
 cat(sprintf("  Exchange-rate p     = %s (lag p = %s)\n",
             format_p_value(usd_ct["dlnEXR", 4]), format_p_value(usd_ct["dlnEXR_L1", 4])))
+if (exists("fuel_appendix_out") && is.data.frame(fuel_appendix_out)) {
+  cat(sprintf("  Fuel CPI appendix   = CPT+ %.6f (+10%% shock → %.4f pp), p = %s\n",
+              fuel_appendix_out$CPT_Plus[1],
+              fuel_appendix_out$Effect_Pos_10pp[1],
+              format_p_value(fuel_appendix_out$CPT_Plus_P[1])))
+  cat(sprintf("  Fuel asymmetry p    = %s  (sample %s to %s)\n",
+              format_p_value(fuel_appendix_out$Asym_P_Value[1]),
+              fuel_appendix_out$Sample_Start[1],
+              fuel_appendix_out$Sample_End[1]))
+}
 cat(sprintf("  Adj R² (main model) = %.4f\n", summary(asym_model)$adj.r.squared))
 cat("══════════════════════════════════════════════════\n")
