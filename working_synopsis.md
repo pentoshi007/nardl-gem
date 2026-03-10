@@ -1,605 +1,487 @@
 # WORKING RESEARCH SYNOPSIS
-## Dissertation Execution Guide (AI-Readable)
+## Current Project Blueprint (Code-Aligned)
 
 **Title:** Do Global Oil Price Shocks Raise India's Inflation More Than They Lower It?  
-**Subtitle:** Asymmetric Pass-Through to CPI Inflation, India (2004–2024)  
+**Subtitle:** Short-Run Pass-Through to CPI Inflation in India, 2004-2024  
 **Student:** Aniket Pandey  
 **Supervisor:** Prof. Shakti Kumar  
-**Programme:** MS Economics — 16 Credit Dissertation — JNU, 2026  
+**Programme:** MS Economics, JNU, 2026  
 
 ---
 
-> **HOW TO USE THIS FILE**  
-> This is a working execution guide — not for submission. Give this file to an AI (Claude, ChatGPT, etc.) and ask it to help you build the R script, fix errors, or write chapter text. Every section tells you exactly what to do, what the R code produces, and what to write in the dissertation. Follow sections in order 1 → 9.
+> **Purpose of this file**  
+> This is the working blueprint for the dissertation as it exists now in `/Users/aniketpandey/Desktop/dissertationv2`.  
+> It is not a theoretical wish list. It reflects the current project structure, the current `analysis.R`, the actual data files, the actual outputs, and the interpretation that is defensible in front of a supervisor.
 
 ---
 
-## SECTION 0: RESEARCH DESIGN AT A GLANCE
+## SECTION 0: PROJECT IN ONE PAGE
 
-**Core hypothesis:** The "Rockets and Feathers" effect — oil price increases transmit to India's CPI inflation faster and more strongly than equivalent decreases reduce it.
+### 0.1 Core question
+How strongly do oil price shocks pass through to India's monthly CPI inflation, and is pass-through larger for oil price increases than for oil price decreases?
 
-**Method in one sentence:** Decompose monthly INR-denominated oil price changes into positive and negative shocks; estimate separate pass-through coefficients for each using an Asymmetric Autoregressive Distributed Lag (ADL) OLS model on 20 years of monthly data; compare cumulative coefficients.
+### 0.2 Main research design
+- Main dependent variable: headline CPI inflation in monthly log-differences.
+- Main oil variable: `Oil_INR = Brent_USD x INR/USD`.
+- Main model: asymmetric ADL in first differences.
+- Main asymmetry setup: positive and negative oil changes are estimated separately.
+- Main lag design: oil lags fixed at `q = 3`; autoregressive CPI lag order `p` selected by AIC over `1:4`.
+- Inference: Newey-West HAC for coefficient tests and all cumulative restriction tests.
 
-**Full pipeline:**
+### 0.3 What the dissertation is and is not
+- This is a short-run pass-through dissertation, not a structural oil-shock identification dissertation.
+- It is not a NARDL, SVAR, or local-projections project in the main chapter.
+- It does not try to force statistical asymmetry if the data do not support it.
+- It does include a stronger India-specific robustness design through `Brent + EXR`.
+- It now includes an appendix-only `Fuel and Light` CPI model using the official MoSPI CPI API on a shorter sample.
 
-| Stage | Task | Output |
-|-------|------|--------|
-| 1 | Download 4 data series | Raw CSVs |
-| 2 | Construct all variables, log-differences, decomposition | Clean dataset (~237–245 obs) |
-| 3 | ADF unit root tests | Table 4.1 |
-| 4 | Baseline symmetric ADL(1,1) | Table 4.2 |
-| 5 | Primary asymmetric ADL(p,q) | Table 4.3 — main result |
-| 6 | Wald test for CPT+ = CPT- | Table 4.4 |
-| 7 | Sub-sample pre/post 2014 | Table 4.5 + Figure 2 |
-| 8 | Diagnostic tests | Table 4.6 + Figure 3 |
-| 9 | 5 robustness checks | Tables 5.1–5.4 + Figure 4 |
-| 10 | All plots and figures | Figures 1–6 saved as PNG |
+### 0.4 Verified current headline findings
+These are the current verified outputs from the working script and should guide the dissertation write-up.
+
+| Result | Current value |
+|------|------|
+| Main model | ADL(3,3) |
+| Main sample | April 2004 to December 2024 |
+| `CPT+` | `0.021296` |
+| `CPT-` | `0.000598` |
+| `+10%` oil shock effect on monthly CPI | `+0.2130` percentage points |
+| `-10%` oil shock effect on monthly CPI | `-0.0060` percentage points |
+| `p(CPT+ = 0)` | `0.1220` |
+| `p(CPT- = 0)` | `0.9375` |
+| `p(CPT+ = CPT-)` | `0.2408` |
+| Main interpretation | point estimates suggest asymmetry, but full-sample asymmetry is not statistically significant at 5% |
+
+### 0.5 Verified current robustness findings
+| Result | Current value |
+|------|------|
+| Brent + EXR `CPT+` | `0.027458` |
+| Brent + EXR `+10%` effect | `+0.2746` percentage points |
+| Brent + EXR `p(CPT+ = 0)` | `0.0933` |
+| Exchange-rate contemporaneous p-value | `0.0287` |
+| Fuel and Light appendix `CPT+` | `0.060848` |
+| Fuel and Light `+10%` effect | `+0.6085` percentage points |
+| Fuel and Light `p(CPT+ = 0)` | `0.0337` |
+| Fuel and Light asymmetry p-value | `0.2647` |
+
+**Bottom line:**  
+Headline CPI gives a realistic but noisy oil pass-through estimate. The `Fuel and Light` appendix shows a stronger and statistically cleaner positive oil effect, which strengthens the project without changing the main dissertation question.
 
 ---
 
-## SECTION 1: DATA — SOURCES AND DOWNLOADS
+## SECTION 1: DATA AND INPUTS
 
-### 1.1 Sample
-Monthly data: **April 2004 to December 2024** = 249 raw observations.  
-After log-differencing and lagging: approximately **237–245 usable observations**.
+### 1.1 Main study window
+- Raw merged sample: `2004-04-01` to `2024-12-01`
+- Raw observations: `249`
+- Main estimation sample after differencing and lags: around `245`
 
-### 1.2 The Four Variables
+### 1.2 Main local input files
+The current script is built around these exact files:
 
-| Variable | Source | FRED Code / URL | Units | Role |
-|----------|---------|-----------------|-------|------|
-| India CPI All Items | OECD via FRED | `INDCPIALLMINMEI` | Index (2015=100) | Dependent variable |
-| Brent Crude Oil Price | IMF via FRED | `POILBREUSDM` | USD per barrel | Main regressor |
-| INR/USD Exchange Rate | Federal Reserve via FRED | `EXINUS` | INR per USD | Exchange rate channel |
-| India IIP General Index | RBI DBIE (manual download) | dbie.rbi.org.in | Index | Demand control |
+| File | Role |
+|------|------|
+| `data/raw/INDCPIALLMINMEI.csv` | headline CPI from FRED/OECD |
+| `data/raw/POILBREUSDM.csv` | Brent crude price from FRED/IMF |
+| `data/raw/EXINUS.csv` | INR/USD exchange rate from FRED/Fed |
+| `data/raw/iip_chained.xlsx` | chain-linked IIP series already prepared |
 
-### 1.3 How to Download Each
+### 1.3 Optional online appendix input
+The script may also fetch:
+- official MoSPI CPI `Fuel and Light` subgroup data
+- back series: `2011-2012`
+- current series: `2013-2024`
 
-**CPI, Brent, INR/USD — all from FRED (fred.stlouisfed.org):**
-1. Go to fred.stlouisfed.org
-2. Search each FRED code above
-3. On the series page: click "Download" → Format: CSV
-4. Date range: `2004-01-01` to `2024-12-01`
-5. Download. You get a 2-column CSV: DATE, VALUE
+This appendix is optional in design but already implemented in the current project. If the API fails, the main headline CPI dissertation still runs and remains valid.
 
-Save as: `data/raw/cpi_fred.csv`, `data/raw/brent_fred.csv`, `data/raw/exr_fred.csv`
+### 1.4 Folder structure
 
-**IIP — from RBI DBIE (two files needed due to base year change):**
-1. Go to dbie.rbi.org.in → Statistics → Real Sector → Index of Industrial Production
-2. Download Base 2004-05: April 2004 to March 2012 → save as `data/raw/iip_old.csv`
-3. Download Base 2011-12: April 2012 to December 2024 → save as `data/raw/iip_new.csv`
-
-**Alternative for IIP:** Search FRED for `INDIPMAN` (India Industrial Production, Manufacturing) as a fallback if RBI DBIE is difficult.
-
-### 1.4 Folder Structure to Create
-
-```
-dissertation/
+```text
+dissertationv2/
+├── analysis.R
+├── working_synopsis.md
 ├── data/
-│   ├── raw/           ← put downloaded CSVs here
-│   └── processed/     ← R script writes output here
+│   ├── raw/
+│   │   ├── INDCPIALLMINMEI.csv
+│   │   ├── POILBREUSDM.csv
+│   │   ├── EXINUS.csv
+│   │   └── iip_chained.xlsx
+│   └── processed/
 ├── outputs/
-│   ├── tables/        ← CSV tables saved here
-│   └── figures/       ← PNG plots saved here
-├── analysis.R         ← THE SINGLE R SCRIPT (see Section 3)
-└── dissertation.docx  ← your word file
+│   ├── tables/
+│   └── figures/
+└── chain_link_iip.py
 ```
 
 ---
 
-## SECTION 2: VARIABLE CONSTRUCTION LOGIC
+## SECTION 2: VARIABLE CONSTRUCTION
 
-### 2.1 INR-Denominated Oil Price
+### 2.1 Main constructed variables
 
-Indian firms buy oil in Rupees, not USD. The domestic cost shock is:
-
-```
-Oil_INR_t = Brent_USD_t × INR/USD_t
+```text
+Oil_INR_t = Brent_USD_t x INR/USD_t
 ```
 
-When Rupee depreciates AND Brent rises simultaneously (common during global stress), inflation pressure is amplified beyond either measure alone.
-
-### 2.2 Log-Differences (Core Transformation)
-
-```
-ΔlnCPI_t    = 100 × [ln(CPI_t)    − ln(CPI_{t-1})]   → monthly % change in CPI
-ΔlnOil_t    = 100 × [ln(Oil_INR_t) − ln(Oil_INR_{t-1})]
-ΔlnIIP_t    = 100 × [ln(IIP_t)    − ln(IIP_{t-1})]
+```text
+dlnCPI_t   = 100 x [ln(CPI_t) - ln(CPI_{t-1})]
+dlnOil_t   = 100 x [ln(Oil_INR_t) - ln(Oil_INR_{t-1})]
+dlnBrent_t = 100 x [ln(Brent_t) - ln(Brent_{t-1})]
+dlnEXR_t   = 100 x [ln(EXR_t) - ln(EXR_{t-1})]
+dlnIIP_t   = 100 x [ln(IIP_t) - ln(IIP_{t-1})]
 ```
 
-Multiplying by 100 gives percent units. A coefficient of 0.02 means: 1% oil rise → 0.02 pp increase in monthly CPI. Always report "per 10% shock" = coefficient × 10.
+### 2.2 Asymmetric decomposition
 
-### 2.3 Partial Sum Decomposition
-
-Split monthly oil change into two mutually exclusive series:
-
-```
-ΔOil+_t = max(ΔlnOil_t, 0)    → positive if oil rose; 0 otherwise
-ΔOil-_t = min(ΔlnOil_t, 0)    → negative if oil fell; 0 otherwise
+```text
+dlnOil_pos_t = max(dlnOil_t, 0)
+dlnOil_neg_t = min(dlnOil_t, 0)
 ```
 
-**Sign convention:** ΔOil- is kept NEGATIVE (not absolute value). This means a negative coefficient on ΔOil- means oil decreases reduce inflation — correct directional interpretation.
+The negative component is kept negative. This matters for correct interpretation of a `-10%` shock.
 
-### 2.4 IIP Chain-Linking
+### 2.3 Policy and event controls
+- `D_petrol = 1` from June 2010 onward
+- `D_diesel = 1` from October 2014 onward
+- `D_covid = 1` in April 2020 only
+- `M1-M11` monthly dummies, with December as reference
 
-RBI publishes IIP in two base years with overlap April 2012–January 2017:
+### 2.4 Lag structure used in code
+- CPI lags created up to `L4`
+- main oil shock lags created up to `L3`
+- Brent-only lags created up to `L3`
+- exchange-rate lag `dlnEXR_L1` created for the `Brent + EXR` model
 
-```
-Splice Factor = Mean(Base 2011-12 in overlap) ÷ Mean(Base 2004-05 in overlap) ≈ 0.627
-```
-
-Multiply all Base 2004-05 values before April 2012 by splice factor. Since IIP enters as log-difference, any residual level discontinuity is absorbed by differencing.
-
-### 2.5 Policy Dummies
-
-| Dummy | Definition | Purpose |
-|-------|-----------|---------|
-| D_petrol | = 1 from June 2010 onwards | Petrol deregulation |
-| D_diesel | = 1 from October 2014 onwards | Main deregulation — used in sub-sample split |
-| D_covid | = 1 in April 2020 only | Lockdown CPI outlier |
-| M1–M11 | 11 monthly dummies (Jan–Nov) | Seasonal control (monsoon food price spike in July) |
+### 2.5 Fuel and Light appendix construction
+- fetch official subgroup CPI from MoSPI API
+- convert monthly index to `fuel_cpi`
+- estimate `dlnFuelCPI`
+- use the same oil-shock structure as the main model
+- keep this as appendix-only because the sample starts in `2011`, not `2004`
 
 ---
 
-## SECTION 3: THE SINGLE R SCRIPT
+## SECTION 3: SCRIPT ARCHITECTURE
 
-> **INSTRUCTIONS FOR AI:** When Aniket gives you this file, generate ONE complete R script called `analysis.R` that runs ALL steps below in sequence. The script must:
-> 1. Print a clear console log header before each section (e.g., `cat("\n========== STEP 1: DATA LOADING ==========\n")`)
-> 2. Print key results to console after each computation (N, means, test statistics, p-values, coefficient sums)
-> 3. Save ALL tables as CSV files to `outputs/tables/`
-> 4. Save ALL figures as PNG files to `outputs/figures/` at 300 DPI
-> 5. Print a final summary at the end listing all files created
-> 6. Use `tryCatch()` around each major section so one failure doesn't crash the whole script
+The current project uses one single script: `analysis.R`.
 
-### SCRIPT STRUCTURE (tell AI to follow this exact order):
+### 3.1 Actual section order in the script
 
-```
-# ══════════════════════════════════════════════
-# SECTION 0: Setup — packages and directories
-# SECTION 1: Data loading and merging
-# SECTION 2: Variable construction
-# SECTION 3: Descriptive statistics + plots
-# SECTION 4: Unit root tests (ADF)
-# SECTION 5: Baseline symmetric ADL
-# SECTION 6: Primary asymmetric ADL
-# SECTION 7: Wald asymmetry test
-# SECTION 8: Sub-sample analysis (pre/post 2014)
-# SECTION 9: Diagnostic tests
-# SECTION 10: Robustness checks (5 checks)
-# SECTION 11: All figures and plots
-# SECTION 12: Final summary log
-# ══════════════════════════════════════════════
-```
+1. Setup  
+2. Data loading and merging  
+3. Variable construction  
+4. Descriptive statistics and plots  
+5. ADF unit root tests  
+6. Baseline symmetric ADL  
+7. Primary asymmetric ADL  
+8. Wald asymmetry test  
+9. Sub-sample analysis  
+10. Diagnostic tests  
+11. Robustness checks  
+12. Remaining figures  
+13. Final summary log
+
+### 3.2 Design rules
+- each major block uses `tryCatch()`
+- console output is clean and sectioned
+- tables are saved as CSV
+- figures are saved as PNG
+- main model is kept fixed once specified
+- lag-grid search is reported as sensitivity, not used to cherry-pick a prettier result
 
 ---
 
-## SECTION 4: ECONOMETRIC MODELS
+## SECTION 4: ECONOMETRIC DESIGN
 
-### 4.1 Step 1 — ADF Unit Root Tests
+### 4.1 Stationarity design
+The project uses ADF tests to verify:
+- levels are generally non-stationary or borderline
+- first differences are stationary
 
-**What it does:** Confirms all variables are I(1) in levels (non-stationary) and I(0) in first differences (stationary), validating OLS in differences.
+This justifies estimating short-run models in differences.
 
-**Expected result:**
-- Levels: ADF p-value > 0.10 for ln(CPI), ln(Oil_INR), ln(IIP) → non-stationary, I(1)
-- Differences: ADF p-value < 0.01 for ΔlnCPI, ΔlnOil, ΔlnIIP → stationary, I(0)
+### 4.2 Baseline symmetric model
 
-**Console output to print:**
-```
-ADF Results:
-  ln_cpi:    stat = X.XX, p = X.XXX  → I(1)
-  ln_oil:    stat = X.XX, p = X.XXX  → I(1)
-  dlnCPI:    stat = X.XX, p = X.XXX  → I(0) ✓
-  dlnOil:    stat = X.XX, p = X.XXX  → I(0) ✓
+```text
+dlnCPI_t = a + g1*dlnCPI_{t-1} + b0*dlnOil_t + b1*dlnOil_{t-1}
+         + d*dlnIIP_t + policy dummies + month dummies + e_t
 ```
 
-**Output:** `outputs/tables/table_4_1_adf_results.csv`
+Purpose:
+- show oil matters before asymmetry is introduced
+- produce a simple cumulative benchmark `b0 + b1`
+
+### 4.3 Main asymmetric ADL model
+
+```text
+dlnCPI_t = a
+         + sum_i gi*dlnCPI_{t-i}
+         + sum_j pi_plus_j*dlnOil_pos_{t-j}
+         + sum_j pi_minus_j*dlnOil_neg_{t-j}
+         + d*dlnIIP_t
+         + policy dummies
+         + month dummies
+         + e_t
+```
+
+Rules:
+- oil lag length fixed at `q = 3`
+- AR lag order `p` selected by AIC over `1:4`
+- selection is done on a common comparison sample
+- final chosen model is then re-estimated on the maximal sample implied by the selected `p`
+
+### 4.4 Cumulative pass-through definitions
+
+```text
+CPT+ = sum of positive oil coefficients
+CPT- = sum of negative oil coefficients
+```
+
+The script reports:
+- `CPT+`
+- `CPT-`
+- gap = `CPT+ - |CPT-|`
+- effect of a `+10%` oil shock
+- effect of a `-10%` oil shock
+
+### 4.5 Inference design
+Use Newey-West HAC throughout for:
+- coefficient tables
+- `H0: CPT+ = 0`
+- `H0: CPT- = 0`
+- `H0: CPT+ = CPT-`
+
+This is one of the strongest parts of the current project and should not be removed.
+
+### 4.6 Brent + EXR robustness model
+
+```text
+dlnCPI_t = main ADL structure
+         + positive Brent lags
+         + negative Brent lags
+         + dlnEXR_t + dlnEXR_{t-1}
+         + controls
+```
+
+Purpose:
+- separate world oil-price shocks from the exchange-rate channel
+- make the India interpretation more credible
+
+### 4.7 Fuel and Light appendix model
+Use the same asymmetric oil setup, but replace headline CPI with `Fuel and Light` CPI on the shorter official sample.
+
+Purpose:
+- not to replace the main model
+- to show whether a more directly energy-exposed price index gives a clearer pass-through signal
+
+### 4.8 What is no longer part of the project
+These may appear in older drafts or old AI scripts, but they are not part of the current recommended project:
+- NARDL as a main method
+- local projections as a main method
+- Zivot-Andrews break tests
+- ADF + PP + KPSS all together
+- manually forcing a preferred lag order
+- claiming asymmetry only because point estimates look different
 
 ---
 
-### 4.2 Step 2 — Baseline Symmetric ADL(1,1)
+## SECTION 5: OUTPUTS THAT THE CURRENT PROJECT CREATES
 
-**Equation:**
-```
-ΔlnCPI_t = α + γ₁ΔlnCPI_{t-1} + β₀ΔlnOil_t + β₁ΔlnOil_{t-1} + δΔlnIIP_t + ηD_t + ε_t
-```
+### 5.1 Tables
 
-**Purpose:** Confirm oil price significantly affects inflation before decomposing into +/-.
+| File | Content |
+|------|------|
+| `outputs/tables/table_3_1_descriptive_stats.csv` | descriptive statistics |
+| `outputs/tables/table_3_2_variable_definitions.csv` | variable definitions |
+| `outputs/tables/table_4_1_adf_results.csv` | ADF unit root results |
+| `outputs/tables/table_4_2_baseline_adl.csv` | symmetric ADL results |
+| `outputs/tables/table_4_3_asymmetric_adl.csv` | main asymmetric model results |
+| `outputs/tables/table_4_4_wald_test.csv` | asymmetry Wald test |
+| `outputs/tables/table_4_5_subsample.csv` | pre/post 2014 comparison |
+| `outputs/tables/table_4_6_diagnostics.csv` | diagnostics |
+| `outputs/tables/table_5_1_lag_sensitivity.csv` | full `p x q` lag grid |
+| `outputs/tables/table_5_2_brent_exr_specification.csv` | Brent + EXR robustness |
+| `outputs/tables/table_5_3_covid_sensitivity.csv` | without COVID dummy |
+| `outputs/tables/table_5_4_winsorized.csv` | winsorized oil shocks |
+| `outputs/tables/table_a_1_fuel_light_appendix.csv` | official Fuel and Light appendix |
 
-**Key number to print:**
-```
-Symmetric cumulative pass-through (β₀ + β₁) = X.XXXXX
-Effect of 10% oil shock on monthly CPI = X.XXX pp
-```
+### 5.2 Figures
 
-**Output:** `outputs/tables/table_4_2_baseline_adl.csv`
+| File | Content |
+|------|------|
+| `outputs/figures/fig_1_raw_series.png` | levels of CPI, Brent, EXR, IIP |
+| `outputs/figures/fig_2_log_diff_series.png` | `dlnCPI`, `dlnOil`, `dlnEXR`, `dlnIIP` |
+| `outputs/figures/fig_3_oil_decomposition.png` | positive and negative oil decomposition |
+| `outputs/figures/fig_4_cumulative_passthrough.png` | cumulative oil pass-through paths |
+| `outputs/figures/fig_5_subsample_comparison.png` | sub-sample comparison |
+| `outputs/figures/fig_6_cusum_stability.png` | CUSUM stability |
+| `outputs/figures/fig_7_rolling_window.png` | rolling 60-month pass-through |
+| `outputs/figures/fig_8_residual_diagnostics.png` | residual diagnostics |
+| `outputs/figures/fig_9_oil_price_regimes.png` | Brent price regimes |
+| `outputs/figures/fig_10_asymmetry_gap.png` | `CPT+` vs `|CPT-|` comparison |
 
----
-
-### 4.3 Step 3 — Primary Asymmetric ADL(p,q) — MAIN MODEL
-
-**Equation:**
-```
-ΔlnCPI_t = α + Σᵢ γᵢ ΔlnCPI_{t-i}  +  Σⱼ π⁺ⱼ ΔOil⁺_{t-j}  +  Σⱼ π⁻ⱼ ΔOil⁻_{t-j}  +  δΔlnIIP_t  +  ηD_t  +  ε_t
-```
-
-**Parameter selection:** p = 1 (AR lags), q = 3 (oil shock lags) as primary specification. Run AIC across q = 0,1,2,3 to confirm.
-
-**Key numbers to print:**
-```
-=== MAIN ASYMMETRY RESULT ===
-CPT+ (cumulative positive pass-through) = X.XXXXX
-CPT- (cumulative negative pass-through) = X.XXXXX
-Asymmetry gap (CPT+ - |CPT-|)           = X.XXXXX
-Effect of +10% oil shock: X.XXX pp
-Effect of -10% oil shock: X.XXX pp
-Adj R-squared: X.XXX
-N observations: XXX
-```
-
-**Output:** `outputs/tables/table_4_3_asymmetric_adl.csv`
+### 5.3 Processed datasets
+- `data/processed/analysis_dataset.csv`
+- `data/processed/cpi_fuel_light_all_india_combined.csv`
 
 ---
 
-### 4.4 Step 4 — Wald Test for Asymmetry
+## SECTION 6: HOW TO INTERPRET THE RESULTS
 
-**Hypothesis:**
-```
-H₀: Σπ⁺ⱼ = Σπ⁻ⱼ   (symmetric pass-through)
-H₁: Σπ⁺ⱼ ≠ Σπ⁻ⱼ   (asymmetric — Rockets and Feathers confirmed)
-```
+### 6.1 The main honest claim
+Use this as the default interpretation:
 
-**Important note for writing dissertation:** The Wald test may not reject H₀ (p > 0.05) even when genuine asymmetry exists — this is a known low-power problem when individual lag coefficients are imprecisely estimated. If CPT+ >> |CPT-| in magnitude AND CPT+ is individually significant while CPT- is not, report this as strong magnitude evidence of asymmetry even if Wald p-value is above 0.05. This is standard in the literature (see Pal & Mitra 2019).
+> Positive oil shocks are associated with higher monthly CPI inflation in India, and the estimated effect is economically meaningful. However, the null of symmetric pass-through cannot be rejected at the 5% level in the full sample.
 
-**Console output to print:**
-```
-Wald Test: H₀: CPT+ = CPT-
-  F-statistic = X.XX
-  p-value     = X.XXX
-  Decision    = [Reject/Fail to reject] at 5% level
-```
+### 6.2 What not to claim
+Do not write:
+- "asymmetry is strongly proven"
+- "rockets and feathers is confirmed beyond doubt"
+- "negative oil shocks have no effect at all"
 
-**Output:** `outputs/tables/table_4_4_wald_test.csv`
+### 6.3 What you can claim safely
+- point estimates are asymmetric
+- positive oil shocks show stronger pass-through than negative shocks
+- exchange-rate movements matter for India
+- the Fuel and Light appendix shows a clearer positive oil transmission channel
+- headline CPI is noisier because food and other components dilute the energy signal
 
----
+### 6.4 Why the Wald test is the weakest part
+This is not mainly a coding problem. Headline CPI in India mixes:
+- food-price shocks
+- services inflation
+- policy intervention
+- imported energy costs
 
-### 4.5 Step 5 — Sub-Sample Analysis
+So the asymmetry restriction can easily be imprecise even when the positive oil effect is real.
 
-Re-estimate primary ADL for two periods:
+### 6.5 Best way to strengthen the dissertation without p-hacking
+- keep headline CPI as the main model
+- keep Brent + EXR as the main robustness design
+- use Fuel and Light as appendix-only evidence
+- report the weak Wald result honestly
 
-| Period | Sample | N | Regime |
-|--------|--------|---|--------|
-| Pre-deregulation | Apr 2004 – Sep 2014 | ~126 | Administered pricing |
-| Post-deregulation | Oct 2014 – Dec 2024 | ~123 | Market-linked pricing |
-
-**Expected finding:**
-- Pre-2014: Large CPT+, near-zero CPT- → extreme asymmetry
-- Post-2014: Smaller CPT+, negative and significant CPT- → reduced but persistent asymmetry
-
-**Console output to print:**
-```
-Sub-Sample Comparison:
-               CPT+      CPT-      Gap
-Pre-2014:    X.XXXXX   X.XXXXX   X.XXXXX
-Post-2014:   X.XXXXX   X.XXXXX   X.XXXXX
-```
-
-**Output:** `outputs/tables/table_4_5_subsample.csv`
+This is exactly what the current project now does.
 
 ---
 
-### 4.6 Step 6 — Diagnostic Tests
+## SECTION 7: CREDIBLE EXPECTED RESULTS
 
-Run all four on the primary ADL model:
+These are not targets to force. They are realism checks.
 
-| Test | H₀ | Expected | Action if Failed |
-|------|-----|----------|-----------------|
-| Breusch-Godfrey LM (12 lags) | No serial correlation | Pass (p > 0.05) | Add AR lags; NW SEs already fix this |
-| Breusch-Pagan | Homoskedasticity | May fail | Not fatal — NW SEs address it |
-| Ramsey RESET | No misspecification | Pass (p > 0.05) | Report honestly |
-| CUSUM | Parameter stability | Stay within bands | Report any crossing |
+| Item | Credible result for India |
+|------|------|
+| Main `CPT+` | positive and economically meaningful |
+| Main `+10%` headline CPI effect | roughly `0.15` to `0.30` pp is plausible |
+| Main `CPT-` | near zero or imprecise is plausible |
+| Full-sample asymmetry Wald | may remain insignificant |
+| Brent + EXR | often sharper than Oil_INR alone for interpretation |
+| Fuel and Light appendix | should show stronger positive pass-through than headline CPI |
+| Adjusted `R^2` | moderate, around `0.35` to `0.50`, is reasonable |
 
-**Console output to print:**
-```
-Diagnostic Results:
-  Breusch-Godfrey (12): stat=XX.XX, p=X.XXX → [PASS/FAIL]
-  Breusch-Pagan:        stat=XX.XX, p=X.XXX → [PASS/FAIL]
-  Ramsey RESET:         stat=XX.XX, p=X.XXX → [PASS/FAIL]
-  CUSUM:                [Within bounds / Crossed at DATE]
-```
+### 7.1 Current project fits these benchmarks
+- main headline result is realistic
+- exchange-rate robustness improves the India story
+- Fuel and Light appendix gives stronger positive pass-through
+- asymmetry still remains statistically inconclusive
 
-**Output:** `outputs/tables/table_4_6_diagnostics.csv`  
-**Figure:** `outputs/figures/fig_3_cusum_stability.png`
-
----
-
-### 4.7 Step 7 — Five Robustness Checks
-
-| Check | What Changes | Purpose |
-|-------|-------------|---------|
-| 1. Lag sensitivity | q = 0, 1, 2, 3 with AIC | Result not driven by arbitrary lag choice |
-| 2. USD-only Brent | Replace Oil_INR with Brent_USD | Test exchange rate channel contribution |
-| 3. COVID sensitivity | Remove D_covid dummy | Result not driven by April 2020 outlier |
-| 4. Winsorize | Cap top/bottom 1% of ΔOil | Result not driven by extreme months |
-| 5. Rolling window | 60-month rolling estimation | Visual stability check over time |
-
-**Console output to print for each check:**
-```
-[Check Name]: CPT+ = X.XXXXX, CPT- = X.XXXXX, Gap = X.XXXXX → [Consistent/Inconsistent with main finding]
-```
-
-**Outputs:**
-- `outputs/tables/table_5_1_lag_sensitivity.csv`
-- `outputs/tables/table_5_2_usd_specification.csv`
-- `outputs/tables/table_5_3_covid_sensitivity.csv`
-- `outputs/tables/table_5_4_winsorized.csv`
-- `outputs/figures/fig_4_rolling_window.png`
+That combination is acceptable and credible for an MS Economics dissertation.
 
 ---
 
-## SECTION 5: ALL REQUIRED FIGURES AND TABLES
+## SECTION 8: CHAPTER PLAN
 
-### Complete Figures List (all saved as PNG, 300 DPI, width=8in, height=5in)
+### Chapter 1: Introduction
+- India's oil import dependence
+- why oil matters for inflation
+- research question
+- motivation for asymmetry
 
-| File | Content | Where in Dissertation |
-|------|---------|----------------------|
-| `fig_1_raw_series.png` | 4-panel plot: CPI index, Brent USD, INR/USD, IIP over time | Chapter 3, Data section |
-| `fig_2_log_diff_series.png` | 3-panel: ΔlnCPI, ΔlnOil, ΔlnIIP over time | Chapter 3 |
-| `fig_3_oil_decomposition.png` | ΔOil+ (red) and ΔOil- (blue) partial sums, cumulative | Chapter 3 |
-| `fig_4_cumulative_passthrough.png` | CPT+ (red) vs CPT- (blue) across horizons 0–3 | Chapter 4, main result |
-| `fig_5_subsample_comparison.png` | Side-by-side CPT paths: pre-2014 (left) vs post-2014 (right) | Chapter 4 |
-| `fig_6_cusum_stability.png` | CUSUM recursive statistic within 5% bands | Chapter 4 diagnostics |
-| `fig_7_rolling_window.png` | Rolling 60-month CPT+ and CPT- over time | Chapter 5 robustness |
-| `fig_8_residual_diagnostics.png` | 4-panel: residuals over time, histogram, Q-Q plot, actual vs fitted | Chapter 4 diagnostics |
-| `fig_9_oil_price_regimes.png` | Brent USD price with shaded regime periods labelled | Chapter 1 introduction |
-| `fig_10_asymmetry_gap.png` | Bar chart: CPT+ vs |CPT-| comparison full sample and sub-samples | Chapter 4 |
+### Chapter 2: Literature Review
+- oil shocks and inflation
+- rockets and feathers literature
+- India-specific pass-through and pricing reforms
+- exchange-rate pass-through in India
 
-### Complete Tables List (all saved as CSV to outputs/tables/)
+### Chapter 3: Data and Methodology
+- data sources and sample window
+- variable construction
+- asymmetric ADL framework
+- HAC inference
+- reason for Brent + EXR robustness
 
-| File | Content | Where in Dissertation |
-|------|---------|----------------------|
-| `table_3_1_descriptive_stats.csv` | N, mean, SD, min, max for all variables | Chapter 3 |
-| `table_3_2_variable_definitions.csv` | Variable, source, transformation, role | Chapter 3 |
-| `table_4_1_adf_results.csv` | ADF statistic, p-value, conclusion for all series | Chapter 4 |
-| `table_4_2_baseline_adl.csv` | Symmetric ADL coefficients with NW SEs and stars | Chapter 4 |
-| `table_4_3_asymmetric_adl.csv` | All π+ and π- with NW SEs, CPT+, CPT-, adj R², N | Chapter 4 — MAIN TABLE |
-| `table_4_4_wald_test.csv` | F-stat, df, p-value for Wald asymmetry test | Chapter 4 |
-| `table_4_5_subsample.csv` | CPT+, CPT-, gap for pre-2014 and post-2014 | Chapter 4 |
-| `table_4_6_diagnostics.csv` | All diagnostic tests with stat, p-value, pass/fail | Chapter 4 |
-| `table_5_1_lag_sensitivity.csv` | q=0,1,2,3 rows with AIC, CPT+, CPT-, gap | Chapter 5 |
-| `table_5_2_usd_specification.csv` | USD-only results vs primary INR results | Chapter 5 |
-| `table_5_3_covid_sensitivity.csv` | With/without COVID dummy comparison | Chapter 5 |
-| `table_5_4_winsorized.csv` | Original vs winsorized CPT+ and CPT- | Chapter 5 |
+### Chapter 4: Main Empirical Results
+- descriptive patterns
+- ADF tests
+- symmetric benchmark
+- main asymmetric ADL
+- Wald test
+- sub-samples
+- diagnostics
 
----
+### Chapter 5: Robustness and Appendix Evidence
+- lag grid
+- Brent + EXR
+- COVID sensitivity
+- winsorized shocks
+- rolling window
+- Fuel and Light appendix
 
-## SECTION 6: CONSOLE LOGGING REQUIREMENTS
+### Chapter 6: Discussion and Policy Implications
+- why headline CPI pass-through is modest
+- why exchange-rate effects matter
+- how deregulation and taxation matter
+- why weak asymmetry inference does not make oil irrelevant
 
-**Every section of the R script must print this structure:**
-
-```r
-cat("\n")
-cat("══════════════════════════════════════════════════\n")
-cat("  STEP X: [SECTION NAME]\n")
-cat("══════════════════════════════════════════════════\n")
-
-# ... do computation ...
-
-cat("  ✓ [Result description]: value\n")
-cat("  ✓ File saved: outputs/tables/filename.csv\n")
-cat("  ✓ Figure saved: outputs/figures/filename.png\n")
-```
-
-**At the very end of the script, print a complete summary:**
-
-```r
-cat("\n")
-cat("══════════════════════════════════════════════════\n")
-cat("  ANALYSIS COMPLETE — FILES CREATED\n")
-cat("══════════════════════════════════════════════════\n")
-cat("  Tables (", length(list.files("outputs/tables")), " files):\n")
-for (f in list.files("outputs/tables")) cat("    •", f, "\n")
-cat("\n  Figures (", length(list.files("outputs/figures")), " files):\n")
-for (f in list.files("outputs/figures")) cat("    •", f, "\n")
-cat("\n  Dataset: N =", nrow(df), "observations\n")
-cat("  Sample:  April 2004 to December 2024\n")
-cat("══════════════════════════════════════════════════\n")
-```
+### Chapter 7: Conclusion
+- state the positive oil pass-through result clearly
+- state the asymmetry limitation clearly
+- mention Fuel and Light as stronger supporting appendix evidence
 
 ---
 
-## SECTION 7: PACKAGES REQUIRED
+## SECTION 9: VIVA ANSWERS
 
-```r
-# Install all at once (run once in RStudio console):
-install.packages(c(
-  "tidyverse",    # data wrangling + ggplot2
-  "tseries",      # ADF tests
-  "lmtest",       # Breusch-Godfrey, Breusch-Pagan, RESET
-  "sandwich",     # Newey-West HAC standard errors
-  "car",          # linearHypothesis (Wald test)
-  "strucchange",  # CUSUM stability test
-  "stargazer",    # publication-quality regression tables
-  "patchwork",    # combine multiple ggplots into one figure
-  "scales",       # axis formatting in plots
-  "zoo"           # rolling window functions
-))
-```
+**Q: Why use headline CPI if oil mainly affects fuel?**  
+> Because the dissertation asks about aggregate inflation relevance in India. Headline CPI is the policy-relevant inflation measure. I then add Fuel and Light as an appendix to show the more direct energy-sensitive channel.
 
----
+**Q: Your asymmetry Wald test is insignificant. Did the dissertation fail?**  
+> No. The main result is positive oil pass-through to CPI, with economically meaningful magnitude. The Wald test asks a narrower question about whether positive and negative pass-through are statistically different. In headline CPI that difference is often hard to estimate precisely.
 
-## SECTION 8: EXPECTED RESULTS
+**Q: Why include Brent + EXR?**  
+> India imports oil, so domestic inflation pressure depends on both world oil prices and the rupee-dollar exchange rate. Brent + EXR separates those channels and improves the India interpretation.
 
-### What the numbers should look like (based on prior literature)
+**Q: What is the strongest extra evidence in your project?**  
+> The official MoSPI Fuel and Light appendix. It shows a stronger positive oil pass-through than headline CPI, which is what we would expect from a more energy-exposed price index.
 
-| Result | Expected Value | Source |
-|--------|---------------|--------|
-| CPT+ (full sample) | 0.015 – 0.025 | Abu-Bakar & Masih (2018): ~0.02 |
-| CPT- (full sample) | 0.000 – 0.003 | Near zero, mostly insignificant |
-| Asymmetry ratio CPT+/|CPT-| | 15× – 35× | Original dissertation found ~21× |
-| Effect of 10% oil rise | 0.15 – 0.25 pp | Published range for India |
-| Pre-2014 CPT+ | Larger than post-2014 | Consistent with Pradeep (2022) |
-| Post-2014 CPT- | More negative than pre-2014 | Deregulation opened feather channel |
-| Adj R² of primary model | 0.40 – 0.50 | Original: 0.449 |
-| BG test | p > 0.05 (pass) | No serial correlation |
-| RESET test | p > 0.05 (pass) | No misspecification |
+**Q: Why not keep adding more models?**  
+> Because this is an MS dissertation, not a methods contest. A clean, well-defended ADL design is better than an overcomplicated project with many weakly motivated models.
 
 ---
 
-## SECTION 9: SEVEN-CHAPTER DISSERTATION PLAN
+## SECTION 10: CORE REFERENCES
 
-### Chapter 1 — Introduction (~3 pages)
-- India's 87-88% oil import dependence (Ministry of Petroleum 2025)
-- Four oil price regimes 2004-2024: China surge, GFC, shale glut/deregulation, Russia-Ukraine
-- Direct channel (petrol, diesel, LPG retail prices) and indirect channel (freight → food)
-- Rockets and Feathers concept: prices rise fast, fall slowly
-- Policy relevance: RBI inflation targeting, excise duty debate, household welfare
-- Five research objectives
-- Chapter outline
+Abu-Bakar, M., and Masih, M. (2018). Is the oil price pass-through to domestic inflation symmetric or asymmetric? New evidence from India based on NARDL. *MPRA Paper No. 87569*.
 
-### Chapter 2 — Literature Review (~4 pages)
-- **Theory:** Menu costs (Bacon 1991); Hamilton (2003) nonlinearity; Kilian (2009) supply vs demand shocks; search costs; market power of OMCs
-- **International:** Pal & Mitra (2019) BRICS asymmetry; Apergis & Miller (2009) G7
-- **India pre-deregulation:** Bhanumurthy et al. (2012) APM absorption; Khundrakpam (2007) exchange rate channel
-- **India post-deregulation:** Abu-Bakar & Masih (2018) NARDL asymmetry; Pradeep (2022) diesel reform effect
-- **Research gap:** No study covers 2004-2024 with INR-denominated oil and full deregulation comparison
+Bhanumurthy, N. R., Das, S., and Bose, S. (2012). Oil price shock, pass-through policy and its impact on India. *NIPFP Working Paper No. 99*.
 
-### Chapter 3 — Data and Methodology (~6 pages)
-- All variable definitions with FRED codes (Table 3.1)
-- Descriptive statistics (Table 3.2)
-- Raw series plots (Figure 1)
-- INR oil price construction equation
-- Log-differencing justification
-- IIP chain-linking with splice factor
-- Partial sum decomposition equations
-- Policy dummies table
-- ADF test results (Table 4.1)
-- Asymmetric ADL equation with full Greek notation
-- Lag selection by AIC
-- Newey-West HAC justification
-- Sub-sample design rationale
+Hamilton, J. D. (2003). What is an oil shock? *Journal of Econometrics*, 113(2), 363-398.
 
-### Chapter 4 — Empirical Results (~8 pages)
-- ADF results and interpretation (Table 4.1)
-- Baseline symmetric ADL results (Table 4.2)
-- Primary asymmetric ADL — all π+ and π- with stars (Table 4.3)
-- CPT+ vs CPT- comparison with 10% shock interpretation
-- Cumulative pass-through plot (Figure 4)
-- Wald test result and discussion of power limitation (Table 4.4)
-- Sub-sample comparison with interpretation (Table 4.5 + Figure 5)
-- Diagnostic tests (Table 4.6 + Figure 6 CUSUM)
+Kilian, L. (2009). Not all oil price shocks are alike: Disentangling demand and supply shocks in the crude oil market. *American Economic Review*, 99(3), 1053-1069.
 
-### Chapter 5 — Robustness Checks (~4 pages)
-- Lag sensitivity table (Table 5.1)
-- USD-only Brent comparison (Table 5.2)
-- COVID dummy sensitivity (Table 5.3)
-- Winsorized results (Table 5.4)
-- Rolling window figure and interpretation (Figure 7)
-- Conclusion: main finding holds across all specifications
+Pradeep, S. (2022). Impact of diesel price reforms on asymmetricity of oil price pass-through to inflation: Indian perspective. *Journal of Economic Asymmetries*, 26, e00266.
 
-### Chapter 6 — Discussion and Policy Implications (~5 pages)
-- Why pre-2014 shows pure Rockets & Feathers: APM mechanism explained
-- Why post-2014 shows partial improvement: excise duty hikes in 2014-16 and 2020
-- Compare CPT magnitudes to Abu-Bakar & Masih (2018): 1.5× vs our ~21×
-- Compare deregulation finding to Pradeep (2022): consistent direction
-- Monetary policy: RBI must tighten faster after positive shocks than easing after negative
-- Fiscal policy: case for transparent excise duty rules preventing full absorption of decreases
-- Household welfare: regressive implicit tax on low-income households
+RBI. *Monetary Policy Report* and related inflation analysis documents.
 
-### Chapter 7 — Conclusion (~2 pages)
-- Five numbered findings (one per research objective)
-- Academic contribution: 20-year window, INR denomination, full deregulation coverage
-- Limitations: headline CPI only; single zero threshold; oil and exchange rate not separately identified
-- Future research: CPI sub-index analysis; structural VAR; threshold models; post-2025 EV transition
+MoSPI CPI API documentation and CPI subgroup data.
 
 ---
 
-## SECTION 10: VIVA DEFENSE SCRIPTS
+## SECTION 11: PROMPT TO GIVE AN AI
 
-Memorize these answers for the defense.
+Use this prompt if you want another AI to regenerate or improve `analysis.R` without drifting away from the current project:
 
----
-
-**Q: Why month-over-month log-differences instead of year-over-year inflation?**
-
-> "Year-over-year CPI inflation can be non-stationary in some sample windows — the ADF test on India's YoY CPI gives mixed results depending on the period. Month-over-month log-differences are stationary by construction, confirmed by my ADF tests in Table 4.1. This eliminates spurious regression risk and gives OLS valid statistical properties. The literature on short-run pass-through estimation almost exclusively uses first-differences for this reason."
+> Read the attached `working_synopsis.md` completely. Generate one complete R script called `analysis.R` that matches this project exactly. Use the local files `data/raw/INDCPIALLMINMEI.csv`, `data/raw/POILBREUSDM.csv`, `data/raw/EXINUS.csv`, and `data/raw/iip_chained.xlsx`. Estimate a symmetric ADL benchmark and an asymmetric ADL with oil lags fixed at `q = 3` and CPI AR lags chosen by AIC over `1:4` on a common sample, then re-estimate the chosen model on the maximal usable sample. Use Newey-West HAC covariance for all coefficient and cumulative restriction tests. Report `CPT+`, `CPT-`, `+10%` and `-10%` shock effects, `p(CPT+ = 0)`, `p(CPT- = 0)`, and `p(CPT+ = CPT-)`. Keep the main model as headline CPI. Include the Brent + EXR robustness model. If internet access is available, fetch the official MoSPI CPI Fuel and Light subgroup data and run an appendix-only model on the shorter available sample. Do not replace the main model, do not hard-code expected values, do not cherry-pick lag orders, and do not claim asymmetry is significant unless the estimated p-value supports that statement.
 
 ---
 
-**Q: Your Wald test is insignificant. How can you claim asymmetry exists?**
-
-> "The Wald test collapses the entire lag structure into one scalar comparison. When individual lag coefficients are imprecisely estimated — typical with monthly macro data — the test has low statistical power and can fail to reject symmetry even when genuine asymmetry exists. What matters is that CPT+ = 0.021 and CPT- = 0.001, a ratio of roughly 20:1, and CPT+ is statistically significant while CPT- is not. This pattern is consistent across all five robustness checks and both sub-samples. The magnitude evidence strongly supports asymmetry. This interpretation is standard in the literature — Pal and Mitra (2019) make the same argument explicitly."
-
----
-
-**Q: Why INR-denominated oil instead of USD Brent?**
-
-> "Indian firms and households buy oil in Rupees. When the Rupee depreciates simultaneously with a Brent rise — which frequently happens during global stress — domestic inflation pressure is amplified beyond what either measure alone captures. My robustness check in Table 5.2 shows asymmetry holds with USD-only Brent too, but magnitudes are attenuated, confirming the exchange rate channel contributes independently."
-
----
-
-**Q: Why ADL and not NARDL?**
-
-> "The NARDL tests for long-run cointegration between price levels. When I run the NARDL bounds test as a robustness exercise, it fails to reject the null of no cointegration. This is informative — it confirms the oil-CPI relationship is a short-to-medium run flow phenomenon, not a stable long-run equilibrium. The ADL in first differences is the correct tool for this relationship and is consistent with the data-generating process."
-
----
-
-**Q: How does 2014 deregulation explain the sub-sample results?**
-
-> "Before October 2014, the government set retail diesel prices and compensated oil marketing companies through Oil Bonds. When global prices fell, this absorption mechanism meant consumers saw no retail price reduction — hence near-zero negative pass-through pre-2014. After October 2014, retail prices were linked to international benchmarks. However, the government raised excise duties during the 2014-16 and 2020 price collapses, partially converting consumer benefit into fiscal revenue. This explains why post-2014 negative pass-through is significant but small — the market mechanism opened the feather channel, but fiscal intervention continues to dampen it. This is exactly the finding of Pradeep (2022), which my study confirms and extends to 2024."
-
----
-
-## SECTION 11: BIBLIOGRAPHY
-
-Abu-Bakar, M. and Masih, M. (2018). Is the oil price pass-through to domestic inflation symmetric or asymmetric? New evidence from India based on NARDL. *MPRA Paper No. 87569*, University Library of Munich.
-
-Apergis, N. and Miller, S. M. (2009). Do structural oil-market shocks affect stock prices? *Energy Economics*, 31(4): 569–575.
-
-Bacon, R. W. (1991). Rockets and feathers: The asymmetric speed of adjustment of UK retail gasoline prices to cost changes. *Energy Economics*, 13(3): 211–218.
-
-Bhanumurthy, N. R., Das, S., and Bose, S. (2012). Oil price shock, pass-through policy and its impact on India. *NIPFP Working Paper Series*, No. 99.
-
-Hamilton, J. D. (2003). What is an oil shock? *Journal of Econometrics*, 113(2): 363–398.
-
-Jordà, Ò. (2005). Estimation and inference of impulse responses by local projections. *American Economic Review*, 95(1): 161–182.
-
-Khundrakpam, J. K. (2007). Economic reforms and exchange rate pass-through to domestic prices in India. *BIS Working Papers*, No. 225.
-
-Kilian, L. (2009). Not all oil price shocks are alike: Disentangling demand and supply shocks in the crude oil market. *American Economic Review*, 99(3): 1053–1069.
-
-Ministry of Petroleum and Natural Gas (2025). *Annual Report 2024–25*. Government of India.
-
-Pal, D. and Mitra, S. K. (2019). Asymmetric oil price transmission to the purchasing power of consumers in BRICS nations. *Energy Economics*, 84: 104506.
-
-Pesaran, M. H., Shin, Y., and Smith, R. J. (2001). Bounds testing approaches to the analysis of level relationships. *Journal of Applied Econometrics*, 16(3): 289–326.
-
-Pradeep, S. (2022). Impact of diesel price reforms on asymmetricity of oil price pass-through to inflation: Indian perspective. *Journal of Economic Asymmetries*, 26: e00266.
-
-Shin, Y., Yu, B., and Greenwood-Nimmo, M. (2014). Modelling asymmetric cointegration and dynamic multipliers in a nonlinear ARDL framework. In *Festschrift in Honor of Peter Schmidt*, pp. 281–314. Springer.
-
----
-
-## SECTION 12: PROMPT TO GIVE AI FOR GENERATING THE R SCRIPT
-
-Copy this exact prompt and give it to Claude (or any AI) along with this entire .md file:
-
----
-
-> **PROMPT:**  
-> Read the attached working_synopsis.md file completely. Generate a single complete R script called `analysis.R` that implements EVERYTHING described in this synopsis. Requirements:  
-> 1. All 12 sections must run in order in a single script  
-> 2. Print a clear console log header (with ══ borders) before every section showing which step is running  
-> 3. Print all key results to console after each computation (N, test statistics, p-values, CPT+ and CPT- values, significance)  
-> 4. Create directories `outputs/tables/` and `outputs/figures/` at the start if they don't exist  
-> 5. Save every table listed in Section 5 as a CSV file  
-> 6. Save every figure listed in Section 5 as a PNG file at 300 DPI  
-> 7. Use ggplot2 for all plots with proper titles, axis labels, legends, and color coding (red for positive shocks, blue for negative shocks)  
-> 8. Use tryCatch() around each major section so a single error doesn't crash the whole script  
-> 9. At the end, print a complete file inventory showing every table and figure created  
-> 10. Data files are at: `data/raw/cpi_fred.csv`, `data/raw/brent_fred.csv`, `data/raw/exr_fred.csv`, `data/raw/iip_old.csv`, `data/raw/iip_new.csv`  
-> 11. FRED CSV files have columns named DATE and the series code (e.g., INDCPIALLMINMEI). Handle this in the loading code.  
-> 12. Use Newey-West standard errors from the sandwich package for all regression output  
-> 13. Use p=1, q=3 as the primary ADL specification  
-
----
-
-*End of Working Synopsis — Version 2.0*
+*End of Working Synopsis - Version 3.0 (code-aligned)*
