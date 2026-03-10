@@ -1,0 +1,49 @@
+\chapter{Fuel and Light CPI Analysis}
+\label{ch:appendixA}
+
+This appendix reports the results of applying the same asymmetric ADL framework to the official CPI Fuel and Light sub-index, obtained from the Ministry of Statistics and Programme Implementation (MoSPI) API. The Fuel and Light sub-group is more directly exposed to energy costs than headline CPI and should, in principle, show a clearer oil pass-through signal.
+
+\section{Data and Sample}
+
+The Fuel and Light CPI data are available on a monthly basis from mid-2011, because the MoSPI back-series for the 2012 base year starts from that date. After combining the back-series with the current series, differencing, and creating lags, the usable estimation sample covers May 2011 to December 2024, giving 164 observations. This is shorter than the main headline CPI sample (which starts in 2004), so the appendix results are not directly comparable in terms of sample length. However, the econometric specification is identical.
+
+\section{Results}
+
+Table~\ref{tab:fuel_light} reports the main results for the Fuel and Light specification.
+
+\begin{table}[H]
+\centering
+\caption{Asymmetric ADL Results: CPI Fuel and Light Sub-Index}
+\label{tab:fuel_light}
+\begin{tabular}{lcccc}
+\toprule
+& \textbf{Estimate} & \textbf{$p$-value} \\
+\midrule
+CPT$^+$ (cumulative positive pass-through) & 0.0608 & 0.034 \\
+CPT$^-$ (cumulative negative pass-through) & 0.0108 & 0.665 \\
+Asymmetry gap (CPT$^+$ $-$ $|$CPT$^-|$) & 0.0500 & \\
+$H_0$: CPT$^+ = $ CPT$^-$ & & 0.265 \\
+\midrule
+Effect of $+10\%$ oil shock & \multicolumn{2}{c}{$+0.61$ pp} \\
+Effect of $-10\%$ oil shock & \multicolumn{2}{c}{$-0.11$ pp} \\
+Adj.\ $R^2$ & \multicolumn{2}{c}{0.214} \\
+$N$ & \multicolumn{2}{c}{164} \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\vspace{0.3em}
+\small\textit{Notes:} Same asymmetric ADL specification as the main model. Newey--West HAC standard errors. Source: Official MoSPI CPI API (All India Combined, Rural + Urban).
+\end{flushleft}
+\end{table}
+
+The positive pass-through in the Fuel and Light index is 0.061, roughly three times larger than the headline CPI estimate (0.021). A 10 per cent increase in rupee oil prices raises monthly Fuel and Light inflation by about 0.61 percentage points. This is a large and statistically significant effect ($p = 0.034$).
+
+The negative pass-through is 0.011, small and statistically insignificant ($p = 0.665$). The asymmetry $p$-value is 0.265, which still does not reject symmetry at the 5 per cent level. However, the gap between CPT$^+$ and $|$CPT$^-|$ is much larger in Fuel and Light (0.050) than in headline CPI (0.021).
+
+The lower adjusted $R^2$ (0.214 vs.\ 0.449 for headline CPI) reflects the higher volatility of the Fuel and Light sub-index, which is more directly exposed to administered price adjustments and seasonal kerosene and LPG pricing decisions.
+
+\section{Interpretation}
+
+The Fuel and Light appendix confirms two things. First, oil price increases do raise inflation in India through the energy price channel, and the effect is statistically significant when measured at the appropriate level of disaggregation. Second, the modest and imprecise pass-through in headline CPI is not because oil does not matter, but because the energy signal is diluted by food, services, and other non-oil components that make up the bulk of the CPI basket.
+
+This appendix result strengthens the main dissertation finding without contradicting it. The headline CPI analysis honestly reports the difficulty of detecting oil pass-through at the aggregate level. The Fuel and Light analysis shows that the underlying mechanism is real and detectable when the dependent variable is better aligned with the energy channel.

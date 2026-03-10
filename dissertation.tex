@@ -1,0 +1,293 @@
+% ============================================================
+% MS Economics Dissertation — Jawaharlal Nehru University
+% ============================================================
+\documentclass[12pt,a4paper,oneside]{report}
+
+% --- Fonts and Encoding ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{mathptmx}
+
+% --- Page Layout ---
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1in]{geometry}
+\usepackage{setspace}
+\setstretch{1.25}
+\setlength{\headheight}{14.5pt}
+\addtolength{\topmargin}{-2.5pt}
+
+% --- Graphics and Figures ---
+\usepackage{graphicx}
+\graphicspath{{outputs/figures/}{dissertation-report-helpers/}}
+\usepackage{float}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+% --- Tables ---
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{longtable}
+
+% --- Math and Symbols ---
+\usepackage{amsmath,amssymb}
+
+% --- Headers and Footers ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% --- Section Formatting ---
+\usepackage{titlesec}
+\titleformat{\chapter}[display]{\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{12pt}{\Large}
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+
+% --- Hyperlinks ---
+\usepackage[hidelinks]{hyperref}
+
+% --- Misc ---
+\usepackage{enumitem}
+\usepackage{url}
+\newcommand{\citep}[1]{\cite{#1}}
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt plus 1pt}
+
+\begin{document}
+
+% ============================================================
+%  TITLE PAGE
+% ============================================================
+\begin{titlepage}
+\begin{center}
+
+\vspace*{0.8cm}
+
+{\LARGE \textbf{Do Global Oil Price Shocks Raise\\[6pt]
+India's Inflation More Than\\[6pt]
+They Lower It?}}
+
+\vspace{0.6cm}
+
+{\large \textit{Short-Run Pass-Through to CPI Inflation\\in India, 2004--2024}}
+
+\vspace{0.8cm}
+
+{\large Dissertation submitted for the degree of\\[4pt]
+\textit{Master of Science (Economics)}}
+
+\vspace{0.8cm}
+
+{\large \textbf{Aniket Pandey}}
+
+\vspace{1cm}
+
+\includegraphics[width=3.5cm]{jnu-logo.png}
+
+\vfill
+
+{\large \textbf{Centre for Economic Studies and Planning}\\[4pt]
+\textbf{School of Social Sciences}\\[4pt]
+\textbf{Jawaharlal Nehru University}\\[4pt]
+\textbf{New Delhi}\\[4pt]
+\textbf{India}\\[4pt]
+\textbf{2026}}
+
+\end{center}
+\end{titlepage}
+
+% ============================================================
+%  CERTIFICATE PAGE
+% ============================================================
+\thispagestyle{empty}
+\begin{center}
+
+\vspace*{0.5cm}
+
+\includegraphics[width=2.5cm]{jnu-logo.png}
+
+\vspace{0.5cm}
+
+{\large \textbf{Centre for Economic Studies and Planning}\\[3pt]
+\textbf{School of Social Sciences}\\[3pt]
+\textbf{Jawaharlal Nehru University}\\[3pt]
+\textbf{New Delhi-110067 India}}
+
+\end{center}
+
+\vspace{2cm}
+
+\begin{center}
+{\LARGE \textbf{CERTIFICATE}}
+\end{center}
+
+\vspace{1cm}
+
+\noindent This is to certify that the dissertation titled ``\textbf{Do Global Oil Price Shocks Raise India's Inflation More Than They Lower It? Short-Run Pass-Through to CPI Inflation in India, 2004--2024}'' submitted by \textbf{ANIKET PANDEY}, in partial fulfillment of the requirements for the award of the degree of \textbf{Master of Science (Economics)} at the Centre for Economic Studies and Planning, School of Social Sciences, Jawaharlal Nehru University, New Delhi, has not been previously submitted in part or in full for any other degree of this university or any other university/institution.
+
+\vspace{0.8cm}
+
+\noindent We recommend this dissertation be placed before the examiners for evaluation for the award of the degree of M.Sc.\ Economics.
+
+\vspace{3cm}
+
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\textbf{Prof.\ Shakti Kumar}\\
+SUPERVISOR
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\raggedleft
+\textbf{Chairperson}\\
+CHAIRPERSON
+\end{minipage}
+
+\newpage
+
+% ============================================================
+%  ACKNOWLEDGEMENTS
+% ============================================================
+\thispagestyle{empty}
+\begin{center}
+{\LARGE \textbf{Acknowledgements}}
+\end{center}
+\vspace{1cm}
+
+\noindent I owe a great deal to Prof.\ Shakti Kumar, whose guidance shaped this dissertation from start to finish. His willingness to discuss methodology at length, correct my mistakes, and push me toward honest interpretation made the final product far better than anything I could have managed alone.
+
+I am also grateful to the faculty at the Centre for Economic Studies and Planning for two years of rigorous coursework that gave me the econometric tools needed for this study. The library staff at JNU and the creators of the FRED and MoSPI data portals deserve thanks for making high-quality economic data freely accessible.
+
+My classmates, especially those who sat through early presentations of this work and offered blunt feedback, improved it considerably. Finally, I thank my family for their patience during the months when this dissertation consumed most of my attention.
+
+\vspace{1cm}
+\begin{flushright}
+Aniket Pandey\\
+New Delhi, 2026
+\end{flushright}
+
+\newpage
+
+% ============================================================
+%  ABSTRACT
+% ============================================================
+\thispagestyle{empty}
+\begin{center}
+{\LARGE \textbf{Abstract}}
+\end{center}
+\vspace{1cm}
+
+\noindent India imports roughly 85 per cent of its crude oil, which makes domestic inflation sensitive to global oil price movements. This dissertation asks whether positive oil price shocks raise India's consumer price inflation by more than negative shocks lower it, a pattern known in the literature as ``rockets and feathers'' asymmetry.
+
+Using monthly data from April 2004 to December 2024, I estimate an asymmetric autoregressive distributed lag model in first differences, with Brent crude oil prices converted to Indian rupees as the main oil price variable. The autoregressive lag order is selected by AIC, and all inference uses Newey--West heteroskedasticity and autocorrelation consistent standard errors.
+
+The main finding is that positive oil shocks are associated with higher monthly CPI inflation, with a cumulative pass-through coefficient of 0.021. A 10 per cent increase in rupee-denominated oil prices raises monthly inflation by about 0.21 percentage points. The corresponding estimate for negative oil shocks is near zero. However, a Wald test for the equality of positive and negative cumulative pass-through fails to reject symmetry at the 5 per cent level ($p = 0.24$). This means the point estimates suggest asymmetric behaviour, but the statistical evidence is not strong enough to confirm it in headline CPI.
+
+Robustness checks that separate the Brent price from the exchange rate show a stronger and marginally significant positive pass-through. An appendix analysis using the official Fuel and Light CPI sub-index, which is more directly exposed to energy costs, produces a larger and statistically significant positive oil pass-through ($p = 0.03$). These results together indicate that oil prices do matter for Indian inflation, even though the asymmetry is hard to pin down precisely at the aggregate level.
+
+\textbf{Keywords:} Oil price pass-through, CPI inflation, asymmetric adjustment, India, autoregressive distributed lag model, Newey--West inference
+
+\newpage
+
+% ============================================================
+%  TABLE OF CONTENTS, LIST OF TABLES, LIST OF FIGURES
+% ============================================================
+\pagenumbering{roman}
+\setcounter{page}{1}
+\tableofcontents
+\newpage
+\listoftables
+\newpage
+\listoffigures
+\newpage
+
+% ============================================================
+%  MAIN TEXT BEGINS
+% ============================================================
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% placeholder for chapters
+\input{chapters/ch1_introduction}
+\input{chapters/ch2_literature}
+\input{chapters/ch3_data_methodology}
+\input{chapters/ch4_results}
+\input{chapters/ch5_robustness}
+\input{chapters/ch6_discussion}
+\input{chapters/ch7_conclusion}
+
+% ============================================================
+%  BIBLIOGRAPHY
+% ============================================================
+\begin{thebibliography}{99}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\bibitem{abubakar2018}
+Abu-Bakar, M. and Masih, M. (2018). Is the oil price pass-through to domestic inflation symmetric or asymmetric? New evidence from India based on NARDL. \textit{MPRA Paper No.\ 87569}.
+
+\bibitem{bhanumurthy2012}
+Bhanumurthy, N.R., Das, S. and Bose, S. (2012). Oil price shock, pass-through policy and its impact on India. \textit{NIPFP Working Paper No.\ 99}.
+
+\bibitem{blanchard2009}
+Blanchard, O.J. and Gal\'{i}, J. (2009). The macroeconomic effects of oil price shocks: Why are the 2000s so different from the 1970s? In Gal\'{i}, J. and Gertler, M. (eds.), \textit{International Dimensions of Monetary Policy}, University of Chicago Press, pp.\ 373--421.
+
+\bibitem{chen2009}
+Chen, S.S. (2009). Oil price pass-through into inflation. \textit{Energy Economics}, 31(1), 126--133.
+
+\bibitem{chou2016}
+Chou, K.W. and Tseng, Y.H. (2016). Oil prices, exchange rate, and the price asymmetry in the Taiwanese gasoline market. \textit{Economic Modelling}, 52, 583--593.
+
+\bibitem{hamilton1983}
+Hamilton, J.D. (1983). Oil and the macroeconomy since World War II. \textit{Journal of Political Economy}, 91(2), 228--248.
+
+\bibitem{hamilton2003}
+Hamilton, J.D. (2003). What is an oil shock? \textit{Journal of Econometrics}, 113(2), 363--398.
+
+\bibitem{hooker2002}
+Hooker, M.A. (2002). Are oil shocks inflationary? Asymmetric and nonlinear specifications versus changes in regime. \textit{Journal of Money, Credit and Banking}, 34(2), 540--561.
+
+\bibitem{kilian2009}
+Kilian, L. (2009). Not all oil price shocks are alike: Disentangling demand and supply shocks in the crude oil market. \textit{American Economic Review}, 99(3), 1053--1069.
+
+\bibitem{kilian2014}
+Kilian, L. and Vigfusson, R.J. (2011). Are the responses of the U.S.\ economy asymmetric in energy price increases and decreases? \textit{Quantitative Economics}, 2(3), 419--453.
+
+\bibitem{lardic2008}
+Lardic, S. and Mignon, V. (2008). Oil prices and economic activity: An asymmetric cointegration approach. \textit{Energy Economics}, 30(3), 847--855.
+
+\bibitem{lee1995}
+Lee, K., Ni, S. and Ratti, R.A. (1995). Oil shocks and the macroeconomy: The role of price variability. \textit{Energy Journal}, 16(4), 39--56.
+
+\bibitem{mork1989}
+Mork, K.A. (1989). Oil and the macroeconomy when prices go up and down: An extension of Hamilton's results. \textit{Journal of Political Economy}, 97(3), 740--744.
+
+\bibitem{newey1987}
+Newey, W.K. and West, K.D. (1987). A simple, positive semi-definite, heteroskedasticity and autocorrelation consistent covariance matrix. \textit{Econometrica}, 55(3), 703--708.
+
+\bibitem{pesaran1999}
+Pesaran, M.H. and Shin, Y. (1999). An autoregressive distributed-lag modelling approach to cointegration analysis. In Str{\o}m, S. (ed.), \textit{Econometrics and Economic Theory in the 20th Century: The Ragnar Frisch Centennial Symposium}, Cambridge University Press, pp.\ 371--413.
+
+\bibitem{pradeep2022}
+Pradeep, S. (2022). Impact of diesel price reforms on asymmetricity of oil price pass-through to inflation: Indian perspective. \textit{Journal of Economic Asymmetries}, 26, e00266.
+
+\bibitem{rbi2024}
+Reserve Bank of India (2024). \textit{Monetary Policy Report}, April 2024 and October 2024.
+
+\bibitem{shin2014}
+Shin, Y., Yu, B. and Greenwood-Nimmo, M. (2014). Modelling asymmetric cointegration and dynamic multipliers in a nonlinear ARDL framework. In Sickles, R.C. and Horrace, W.C. (eds.), \textit{Festschrift in Honor of Peter Schmidt}, Springer, pp.\ 281--314.
+
+\bibitem{trehan2011}
+Trehan, B. (2011). Household inflation expectations and the price of oil: It's d\'ej\`a vu all over again. \textit{FRBSF Economic Letter}, 2011-16.
+
+\end{thebibliography}
+
+% ============================================================
+%  APPENDIX
+% ============================================================
+\appendix
+\input{chapters/appendix_a}
+
+\end{document}

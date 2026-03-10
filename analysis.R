@@ -345,7 +345,7 @@ p1c <- ggplot(df, aes(date, exr)) + geom_line(color = "#548235", linewidth = 0.5
 p1d <- ggplot(df, aes(date, iip)) + geom_line(color = "#7030A0", linewidth = 0.5) +
   labs(title = "IIP General Index (chained)", x = NULL, y = "Index") + theme_minimal()
 fig1 <- (p1a | p1b) / (p1c | p1d) + plot_annotation(
-  title = "Figure 1: Raw Data Series (Apr 2004 – Dec 2024)")
+  title = "Raw Data Series (Apr 2004 – Dec 2024)")
 ggsave("outputs/figures/fig_1_raw_series.png", fig1, width = 10, height = 6, dpi = 300)
 cat("  ✓ Figure saved: outputs/figures/fig_1_raw_series.png\n")
 
@@ -364,7 +364,7 @@ p2d <- ggplot(df_plot, aes(date, dlnIIP)) + geom_line(color = "#7030A0", linewid
   geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5) +
   labs(title = "ΔlnIIP (monthly % change)", x = NULL, y = "%") + theme_minimal()
 fig2 <- (p2a | p2b) / (p2c | p2d) + plot_annotation(
-  title = "Figure 2: Log-Differenced Series (Monthly % Changes)")
+  title = "Log-Differenced Series (Monthly % Changes)")
 ggsave("outputs/figures/fig_2_log_diff_series.png", fig2, width = 10, height = 6.5, dpi = 300)
 cat("  ✓ Figure saved: outputs/figures/fig_2_log_diff_series.png\n")
 
@@ -376,7 +376,7 @@ fig3 <- ggplot(df_plot) +
   geom_line(aes(date, cum_neg, color = "Negative (ΔOil−)"), linewidth = 0.6) +
   geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5) +
   scale_color_manual(values = c("Positive (ΔOil+)" = "#C0392B", "Negative (ΔOil−)" = "#2980B9")) +
-  labs(title = "Figure 3: Cumulative Partial Sums of Oil Price Changes",
+  labs(title = "Cumulative Partial Sums of Oil Price Changes",
        x = "Date", y = "Cumulative % change", color = NULL) +
   theme_minimal() + theme(legend.position = "bottom")
 ggsave("outputs/figures/fig_3_oil_decomposition.png", fig3, width = 8, height = 5, dpi = 300)
@@ -651,7 +651,7 @@ fig4 <- ggplot(cpt_df, aes(x = Horizon, y = CPT, color = Type)) +
   scale_color_manual(values = c("CPT+ (Positive shocks)" = "#C0392B",
                                 "CPT- (Negative shocks)" = "#2980B9")) +
   scale_x_continuous(breaks = 0:3) +
-  labs(title = sprintf("Figure 4: Cumulative Pass-Through by Horizon (ADL(%d,3))", best_p),
+  labs(title = sprintf("Cumulative Pass-Through by Horizon (ADL(%d,3))", best_p),
        subtitle = "Asymmetric ADL — Full Sample",
        x = "Lag Horizon (months)", y = "Cumulative coefficient", color = NULL) +
   theme_minimal() + theme(legend.position = "bottom")
@@ -795,7 +795,7 @@ fig5_data <- data.frame(
 fig5 <- ggplot(fig5_data, aes(x = Period, y = Value, fill = Type)) +
   geom_col(position = position_dodge(width = 0.7), width = 0.6) +
   scale_fill_manual(values = c("CPT+" = "#C0392B", "|CPT-|" = "#2980B9")) +
-  labs(title = "Figure 5: Sub-Sample Asymmetry Comparison",
+  labs(title = "Sub-Sample Asymmetry Comparison",
        subtitle = "Pre- vs Post-Diesel Deregulation (Oct 2014)",
        x = NULL, y = "Cumulative Pass-Through", fill = NULL) +
   theme_minimal() + theme(legend.position = "bottom")
@@ -860,7 +860,7 @@ if (bp_test$p.value < 0.05) {
 
 # Figure 6 — CUSUM stability plot
 png("outputs/figures/fig_6_cusum_stability.png", width = 8, height = 5, units = "in", res = 300)
-plot(cusum_test, main = "Figure 6: CUSUM Recursive Stability Test",
+plot(cusum_test, main = "CUSUM Recursive Stability Test",
      xlab = "Observation", ylab = "CUSUM statistic")
 dev.off()
 cat("  ✓ Figure saved: outputs/figures/fig_6_cusum_stability.png\n")
@@ -888,7 +888,7 @@ p8d <- ggplot(resid_df, aes(Fitted, Actual)) + geom_point(color = "#1F3864", alp
   geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
   labs(title = "Actual vs Fitted", x = "Fitted", y = "Actual") + theme_minimal()
 fig8 <- (p8a | p8b) / (p8c | p8d) + plot_annotation(
-  title = "Figure 8: Residual Diagnostic Plots")
+  title = "Residual Diagnostic Plots")
 ggsave("outputs/figures/fig_8_residual_diagnostics.png", fig8, width = 10, height = 7, dpi = 300)
 cat("  ✓ Figure saved: outputs/figures/fig_8_residual_diagnostics.png\n")
 
@@ -1269,7 +1269,7 @@ if (n_roll >= window_size + 10) {
     annotate("text", x = as.Date("2014-10-01"), y = max(roll_cpt_pos, na.rm = TRUE) * 0.9,
              label = "Diesel\nDeregulation", hjust = -0.1, size = 3, color = "grey40") +
     scale_color_manual(values = c("CPT+" = "#C0392B", "CPT-" = "#2980B9")) +
-    labs(title = "Figure 7: Rolling 60-Month CPT+ and CPT-",
+    labs(title = "Rolling 60-Month CPT+ and CPT-",
          x = "End Date of Window", y = "Cumulative Pass-Through", color = NULL) +
     theme_minimal() + theme(legend.position = "bottom")
   ggsave("outputs/figures/fig_7_rolling_window.png", fig7, width = 8, height = 5, dpi = 300)
@@ -1303,7 +1303,7 @@ fig9 <- ggplot(df, aes(date, brent_usd)) +
             inherit.aes = FALSE, alpha = 0.15) +
   geom_line(color = "#1F3864", linewidth = 0.6) +
   scale_fill_manual(values = setNames(regime_df$fill, regime_df$label)) +
-  labs(title = "Figure 9: Brent Crude Oil Price with Regime Periods",
+  labs(title = "Brent Crude Oil Price with Regime Periods",
        x = "Date", y = "USD per barrel", fill = "Regime") +
   theme_minimal() + theme(legend.position = "bottom")
 ggsave("outputs/figures/fig_9_oil_price_regimes.png", fig9, width = 10, height = 5, dpi = 300)
@@ -1322,7 +1322,7 @@ fig10_long <- fig10_data %>%
 fig10 <- ggplot(fig10_long, aes(x = Sample, y = Value, fill = Type)) +
   geom_col(position = position_dodge(width = 0.7), width = 0.6) +
   scale_fill_manual(values = c("CPT+" = "#C0392B", "|CPT-|" = "#2980B9")) +
-  labs(title = "Figure 10: Asymmetry Gap — CPT+ vs |CPT-|",
+  labs(title = "Asymmetry Gap — CPT+ vs |CPT-|",
        subtitle = "Full Sample and Sub-Sample Comparison",
        x = NULL, y = "Cumulative Pass-Through", fill = NULL) +
   theme_minimal() + theme(legend.position = "bottom")

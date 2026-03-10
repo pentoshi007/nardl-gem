@@ -1,0 +1,156 @@
+\chapter{Data and Methodology}
+\label{ch:data}
+
+\section{Data Sources and Sample Period}
+
+The study uses monthly data from April 2004 to December 2024, giving 249 observations before differencing and a usable estimation sample of approximately 245 observations after accounting for lagged variables. Four data series are used:
+
+\begin{table}[H]
+\centering
+\caption{Data Sources and Description}
+\label{tab:data_sources}
+\begin{tabular}{llll}
+\toprule
+\textbf{Variable} & \textbf{Description} & \textbf{Source} & \textbf{Unit} \\
+\midrule
+CPI & Headline Consumer Price Index & OECD via FRED & Index (2015=100) \\
+Brent & Brent crude oil price & IMF via FRED & USD per barrel \\
+EXR & INR/USD exchange rate & Federal Reserve via FRED & Rupees per USD \\
+IIP & Index of Industrial Production & RBI DBIE & Chain-linked index \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The CPI series is the all-items consumer price index for India from the OECD's Main Economic Indicators database, accessed through the Federal Reserve Bank of St.\ Louis (FRED). The Brent crude oil price is the average monthly spot price reported by the IMF, also obtained through FRED. The INR/USD exchange rate is the monthly average from the Federal Reserve. The IIP data come from the Reserve Bank of India's Database on Indian Economy (DBIE) and are chain-linked to provide a consistent monthly activity measure across different base years.
+
+The sample starts in April 2004 because this is the earliest month for which all four series overlap reliably. The choice of end date at December 2024 allows the analysis to capture the full post-diesel-deregulation period (October 2014 onward), the COVID-19 disruption, and the oil price spike associated with the Russia--Ukraine conflict in 2022.
+
+Figure~\ref{fig:raw_series} shows the four raw series in levels. CPI has a clear upward trend, reflecting India's persistent positive inflation over the sample period. Brent crude shows large swings, including the collapse during the 2008--09 financial crisis, the 2014--16 decline, and the COVID-19 crash in early 2020. The exchange rate depreciates steadily from about 40 rupees per dollar in 2004 to about 85 by the end of 2024. The IIP index shows a broadly upward trend with pronounced seasonal variation and a sharp drop during the COVID lockdown.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{fig_1_raw_series.png}
+\caption{}
+\label{fig:raw_series}
+\end{figure}
+
+\section{Variable Construction}
+
+From the raw data, a composite rupee-denominated oil price is constructed as:
+\begin{equation}
+\text{Oil\_INR}_t = \text{Brent\_USD}_t \times \text{EXR}_t
+\label{eq:oil_inr}
+\end{equation}
+
+This composite price reflects the actual cost of imported crude in Indian rupees. All series are then converted to monthly log-differences, expressed as percentages:
+\begin{equation}
+\Delta \ln X_t = 100 \times [\ln(X_t) - \ln(X_{t-1})]
+\label{eq:logdiff}
+\end{equation}
+
+where $X$ is CPI, Oil\_INR, EXR, IIP, or Brent. The resulting variables, $\Delta \ln \text{CPI}_t$, $\Delta \ln \text{Oil}_t$, $\Delta \ln \text{EXR}_t$, and $\Delta \ln \text{IIP}_t$, represent approximate percentage changes and are stationary by construction.
+
+The asymmetric decomposition splits oil price changes into positive and negative components:
+\begin{align}
+\Delta \ln \text{Oil}^+_t &= \max(\Delta \ln \text{Oil}_t, 0) \label{eq:oilpos} \\
+\Delta \ln \text{Oil}^-_t &= \min(\Delta \ln \text{Oil}_t, 0) \label{eq:oilneg}
+\end{align}
+
+The negative component is kept negative (not in absolute value). This convention matters for interpreting the coefficients correctly: a positive coefficient on $\Delta \ln \text{Oil}^-_t$ means that oil price decreases are associated with higher inflation (a perverse response), while a negative coefficient means decreases lower inflation as expected.
+
+Figure~\ref{fig:logdiff} shows the log-differenced series, and Figure~\ref{fig:oil_decomp} shows the cumulative partial sums of positive and negative oil price changes.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{fig_2_log_diff_series.png}
+\caption{}
+\label{fig:logdiff}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_3_oil_decomposition.png}
+\caption{}
+\label{fig:oil_decomp}
+\end{figure}
+
+Table~\ref{tab:desc_stats} reports descriptive statistics for all variables. Monthly CPI inflation averages 0.54 per cent with a standard deviation of 0.75. Oil price changes are much more volatile, with a standard deviation of 8.89 percentage points and a range from $-45.4$ to $+23.2$ per cent. The positive oil component averages 3.60 per cent per month when non-zero, while the negative component averages $-3.02$ per cent.
+
+\begin{table}[H]
+\centering
+\caption{Descriptive Statistics}
+\label{tab:desc_stats}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Variable} & \textbf{N} & \textbf{Mean} & \textbf{SD} & \textbf{Min} & \textbf{Max} \\
+\midrule
+CPI Index & 249 & 93.97 & 35.71 & 41.79 & 159.20 \\
+Brent USD & 249 & 75.08 & 24.26 & 26.85 & 133.59 \\
+INR/USD & 249 & 60.21 & 13.89 & 39.27 & 84.97 \\
+IIP Index & 249 & 109.97 & 24.46 & 54.00 & 160.00 \\
+Oil INR & 249 & 4490.59 & 1692.95 & 1464.13 & 9190.63 \\
+$\Delta\ln$CPI (\%) & 248 & 0.54 & 0.75 & $-1.66$ & 4.47 \\
+$\Delta\ln$Oil (\%) & 248 & 0.58 & 8.89 & $-45.37$ & 23.20 \\
+$\Delta\ln$EXR (\%) & 248 & 0.27 & 1.67 & $-4.14$ & 6.56 \\
+$\Delta\ln$IIP (\%) & 248 & 0.37 & 8.28 & $-77.49$ & 51.30 \\
+$\Delta$Oil$^+$ (\%) & 248 & 3.60 & 4.58 & 0.00 & 23.20 \\
+$\Delta$Oil$^-$ (\%) & 248 & $-3.02$ & 6.02 & $-45.37$ & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Policy and Event Controls}
+
+Three dummy variables control for known structural and outlier events:
+
+\begin{itemize}
+\item $D_{\text{petrol}} = 1$ from June 2010 onward, capturing petrol price deregulation.
+\item $D_{\text{diesel}} = 1$ from October 2014 onward, capturing diesel price deregulation.
+\item $D_{\text{covid}} = 1$ for April 2020 only, capturing the extreme COVID-19 lockdown month.
+\end{itemize}
+
+Monthly dummies $M_1$ through $M_{11}$ (with December as the reference month) absorb seasonal patterns in CPI inflation, which are pronounced in India due to agricultural harvest cycles and administered price adjustments.
+
+\section{Econometric Framework}
+
+\subsection{Baseline Symmetric ADL}
+
+The starting point is a standard autoregressive distributed lag model in first differences:
+\begin{equation}
+\Delta \ln \text{CPI}_t = \alpha + \gamma_1 \Delta \ln \text{CPI}_{t-1} + \beta_0 \Delta \ln \text{Oil}_t + \beta_1 \Delta \ln \text{Oil}_{t-1} + \delta \Delta \ln \text{IIP}_t + \mathbf{D}'\boldsymbol{\phi} + u_t
+\label{eq:symmetric}
+\end{equation}
+
+where $\mathbf{D}$ includes the policy dummies and monthly dummies. The cumulative pass-through is $\text{CPT} = \beta_0 + \beta_1$.
+
+\subsection{Asymmetric ADL Model}
+
+The main model extends the baseline by allowing oil price increases and decreases to have different effects:
+\begin{equation}
+\Delta \ln \text{CPI}_t = \alpha + \sum_{i=1}^{p} \gamma_i \Delta \ln \text{CPI}_{t-i} + \sum_{j=0}^{3} \pi^+_j \Delta \ln \text{Oil}^+_{t-j} + \sum_{j=0}^{3} \pi^-_j \Delta \ln \text{Oil}^-_{t-j} + \delta \Delta \ln \text{IIP}_t + \mathbf{D}'\boldsymbol{\phi} + u_t
+\label{eq:asymmetric}
+\end{equation}
+
+The oil lag length is fixed at $q = 3$ months, which captures the first quarter of pass-through. The autoregressive lag order $p$ is selected by minimising the Akaike information criterion over $p \in \{1, 2, 3, 4\}$, with all candidate models estimated on the same sample (defined by the maximum lag, $p = 4$) to ensure comparability.
+
+The cumulative pass-through coefficients are:
+\begin{align}
+\text{CPT}^+ &= \sum_{j=0}^{3} \pi^+_j \label{eq:cptpos} \\
+\text{CPT}^- &= \sum_{j=0}^{3} \pi^-_j \label{eq:cptneg}
+\end{align}
+
+The key hypothesis test for asymmetry is $H_0: \text{CPT}^+ = \text{CPT}^-$, tested via a Wald statistic using the Newey--West covariance matrix.
+
+\subsection{Inference}
+
+All coefficient standard errors and restriction tests use the Newey--West HAC estimator \citep{newey1987} with the truncation lag set to $\lfloor 0.75 \times n^{1/3} \rfloor$, where $n$ is the sample size. This is standard practice in time-series regression when the Breusch--Pagan test indicates heteroskedasticity, as it does in this dataset. The HAC approach allows consistent inference without requiring the residuals to be homoskedastic or serially uncorrelated.
+
+\subsection{Robustness: Brent Plus Exchange Rate Specification}
+
+The main model uses the composite Oil\_INR variable, which mixes the world oil price and the exchange rate into a single regressor. The robustness specification separates the two:
+\begin{equation}
+\Delta \ln \text{CPI}_t = \alpha + \sum_{i=1}^{p} \gamma_i \Delta \ln \text{CPI}_{t-i} + \sum_{j=0}^{3} \pi^+_j \Delta \ln \text{Brent}^+_{t-j} + \sum_{j=0}^{3} \pi^-_j \Delta \ln \text{Brent}^-_{t-j} + \theta_0 \Delta \ln \text{EXR}_t + \theta_1 \Delta \ln \text{EXR}_{t-1} + \delta \Delta \ln \text{IIP}_t + \mathbf{D}'\boldsymbol{\phi} + u_t
+\label{eq:brentexr}
+\end{equation}
+
+This allows independent estimation of the oil price pass-through (via the $\pi$ coefficients) and the exchange rate pass-through (via the $\theta$ coefficients).
