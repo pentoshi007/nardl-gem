@@ -1,0 +1,5 @@
+"Test","Statistic","P_Value","Result"
+"Breusch-Godfrey LM (12)",18.5812,0.0992,"PASS"
+"Breusch-Pagan",44.7605,0.0125,"FAIL"
+"Ramsey RESET",2.972,0.0533,"PASS"
+"CUSUM",0.9169,0.0628,"PASS (within bounds)"

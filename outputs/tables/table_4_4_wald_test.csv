@@ -1,0 +1,2 @@
+"Test","F_Statistic","DF1","DF2","P_Value","Decision","CPT_Plus","CPT_Minus"
+"Wald: CPT+ = CPT-",1.1114,1,217,0.293,"Fail to reject H₀ at 5%",0.019258,0.00058

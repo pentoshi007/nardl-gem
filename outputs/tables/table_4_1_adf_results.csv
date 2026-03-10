@@ -1,0 +1,7 @@
+"Variable","ADF_Statistic","P_Value","Lags_Used","Conclusion"
+"ln(CPI)",-0.3198,0.9895,6,"Non-stationary I(1)"
+"ln(Oil_INR)",-2.574,0.3342,6,"Non-stationary I(1)"
+"ln(IIP)",-3.2004,0.0883,6,"Non-stationary I(1)"
+"ΔlnCPI",-9.0423,0.01,6,"Stationary I(0)"
+"ΔlnOil",-6.1283,0.01,6,"Stationary I(0)"
+"ΔlnIIP",-8.2214,0.01,6,"Stationary I(0)"
