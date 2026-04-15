@@ -3,58 +3,110 @@
 % ============================================================
 \documentclass[12pt,a4paper,oneside]{report}
 
-% --- Fonts and Encoding ---
+% ── Fonts & Encoding ──────────────────────────────────────
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{times}
-\usepackage{mathptmx}
+\usepackage{times}          % Times New Roman body text
 
-% --- Page Layout ---
-\usepackage[top=1in,bottom=1in,left=1.25in,right=1in]{geometry}
+% ── Page Layout ───────────────────────────────────────────
+% Standard academic dissertation margins
+\usepackage[
+  top=1in,
+  bottom=1in,
+  left=1.25in,      % wider left for binding
+  right=1in,
+  a4paper
+]{geometry}
+
+% Line spacing: 1.5 as required by most universities
 \usepackage{setspace}
-\setstretch{1.25}
-\setlength{\headheight}{14.5pt}
-\addtolength{\topmargin}{-2.5pt}
+\onehalfspacing
 
-% --- Graphics and Figures ---
+% ── Text Alignment & Paragraph Style ──────────────────────
+\setlength{\parindent}{0pt}          % no first-line indent on any paragraph
+\setlength{\parskip}{6pt}            % small vertical gap between paragraphs
+\raggedbottom                        % don't stretch pages vertically
+
+% ── Graphics ──────────────────────────────────────────────
 \usepackage{graphicx}
 \graphicspath{{outputs/figures/}{dissertation-report-helpers/}}
 \usepackage{float}
-\usepackage{caption}
-\captionsetup{font=small,labelfont=bf}
+\usepackage[
+  font=small,          % 10pt captions
+  labelfont=bf,        % bold "Figure X.X:" label
+  labelsep=period,     % period after number
+  justification=justified,
+  singlelinecheck=false
+]{caption}
 
-% --- Tables ---
+% ── Tables ────────────────────────────────────────────────
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{tabularx}
 \usepackage{multirow}
 \usepackage{longtable}
 
-% --- Math and Symbols ---
+% ── Math ──────────────────────────────────────────────────
 \usepackage{amsmath,amssymb}
 
-% --- Headers and Footers ---
+% ── Headers & Footers ─────────────────────────────────────
 \usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[R]{\thepage}
+% Left header: chapter name; Right header: page number
+\fancyhead[L]{\small\itshape\nouppercase{\leftmark}}
+\fancyhead[R]{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
-\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+% Plain style (chapter opening pages): page number centred at bottom
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\small\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
 
-% --- Section Formatting ---
+% ── Chapter & Section Headings ────────────────────────────
 \usepackage{titlesec}
-\titleformat{\chapter}[display]{\normalfont\Large\bfseries\centering}{\chaptertitlename\ \thechapter}{12pt}{\Large}
-\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
 
-% --- Hyperlinks ---
-\usepackage[hidelinks]{hyperref}
+% Chapter: "Chapter 1" on line 1, title on line 2, both centred
+% Size: \Large (≈17pt at 12pt base) — slightly larger than body
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries\centering}
+  {\MakeUppercase{\chaptertitlename}\ \thechapter}
+  {8pt}
+  {\Large}
+\titlespacing*{\chapter}{0pt}{-10pt}{24pt}
 
-% --- Misc ---
+% Section: 14pt bold, flush left
+\titleformat{\section}
+  {\normalfont\large\bfseries}
+  {\thesection}
+  {1em}{}
+\titlespacing*{\section}{0pt}{14pt plus 2pt minus 2pt}{6pt}
+
+% Subsection: 12pt bold italic, flush left
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\itshape}
+  {\thesubsection}
+  {1em}{}
+\titlespacing*{\subsection}{0pt}{10pt plus 2pt minus 2pt}{4pt}
+
+% Subsubsection: 12pt italic, flush left
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\itshape}
+  {\thesubsubsection}
+  {1em}{}
+\titlespacing*{\subsubsection}{0pt}{8pt}{2pt}
+
+% ── Hyperlinks ────────────────────────────────────────────
+\usepackage[hidelinks,hypertexnames=false]{hyperref}
+\usepackage{bookmark}
+
+% ── Miscellaneous ─────────────────────────────────────────
 \usepackage{enumitem}
 \usepackage{url}
+\urlstyle{same}                       % URL in same font as body
 \newcommand{\citep}[1]{\cite{#1}}
-\setlength{\parindent}{1.5em}
-\setlength{\parskip}{0pt plus 1pt}
 
 \begin{document}
 
@@ -99,32 +151,36 @@ They Lower It?}}
 \end{center}
 \end{titlepage}
 
+\cleardoublepage
+
 % ============================================================
 %  CERTIFICATE PAGE
 % ============================================================
 \thispagestyle{empty}
-\begin{center}
+\setcounter{page}{0}
 
-\vspace*{0.5cm}
+% --- Compact letterhead header ---
+\noindent
+\begin{minipage}[c]{0.18\textwidth}
+  \includegraphics[width=2cm]{jnu-logo.png}
+\end{minipage}%
+\hfill
+\begin{minipage}[c]{0.78\textwidth}
+  \raggedright
+  {\small\textbf{Centre for Economic Studies and Planning}}\\[-1pt]
+  {\small\textbf{School of Social Sciences, Jawaharlal Nehru University}}\\[-1pt]
+  {\small\textbf{New Delhi--110067, India}}
+\end{minipage}
 
-\includegraphics[width=2.5cm]{jnu-logo.png}
-
-\vspace{0.5cm}
-
-{\large \textbf{Centre for Economic Studies and Planning}\\[3pt]
-\textbf{School of Social Sciences}\\[3pt]
-\textbf{Jawaharlal Nehru University}\\[3pt]
-\textbf{New Delhi-110067 India}}
-
-\end{center}
-
-\vspace{2cm}
+\vspace{0.4cm}
+\noindent\rule{\textwidth}{0.8pt}
+\vspace{0.6cm}
 
 \begin{center}
 {\LARGE \textbf{CERTIFICATE}}
 \end{center}
 
-\vspace{1cm}
+\vspace{0.8cm}
 
 \noindent This is to certify that the dissertation titled ``\textbf{Do Global Oil Price Shocks Raise India's Inflation More Than They Lower It? Short-Run Pass-Through to CPI Inflation in India, 2004--2024}'' submitted by \textbf{ANIKET PANDEY}, in partial fulfillment of the requirements for the award of the degree of \textbf{Master of Science (Economics)} at the Centre for Economic Studies and Planning, School of Social Sciences, Jawaharlal Nehru University, New Delhi, has not been previously submitted in part or in full for any other degree of this university or any other university/institution.
 
@@ -208,7 +264,6 @@ Robustness checks that separate the Brent price from the exchange rate show a st
 %  MAIN TEXT BEGINS
 % ============================================================
 \pagenumbering{arabic}
-\setcounter{page}{1}
 
 % placeholder for chapters
 \input{chapters/ch1_introduction}

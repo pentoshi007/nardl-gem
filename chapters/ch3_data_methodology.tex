@@ -30,7 +30,7 @@ Figure~\ref{fig:raw_series} shows the four raw series in levels. CPI has a clear
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{fig_1_raw_series.png}
-\caption{}
+\caption[Raw Data Series in Levels, 2004--2024]{}
 \label{fig:raw_series}
 \end{figure}
 
@@ -63,14 +63,14 @@ Figure~\ref{fig:logdiff} shows the log-differenced series, and Figure~\ref{fig:o
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{fig_2_log_diff_series.png}
-\caption{}
+\caption[Log-Differenced Series (Monthly Percentage Changes)]{}
 \label{fig:logdiff}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{fig_3_oil_decomposition.png}
-\caption{}
+\caption[Cumulative Partial Sums of Positive and Negative Oil Price Changes]{}
 \label{fig:oil_decomp}
 \end{figure}
 
@@ -116,20 +116,25 @@ Monthly dummies $M_1$ through $M_{11}$ (with December as the reference month) ab
 \subsection{Baseline Symmetric ADL}
 
 The starting point is a standard autoregressive distributed lag model in first differences:
-\begin{equation}
-\Delta \ln \text{CPI}_t = \alpha + \gamma_1 \Delta \ln \text{CPI}_{t-1} + \beta_0 \Delta \ln \text{Oil}_t + \beta_1 \Delta \ln \text{Oil}_{t-1} + \delta \Delta \ln \text{IIP}_t + \mathbf{D}'\boldsymbol{\phi} + u_t
+\begin{align}
+\Delta \ln \text{CPI}_t &= \alpha + \gamma_1 \Delta \ln \text{CPI}_{t-1}
+  + \beta_0 \Delta \ln \text{Oil}_t + \beta_1 \Delta \ln \text{Oil}_{t-1} \notag \\
+  &\quad + \delta \Delta \ln \text{IIP}_t + \mathbf{D}'\boldsymbol{\phi} + u_t
 \label{eq:symmetric}
-\end{equation}
+\end{align}
 
 where $\mathbf{D}$ includes the policy dummies and monthly dummies. The cumulative pass-through is $\text{CPT} = \beta_0 + \beta_1$.
 
 \subsection{Asymmetric ADL Model}
 
 The main model extends the baseline by allowing oil price increases and decreases to have different effects:
-\begin{equation}
-\Delta \ln \text{CPI}_t = \alpha + \sum_{i=1}^{p} \gamma_i \Delta \ln \text{CPI}_{t-i} + \sum_{j=0}^{3} \pi^+_j \Delta \ln \text{Oil}^+_{t-j} + \sum_{j=0}^{3} \pi^-_j \Delta \ln \text{Oil}^-_{t-j} + \delta \Delta \ln \text{IIP}_t + \mathbf{D}'\boldsymbol{\phi} + u_t
+\begin{align}
+\Delta \ln \text{CPI}_t &= \alpha + \sum_{i=1}^{p} \gamma_i \Delta \ln \text{CPI}_{t-i}
+  + \sum_{j=0}^{3} \pi^+_j \Delta \ln \text{Oil}^+_{t-j}
+  + \sum_{j=0}^{3} \pi^-_j \Delta \ln \text{Oil}^-_{t-j} \notag \\
+  &\quad + \delta \Delta \ln \text{IIP}_t + \mathbf{D}'\boldsymbol{\phi} + u_t
 \label{eq:asymmetric}
-\end{equation}
+\end{align}
 
 The oil lag length is fixed at $q = 3$ months, which captures the first quarter of pass-through. The autoregressive lag order $p$ is selected by minimising the Akaike information criterion over $p \in \{1, 2, 3, 4\}$, with all candidate models estimated on the same sample (defined by the maximum lag, $p = 4$) to ensure comparability.
 
@@ -148,9 +153,13 @@ All coefficient standard errors and restriction tests use the Newey--West HAC es
 \subsection{Robustness: Brent Plus Exchange Rate Specification}
 
 The main model uses the composite Oil\_INR variable, which mixes the world oil price and the exchange rate into a single regressor. The robustness specification separates the two:
-\begin{equation}
-\Delta \ln \text{CPI}_t = \alpha + \sum_{i=1}^{p} \gamma_i \Delta \ln \text{CPI}_{t-i} + \sum_{j=0}^{3} \pi^+_j \Delta \ln \text{Brent}^+_{t-j} + \sum_{j=0}^{3} \pi^-_j \Delta \ln \text{Brent}^-_{t-j} + \theta_0 \Delta \ln \text{EXR}_t + \theta_1 \Delta \ln \text{EXR}_{t-1} + \delta \Delta \ln \text{IIP}_t + \mathbf{D}'\boldsymbol{\phi} + u_t
+\begin{align}
+\Delta \ln \text{CPI}_t &= \alpha + \sum_{i=1}^{p} \gamma_i \Delta \ln \text{CPI}_{t-i}
+  + \sum_{j=0}^{3} \pi^+_j \Delta \ln \text{Brent}^+_{t-j}
+  + \sum_{j=0}^{3} \pi^-_j \Delta \ln \text{Brent}^-_{t-j} \notag \\
+  &\quad + \theta_0 \Delta \ln \text{EXR}_t + \theta_1 \Delta \ln \text{EXR}_{t-1}
+  + \delta \Delta \ln \text{IIP}_t + \mathbf{D}'\boldsymbol{\phi} + u_t
 \label{eq:brentexr}
-\end{equation}
+\end{align}
 
 This allows independent estimation of the oil price pass-through (via the $\pi$ coefficients) and the exchange rate pass-through (via the $\theta$ coefficients).

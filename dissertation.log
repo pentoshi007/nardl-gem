@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.1)  10 MAR 2026 18:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.1)  11 MAR 2026 19:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -34,42 +34,6 @@ Package: inputenc 2024/02/08 v1.3d Input encoding file
 )
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/times.sty
 Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
-)
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/mathptmx.sty
-Package: mathptmx 2020/03/25 PSNFSS-v9.3 Times w/ Math, improved (SPQR, WaS) 
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/ztmcm/m/n on input line 28.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/ztmcm/m/n on input line 28.
-LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
-(Font)                  OML/cmm/m/it --> OML/ztmcm/m/it on input line 29.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
-(Font)                  OML/cmm/b/it --> OML/ztmcm/m/it on input line 29.
-LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
-(Font)                  OMS/cmsy/m/n --> OMS/ztmcm/m/n on input line 30.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
-(Font)                  OMS/cmsy/b/n --> OMS/ztmcm/m/n on input line 30.
-LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
-(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
-(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
-\symbold=\mathgroup4
-\symitalic=\mathgroup5
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
-LaTeX Info: Redefining \hbar on input line 50.
 )
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
@@ -286,8 +250,9 @@ Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\symAMSa=\mathgroup6
-\symAMSb=\mathgroup7
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
@@ -393,6 +358,7 @@ File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
+Package hyperref Info: Option `hypertexnames' set `false' on input line 4072.
 Package hyperref Info: Hyper figures OFF on input line 4201.
 Package hyperref Info: Link nesting OFF on input line 4206.
 Package hyperref Info: Hyper index ON on input line 4209.
@@ -448,17 +414,26 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 84.
 )
 \Hy@SectionHShift=\skip78
-) (/Users/aniketpandey/Library/texmf/tex/latex/enumitem/enumitem.sty
+)
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/bookmark/bookmark.sty
+Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
+
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO
+)
+\BKM@id=\count325
+))
+(/Users/aniketpandey/Library/texmf/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \labelindent=\skip79
 \enit@outerparindent=\dimen263
 \enit@toks=\toks33
 \enit@inbox=\box65
-\enit@count@id=\count325
-\enitdp@description=\count326
+\enit@count@id=\count326
+\enitdp@description=\count327
 )
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 59
-.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 11
+1.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
@@ -466,29 +441,29 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/l3backend/l3backend-pdftex.d
 ef
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count327
-)
-No file dissertation.aux.
+\l__color_backend_stack_int=\count328
+) (./dissertation.aux)
 \openout1 = `dissertation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 59.
-LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 111.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -505,8 +480,8 @@ LaTeX Font Info:    ... okay on input line 59.
 * \textheight=700.50687pt
 * \oddsidemargin=18.0675pt
 * \evensidemargin=18.0675pt
-* \topmargin=-39.5pt
-* \headheight=14.5pt
+* \topmargin=-37.0pt
+* \headheight=15.0pt
 * \headsep=25.0pt
 * \topskip=12.0pt
 * \footskip=30.0pt
@@ -525,16 +500,16 @@ LaTeX Font Info:    ... okay on input line 59.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count328
+\scratchcounter=\count329
 \scratchdimen=\dimen264
 \scratchbox=\box66
-\nofMPsegments=\count329
-\nofMParguments=\count330
+\nofMPsegments=\count330
+\nofMParguments=\count331
 \everyMPshowfont=\toks34
-\MPscratchCnt=\count331
+\MPscratchCnt=\count332
 \MPscratchDim=\dimen265
-\MPnumerator=\count332
-\makeMPintoPDFobject=\count333
+\MPnumerator=\count333
+\makeMPintoPDFobject=\count334
 \everyMPtoPDFconversion=\toks35
 )
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.s
@@ -554,15 +529,12 @@ Package caption Info: longtable package is loaded.
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 59.
-\@outlinefile=\write3
-\openout3 = `dissertation.out'.
-
+Package hyperref Info: Link coloring OFF on input line 111.
 <dissertation-report-helpers/jnu-logo.png, id=4, 1592.95125pt x 2253.41875pt>
 File: dissertation-report-helpers/jnu-logo.png Graphic file (type png)
 <use dissertation-report-helpers/jnu-logo.png>
 Package pdftex.def Info: dissertation-report-helpers/jnu-logo.png  used on inpu
-t line 88.
+t line 140.
 (pdftex.def)             Requested size: 99.58464pt x 140.87271pt.
  [1
 
@@ -572,95 +544,46 @@ on-report-helpers/jnu-logo.png>]
 File: dissertation-report-helpers/jnu-logo.png Graphic file (type png)
 <use dissertation-report-helpers/jnu-logo.png>
 Package pdftex.def Info: dissertation-report-helpers/jnu-logo.png  used on inpu
-t line 110.
-(pdftex.def)             Requested size: 71.13188pt x 100.60863pt.
+t line 165.
+(pdftex.def)             Requested size: 56.9055pt x 80.49377pt.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 166
+.
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.149 \newpage
-               [1] [2]
-LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 187.
-
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
-File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 187.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 166
+.
 
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/omlztmcm.fd
-File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
-)
-LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 187.
-
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/omsztmcm.fd
-File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
-)
-LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 187.
-
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/omxztmcm.fd
-File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
-)
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 1
-87.
-
-(/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/ot1ptm.fd
-File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-)
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 187.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 187.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 187.
- [3]
-No file dissertation.toc.
-\tf@toc=\write4
-\openout4 = `dissertation.toc'.
-
-[1
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [0
 
 ]
-No file dissertation.lot.
-\tf@lot=\write5
-\openout5 = `dissertation.lot'.
+[1] [2] (./dissertation.toc [1
 
-[2
+])
+\tf@toc=\write3
+\openout3 = `dissertation.toc'.
+
+ [2] [3] (./dissertation.lot)
+\tf@lot=\write4
+\openout4 = `dissertation.lot'.
+
+ [4
 
 ]
-No file dissertation.lof.
-\tf@lof=\write6
-\openout6 = `dissertation.lof'.
+(./dissertation.lof)
+\tf@lof=\write5
+\openout5 = `dissertation.lof'.
 
-[3
+ [5
 
 ] (./chapters/ch1_introduction.tex
 Chapter 1.
+[1
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.24 
-      [1
-
-]) (./chapters/ch2_literature.tex
-pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1 \chapter
-            {Literature Review} [2]
-pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1 \chapter
-            {Literature Review} [3]
+]) (./chapters/ch2_literature.tex [2] [3]
 Chapter 2.
 [4
 
@@ -671,11 +594,7 @@ Overfull \hbox (30.9359pt too wide) in paragraph at lines 12--22
  [][] 
  []
 
-
-LaTeX Warning: Reference `fig:raw_series' on page 8 undefined on input line 28.
-
-
-<outputs/figures/fig_1_raw_series.png, id=84, 722.7pt x 433.62pt>
+<outputs/figures/fig_1_raw_series.png, id=235, 722.7pt x 433.62pt>
 File: outputs/figures/fig_1_raw_series.png Graphic file (type png)
 <use outputs/figures/fig_1_raw_series.png>
 Package pdftex.def Info: outputs/figures/fig_1_raw_series.png  used on input li
@@ -683,212 +602,104 @@ ne 32.
 (pdftex.def)             Requested size: 413.15404pt x 247.89378pt.
 [8
 
-]
-Overfull \hbox (1.4475pt too wide) in paragraph at lines 51--52
-[]\T1/ptm/m/n/12 where $\OML/ztmcm/m/it/12 X$ \T1/ptm/m/n/12 is CPI, Oil_INR, E
-XR, IIP, or Brent. The re-sult-ing vari-ables, $\OT1/ztmcm/m/n/12 ^^A [] [][]$\
-T1/ptm/m/n/12 , $\OT1/ztmcm/m/n/12 ^^A [] [][]$\T1/ptm/m/n/12 ,
- []
-
-[9
-! Font \csname\endcsname=rsfs10 at 12.0pt not loadable: Metric (TFM) file not f
-ound.
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.61 F
-      igure~\ref{fig:logdiff} shows the log-differenced series, and Figure~\...
-I wasn't able to read the size data for this font,
-so I will ignore the font specification.
-[Wizards can fix TFM files using TFtoPL/PLtoTF.]
-You might try inserting a different font spec;
-e.g., type `I\font<same font id>=<substitute font name>'.
-
-! Font \csname\endcsname=rsfs10 at 9.0pt not loadable: Metric (TFM) file not fo
-und.
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.61 F
-      igure~\ref{fig:logdiff} shows the log-differenced series, and Figure~\...
-I wasn't able to read the size data for this font,
-so I will ignore the font specification.
-[Wizards can fix TFM files using TFtoPL/PLtoTF.]
-You might try inserting a different font spec;
-e.g., type `I\font<same font id>=<substitute font name>'.
-
- <./outputs/figures/fig_1_raw_series.png>]
-
-LaTeX Warning: Reference `fig:logdiff' on page 10 undefined on input line 61.
-
-
-LaTeX Warning: Reference `fig:oil_decomp' on page 10 undefined on input line 61
-.
-
-<outputs/figures/fig_2_log_diff_series.png, id=104, 722.7pt x 469.755pt>
+] [9 <./outputs/figures/fig_1_raw_series.png>]
+<outputs/figures/fig_2_log_diff_series.png, id=251, 722.7pt x 469.755pt>
 File: outputs/figures/fig_2_log_diff_series.png Graphic file (type png)
 <use outputs/figures/fig_2_log_diff_series.png>
 Package pdftex.def Info: outputs/figures/fig_2_log_diff_series.png  used on inp
 ut line 65.
 (pdftex.def)             Requested size: 413.15404pt x 268.5516pt.
-<outputs/figures/fig_3_oil_decomposition.png, id=105, 578.16pt x 361.35pt>
+<outputs/figures/fig_3_oil_decomposition.png, id=252, 578.16pt x 361.35pt>
 File: outputs/figures/fig_3_oil_decomposition.png Graphic file (type png)
 <use outputs/figures/fig_3_oil_decomposition.png>
 Package pdftex.def Info: outputs/figures/fig_3_oil_decomposition.png  used on i
 nput line 72.
 (pdftex.def)             Requested size: 369.66798pt x 231.04266pt.
-
-LaTeX Warning: Reference `tab:desc_stats' on page 10 undefined on input line 77
-.
-
-[10 <./outputs/figures/fig_2_log_diff_series.png> <./outputs/figures/fig_3_oil_
-decomposition.png>]
+ [10 <./outputs/figures/fig_2_log_diff_series.png> <./outputs/figures/fig_3_oil
+_decomposition.png>]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
 07.
 
 (/usr/local/texlive/2026basic/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [11]
-Overfull \hbox (6.12569pt too wide) detected at line 132
-[][][]\OT1/ztmcm/m/n/12 ^^A [] [][] = \OML/ztmcm/m/it/12  \OT1/ztmcm/m/n/12 + 
-[] \OML/ztmcm/m/it/12 ^^M[]\OT1/ztmcm/m/n/12 ^^A [] [][] + [] \OML/ztmcm/m/it/1
-2 ^^Y[]\OT1/ztmcm/m/n/12 ^^A [] [][] + [] \OML/ztmcm/m/it/12 ^^Y[]\OT1/ztmcm/m/
-n/12 ^^A [] [][] + \OML/ztmcm/m/it/12 ^^N\OT1/ztmcm/m/n/12 ^^A [] [][] + \OT1/p
-tm/b/n/12 D[][] \OT1/ztmcm/m/n/12 + \OML/ztmcm/m/it/12 u[]
- []
-
-
-LaTeX Warning: Citation `newey1987' on page 12 undefined on input line 146.
-
-
-Overfull \hbox (178.89645pt too wide) detected at line 154
-[][][]\OT1/ztmcm/m/n/12 ^^A [] [][] = \OML/ztmcm/m/it/12  \OT1/ztmcm/m/n/12 + 
-[] \OML/ztmcm/m/it/12 ^^M[]\OT1/ztmcm/m/n/12 ^^A [] [][] + [] \OML/ztmcm/m/it/1
-2 ^^Y[]\OT1/ztmcm/m/n/12 ^^A [] [][] + [] \OML/ztmcm/m/it/12 ^^Y[]\OT1/ztmcm/m/
-n/12 ^^A [] [][] + \OML/ztmcm/m/it/12 ^^R[]\OT1/ztmcm/m/n/12 ^^A [] [][] + \OML
-/ztmcm/m/it/12 ^^R[]\OT1/ztmcm/m/n/12 ^^A [] [][] + \OML/ztmcm/m/it/12 ^^N\OT1/
-ztmcm/m/n/12 ^^A [] [][] + \OT1/ptm/b/n/12 D[][] \OT1/ztmcm/m/n/12 + \OML/ztmcm
-/m/it/12 u[]
- []
-
-) (./chapters/ch4_results.tex [12] [13]
+[12]) (./chapters/ch4_results.tex [13]
 Chapter 4.
-
-LaTeX Warning: Reference `tab:adf' on page 14 undefined on input line 6.
-
-
-LaTeX Warning: Reference `tab:symmetric' on page 14 undefined on input line 33.
-
-
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
 [14
 
-]
-
-LaTeX Warning: Reference `tab:asymmetric' on page 15 undefined on input line 71
-.
-
-[15]
-
-LaTeX Warning: Reference `fig:cumulative' on page 16 undefined on input line 11
-5.
-
-<outputs/figures/fig_4_cumulative_passthrough.png, id=155, 578.16pt x 361.35pt>
+] [15]
+<outputs/figures/fig_4_cumulative_passthrough.png, id=297, 578.16pt x 361.35pt>
 
 File: outputs/figures/fig_4_cumulative_passthrough.png Graphic file (type png)
 <use outputs/figures/fig_4_cumulative_passthrough.png>
 Package pdftex.def Info: outputs/figures/fig_4_cumulative_passthrough.png  used
  on input line 119.
 (pdftex.def)             Requested size: 369.66798pt x 231.04266pt.
-[16]
-
-LaTeX Warning: Reference `tab:subsample' on page 17 undefined on input line 132
-.
-
-[17 <./outputs/figures/fig_4_cumulative_passthrough.png>]
-<outputs/figures/fig_5_subsample_comparison.png, id=169, 578.16pt x 361.35pt>
+ [16] [17 <./outputs/figures/fig_4_cumulative_passthrough.png>]
+<outputs/figures/fig_5_subsample_comparison.png, id=308, 578.16pt x 361.35pt>
 File: outputs/figures/fig_5_subsample_comparison.png Graphic file (type png)
 <use outputs/figures/fig_5_subsample_comparison.png>
 Package pdftex.def Info: outputs/figures/fig_5_subsample_comparison.png  used o
 n input line 152.
 (pdftex.def)             Requested size: 326.1753pt x 203.85988pt.
 
-
-LaTeX Warning: Reference `tab:diagnostics' on page 18 undefined on input line 1
-61.
-
 [18 <./outputs/figures/fig_5_subsample_comparison.png>]
-<outputs/figures/fig_6_cusum_stability.png, id=178, 2409.0pt x 1505.625pt>
+<outputs/figures/fig_6_cusum_stability.png, id=314, 2409.0pt x 1505.625pt>
 File: outputs/figures/fig_6_cusum_stability.png Graphic file (type png)
 <use outputs/figures/fig_6_cusum_stability.png>
 Package pdftex.def Info: outputs/figures/fig_6_cusum_stability.png  used on inp
 ut line 187.
 (pdftex.def)             Requested size: 369.66798pt x 231.02612pt.
-
-
-LaTeX Warning: Reference `fig:cusum' on page 19 undefined on input line 192.
-
-) (./chapters/ch5_robustness.tex [19 <./outputs/figures/fig_6_cusum_stability.p
-ng>]
+)
+(./chapters/ch5_robustness.tex [19 <./outputs/figures/fig_6_cusum_stability.png
+>]
 Chapter 5.
-
-LaTeX Warning: Reference `tab:brentexr' on page 20 undefined on input line 14.
-
 [20
 
-] [21]
-<outputs/figures/fig_7_rolling_window.png, id=199, 578.16pt x 361.35pt>
+]
+Overfull \hbox (8.00198pt too wide) in paragraph at lines 41--42
+[]\T1/ptm/m/n/12 The Brent-plus-EXR spec-i-fi-ca-tion pro-duces a higher pos-i-
+tive pass-through es-ti-mate (CPT$[] \OT1/cmr/m/n/12 =
+ []
+
+[21]
+<outputs/figures/fig_7_rolling_window.png, id=330, 578.16pt x 361.35pt>
 File: outputs/figures/fig_7_rolling_window.png Graphic file (type png)
 <use outputs/figures/fig_7_rolling_window.png>
 Package pdftex.def Info: outputs/figures/fig_7_rolling_window.png  used on inpu
 t line 91.
 (pdftex.def)             Requested size: 391.40768pt x 244.62854pt.
  [22]
-
-LaTeX Warning: Reference `fig:rolling' on page 23 undefined on input line 96.
-
-
-LaTeX Warning: Reference `fig:residuals' on page 23 undefined on input line 100
-.
-
-<outputs/figures/fig_8_residual_diagnostics.png, id=207, 722.7pt x 505.89pt>
+<outputs/figures/fig_8_residual_diagnostics.png, id=338, 722.7pt x 505.89pt>
 File: outputs/figures/fig_8_residual_diagnostics.png Graphic file (type png)
 <use outputs/figures/fig_8_residual_diagnostics.png>
 Package pdftex.def Info: outputs/figures/fig_8_residual_diagnostics.png  used o
 n input line 104.
 (pdftex.def)             Requested size: 413.15404pt x 289.2094pt.
-[23 <./outputs/figures/fig_7_rolling_window.png>]
-
-LaTeX Warning: Reference `fig:regimes' on page 24 undefined on input line 111.
-
-<outputs/figures/fig_9_oil_price_regimes.png, id=214, 722.7pt x 361.35pt>
+ [23 <./outputs/figures/fig_7_rolling_window.png>]
+<outputs/figures/fig_9_oil_price_regimes.png, id=344, 722.7pt x 361.35pt>
 File: outputs/figures/fig_9_oil_price_regimes.png Graphic file (type png)
 <use outputs/figures/fig_9_oil_price_regimes.png>
 Package pdftex.def Info: outputs/figures/fig_9_oil_price_regimes.png  used on i
 nput line 115.
 (pdftex.def)             Requested size: 391.40768pt x 195.70503pt.
-<outputs/figures/fig_10_asymmetry_gap.png, id=215, 578.16pt x 361.35pt>
+<outputs/figures/fig_10_asymmetry_gap.png, id=345, 578.16pt x 361.35pt>
 File: outputs/figures/fig_10_asymmetry_gap.png Graphic file (type png)
 <use outputs/figures/fig_10_asymmetry_gap.png>
 Package pdftex.def Info: outputs/figures/fig_10_asymmetry_gap.png  used on inpu
 t line 122.
 (pdftex.def)             Requested size: 347.92163pt x 217.45126pt.
-[24 <./outputs/figures/fig_8_residual_diagnostics.png> <./outputs/figures/fig_9
-_oil_price_regimes.png>]
-
-LaTeX Warning: Reference `fig:asymgap' on page 25 undefined on input line 127.
-
-) (./chapters/ch6_discussion.tex [25 <./outputs/figures/fig_10_asymmetry_gap.pn
-g>]
+ [24 <./outputs/figures/fig_8_residual_diagnostics.png> <./outputs/figures/fig_
+9_oil_price_regimes.png>]) (./chapters/ch6_discussion.tex [25 <./outputs/figure
+s/fig_10_asymmetry_gap.png>]
 Chapter 6.
+[26
 
-Overfull \hbox (5.4599pt too wide) in paragraph at lines 20--21
+]
+Overfull \hbox (4.90913pt too wide) in paragraph at lines 20--21
 \T1/ptm/m/n/12 The diesel dereg-u-la-tion dummy in the main model is neg-a-tive
- and highly sig-nif-i-cant ($\OMS/ztmcm/m/n/12 ^^@\OT1/ztmcm/m/n/12 0\OML/ztmcm
-/m/it/12 :\OT1/ztmcm/m/n/12 339$\T1/ptm/m/n/12 ,
+ and highly sig-nif-i-cant ($\OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 0\OML/cmm/m/it
+/12 :\OT1/cmr/m/n/12 339$\T1/ptm/m/n/12 ,
  []
 
 
@@ -897,20 +708,14 @@ Overfull \hbox (17.6756pt too wide) in paragraph at lines 20--21
 f (which ended the pe-riod of government-
  []
 
-[26
-
-] [27]) (./chapters/ch7_conclusion.tex [28]
+[27]) (./chapters/ch7_conclusion.tex [28]
 Chapter 7.
-) [29
+[29
 
-] [30] [31
+]) [30] [31
 
 ] (./chapters/appendix_a.tex [32]
 Appendix A.
-
-LaTeX Warning: Reference `tab:fuel_light' on page 33 undefined on input line 12
-.
-
 [33
 
 ]) [34] (./dissertation.aux)
@@ -918,42 +723,35 @@ LaTeX Warning: Reference `tab:fuel_light' on page 33 undefined on input line 12
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `dissertation.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `dissertation.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  490265BDF64A0FB187F4E5E5830B9806;9035.
  ) 
 Here is how much of TeX's memory you used:
- 13782 strings out of 469006
- 219490 string characters out of 5454814
- 632694 words of memory out of 5000000
- 42107 multiletter control sequences out of 15000+600000
- 692686 words of font info for 136 fonts, out of 8000000 for 9000
+ 13994 strings out of 469006
+ 222228 string characters out of 5454814
+ 639277 words of memory out of 5000000
+ 42314 multiletter control sequences out of 15000+600000
+ 679216 words of font info for 105 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 75i,13n,79p,1002b,571s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
-0.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/urw/symbol/us
-yr.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/urw/symbol/usyr.pfb
-></usr/local/texlive/2026basic/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></us
-r/local/texlive/2026basic/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/loc
-al/texlive/2026basic/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on dissertation.pdf (41 pages, 2544694 bytes).
+ 75i,13n,79p,1002b,569s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx1
+2.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mex10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi8.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2026basic/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026basic/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2026basic/texmf-di
+st/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026basic/texmf-dist/fo
+nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1
+/urw/times/utmri8a.pfb>
+Output written on dissertation.pdf (43 pages, 2637184 bytes).
 PDF statistics:
- 369 PDF objects out of 1000 (max. 8388607)
- 294 compressed objects within 3 object streams
- 144 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 670 PDF objects out of 1000 (max. 8388607)
+ 576 compressed objects within 6 object streams
+ 150 named destinations out of 1000 (max. 500000)
+ 472 words of extra memory for PDF output out of 10000 (max. 10000000)
 
