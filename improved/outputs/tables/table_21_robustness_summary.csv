@@ -1,5 +1,6 @@
 "Check","CPT_pos","CPT_neg","Asym_p","Note"
-"M2 Primary (Brent+EXR, q=3 theory)",0.027458,-0.002116,0.1443,"Primary model; q=3 theory-driven"
+"M1 headline (INR oil, q=3 theory)",0.021296,0.000598,0.2408,"Recommended headline model; passes HAC-RESET and CUSUM but asymmetry is not significant at 5%"
+"M2 decomposition (Brent+EXR, q=3 theory)",0.027458,-0.002116,0.1443,"Robustness/decomposition only; HAC-RESET and Rec-CUSUM fail"
 "M2-AIC0 (Brent+EXR, q=0 AIC-optimal)",-0.002481,0.006147,0.3731,"AIC-optimal; contemporaneous only; reported for transparency"
 "NOPI (Hamilton 2003)",-0.000441,0.015978,0.4824,"Sensitivity only; Kilian & Vigfusson (2011) caution applies"
 "Fuel & Light CPI",0.060848,0.010808,0.2647,"Mechanism: oil->fuel sub-index; stronger signal than headline"

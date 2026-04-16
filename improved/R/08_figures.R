@@ -3,7 +3,7 @@
 # ══════════════════════════════════════════════════════════════════════════════
 banner("8", "REMAINING FIGURES")
 
-# ── Figure 4: Cumulative pass-through by horizon (M2 primary) ────────────────
+# ── Figure 4: Cumulative pass-through by horizon (M2 decomposition) ──────────
 cat("  Fig 4: Cumulative pass-through by horizon (M2)...\n")
 horizons <- 0:3
 cpt_pos_cum <- cumsum(coef(m2)[paste0("dlnBrent_pos_L", horizons)])
@@ -21,7 +21,7 @@ fig4 <- ggplot(cpt_horizon, aes(x = Horizon, y = CPT, color = Type)) +
                                 "CPT- (Negative shocks)" = "#2980B9")) +
   scale_x_continuous(breaks = 0:3) +
   labs(title = sprintf("Figure 4: Cumulative Pass-Through by Horizon (M2, ADL(%d,3))", best_p),
-       subtitle = "Primary Brent+EXR specification",
+       subtitle = "Brent+EXR decomposition robustness specification",
        x = "Lag Horizon (months)", y = "Cumulative coefficient", color = NULL) +
   theme_minimal(base_size = 10) + theme(legend.position = "bottom")
 ggsave(save_figure("fig_04_cumulative_passthrough.png"), fig4, width = 8, height = 5, dpi = 300)
@@ -47,10 +47,10 @@ ggsave(save_figure("fig_05_subsample_comparison.png"), fig5, width = 8, height =
 cat("  Fig 6: CUSUM stability...\n")
 png(save_figure("fig_06_cusum_stability.png"), width = 10, height = 5, units = "in", res = 300)
 par(mfrow = c(1, 2))
-plot(cusum_m2, main = "Rec-CUSUM (M2 Primary)",
+plot(cusum_m2, main = "Rec-CUSUM (M2 Decomposition)",
      xlab = "Observation", ylab = "CUSUM statistic")
 cusum_ols_m2_fig <- efp(f_m2, data = df_m2, type = "OLS-CUSUM")
-plot(cusum_ols_m2_fig, main = "OLS-CUSUM (M2 Primary)",
+plot(cusum_ols_m2_fig, main = "OLS-CUSUM (M2 Decomposition)",
      xlab = "Observation", ylab = "CUSUM statistic")
 par(mfrow = c(1, 1))
 dev.off()
@@ -107,7 +107,7 @@ p8d <- ggplot(resid_df, aes(Fitted, Actual)) +
   labs(title = "Actual vs Fitted", x = "Fitted", y = "Actual") + theme_minimal(base_size = 9)
 
 fig8 <- (p8a | p8b) / (p8c | p8d) +
-  plot_annotation(title = "Figure 8: Residual Diagnostics (M2 Primary)",
+  plot_annotation(title = "Figure 8: Residual Diagnostics (M2 Decomposition)",
                   theme = theme(plot.title = element_text(face = "bold", size = 11)))
 ggsave(save_figure("fig_08_residual_diagnostics.png"), fig8, width = 10, height = 7, dpi = 300)
 

@@ -309,6 +309,7 @@ if (length(nardl_sr_list) > 0) {
 
 # ── Dynamic multiplier plot — ONLY if ECT is valid (negative) ─────────────
 cat("\n  Dynamic multiplier generation: checking ECT validity...\n")
+multiplier_file <- save_figure("fig_nardl_dynamic_multiplier.png")
 
 if (!is.null(nardl_a) && nardl_a_valid) {
   cat("  NARDL-A: ECT valid — generating dynamic multipliers.\n")
@@ -355,14 +356,17 @@ if (!is.null(nardl_a) && nardl_a_valid) {
                               ect_coef_a, nardl_a$fstat, format_p(nardl_a$wldq[1, 2])),
            x = "Horizon (months)", y = "Multiplier", color = NULL, linetype = NULL) +
       theme_minimal(base_size = 10) + theme(legend.position = "bottom")
-    ggsave(save_figure("fig_nardl_dynamic_multiplier.png"), fig_nardl,
-           width = 9, height = 5.5, dpi = 300)
+    ggsave(multiplier_file, fig_nardl, width = 9, height = 5.5, dpi = 300)
     cat("  Dynamic multiplier plot saved.\n")
   }, error = function(e) cat(sprintf("  Multiplier plot failed: %s\n", e$message)))
 
 } else if (!is.null(nardl_a) && !nardl_a_valid) {
-  cat("  NARDL-A: ECT = +%.6f (positive) — dynamic multipliers SUPPRESSED.\n",
-      extract_ect_coef(nardl_a))
+  if (file.exists(multiplier_file)) {
+    unlink(multiplier_file)
+    cat("  Removed stale NARDL multiplier figure from earlier valid/unsafe runs.\n")
+  }
+  cat(sprintf("  NARDL-A: ECT = +%.6f (positive) — dynamic multipliers SUPPRESSED.\n",
+      extract_ect_coef(nardl_a)))
   cat("  Reason: convergent multipliers require ECT < 0 (Pesaran et al. 2001).\n")
   cat("  Including multiplier figures from an invalid ECM would be scientifically misleading.\n")
 }
@@ -380,7 +384,7 @@ cat(sprintf("  NARDL-B: ECT = %.6f  [%s]\n",
     if (!is.null(nardl_b)) extract_ect_coef(nardl_b) else NA,
     if (nardl_b_valid) "VALID ECM" else "INVALID — positive ECT"))
 cat("  Recommendation: report NARDL as appendix exploratory only.\n")
-cat("  Primary inference relies on short-run asymmetric ADL (04_models.R).\n")
+cat("  Main inference relies on the short-run asymmetric ADL hierarchy in 04_models.R.\n")
 
 # Store for later use
 assign("nardl_a",       nardl_a,       envir = .GlobalEnv)

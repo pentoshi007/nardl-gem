@@ -182,10 +182,11 @@ tryCatch({
 }, error = function(e) cat(sprintf("  Stage 2 error: %s\n", e$message)))
 
 # ══════════════════════════════════════════════════════════════════════════════
-# STAGE 3: Brent → Headline CPI (direct, main M2 model)
-# This is already estimated. We pull it directly from M2.
+# STAGE 3: Brent → Headline CPI (direct Brent+EXR decomposition)
+# This is already estimated in M2. It is retained as decomposition evidence,
+# not as the sole headline specification, because M2 fails HAC-RESET/CUSUM.
 # ══════════════════════════════════════════════════════════════════════════════
-cat("\n  --- Stage 3: Brent => Headline CPI (from M2) ---\n")
+cat("\n  --- Stage 3: Brent => Headline CPI (M2 decomposition) ---\n")
 cat(sprintf("  CPT+ = %.4f (p=%s) | CPT- = %.4f (p=%s) | Asym p = %s\n",
     cpt_m2$cpt_pos, format_p(cpt_m2$pos_test$p_value),
     cpt_m2$cpt_neg, format_p(cpt_m2$neg_test$p_value),
@@ -193,7 +194,7 @@ cat(sprintf("  CPT+ = %.4f (p=%s) | CPT- = %.4f (p=%s) | Asym p = %s\n",
 cat("  Headline CPI dilutes fuel shocks: food + services weight ~70%.\n")
 
 dilution_results[["S3"]] <- dilution_row(
-  stage    = "Stage 3: Brent → Headline CPI (M2 primary)",
+  stage    = "Stage 3: Brent → Headline CPI (M2 decomposition)",
   dv_label = "dlnCPI (Headline, All India)",
   iv_label = "dlnBrent ± (Brent USD + EXR, q=3)",
   cpt_pos  = cpt_m2$cpt_pos, cpt_neg = cpt_m2$cpt_neg,
@@ -202,7 +203,7 @@ dilution_results[["S3"]] <- dilution_row(
   asym_p   = cpt_m2$asym_test$p_value,
   n_obs    = nrow(df_m2),
   adj_r2   = summary(m2)$adj.r.squared,
-  note     = "Attenuation from food/services weight (~70% of CPI basket)"
+  note     = "Attenuation from food/services weight; retain as decomposition evidence, not sole primary"
 )
 
 # ══════════════════════════════════════════════════════════════════════════════

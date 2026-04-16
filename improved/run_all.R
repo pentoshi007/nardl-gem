@@ -34,7 +34,8 @@ modules <- c(
   "improved/R/06_bootstrap.R",
   "improved/R/07_robustness.R",
   "improved/R/08_figures.R",
-  "improved/R/09_dilution.R"
+  "improved/R/09_dilution.R",
+  "improved/R/10_publication_decision.R"
 )
 
 for (mod in modules) {
@@ -70,8 +71,14 @@ cat(sprintf("\n  Figures (%d files):\n", length(figures_list)))
 for (f in figures_list) cat(sprintf("    %s\n", f))
 
 cat("\n  === KEY RESULTS SUMMARY ===\n")
+if (exists("cpt_m1")) {
+  cat(sprintf("  M1 (recommended headline): CPT+ = %.6f (p=%s), CPT- = %.6f (p=%s)\n",
+      cpt_m1$cpt_pos, format_p(cpt_m1$pos_test$p_value),
+      cpt_m1$cpt_neg, format_p(cpt_m1$neg_test$p_value)))
+  cat(sprintf("  M1 Asymmetry Wald: p = %s\n", format_p(cpt_m1$asym_test$p_value)))
+}
 if (exists("cpt_m2")) {
-  cat(sprintf("  M2 (Primary, q=3 theory): CPT+ = %.6f (p=%s), CPT- = %.6f (p=%s)\n",
+  cat(sprintf("  M2 (Brent+EXR decomposition robustness): CPT+ = %.6f (p=%s), CPT- = %.6f (p=%s)\n",
       cpt_m2$cpt_pos, format_p(cpt_m2$pos_test$p_value),
       cpt_m2$cpt_neg, format_p(cpt_m2$neg_test$p_value)))
   cat(sprintf("  M2 Asymmetry Wald: p = %s\n", format_p(cpt_m2$asym_test$p_value)))
@@ -112,4 +119,3 @@ if (file.exists(dil_file)) {
   }
 }
 cat("================================================================\n")
-

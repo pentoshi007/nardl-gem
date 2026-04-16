@@ -108,9 +108,12 @@ m0_out <- data.frame(
 save_table(m0_out, "table_05_M0_symmetric_adl.csv")
 
 # ══════════════════════════════════════════════════════════════════════════════
-# M1: Asymmetric ADL(p,3) — INR oil (old main model, now benchmark)
+# M1: Asymmetric ADL(p,3) — INR oil
+# Publication role: recommended headline model. It is less decomposed than M2,
+# but the domestic-currency oil shock is the reduced-form exposure faced by
+# India's CPI and passes the key HAC-RESET and CUSUM diagnostics.
 # ══════════════════════════════════════════════════════════════════════════════
-cat("\n  --- M1: Asymmetric ADL — INR Oil (Benchmark) ---\n")
+cat("\n  --- M1: Asymmetric ADL — INR Oil (Recommended headline model) ---\n")
 f_m1 <- as.formula(paste0(
   "dlnCPI ~ ", ar_terms,
   " + dlnOil_pos_L0 + dlnOil_pos_L1 + dlnOil_pos_L2 + dlnOil_pos_L3",
@@ -144,9 +147,12 @@ m1_out <- data.frame(
 save_table(m1_out, "table_06_M1_asym_inr.csv")
 
 # ══════════════════════════════════════════════════════════════════════════════
-# M2: Asymmetric ADL(p,3) — Brent+EXR (PRIMARY short-run model)
+# M2: Asymmetric ADL(p,3) — Brent+EXR decomposition
+# Publication role: robustness/decomposition. It is economically informative,
+# but not recommended as the sole headline specification because HAC-RESET and
+# recursive CUSUM fail in the current sample.
 # ══════════════════════════════════════════════════════════════════════════════
-cat("\n  --- M2: Asymmetric ADL — Brent+EXR (PRIMARY) ---\n")
+cat("\n  --- M2: Asymmetric ADL — Brent+EXR (Decomposition robustness) ---\n")
 f_m2 <- as.formula(paste0(
   "dlnCPI ~ ", ar_terms,
   " + dlnBrent_pos_L0 + dlnBrent_pos_L1 + dlnBrent_pos_L2 + dlnBrent_pos_L3",
@@ -327,7 +333,7 @@ for (i in 1:nrow(diag_all)) {
       r$OLS_CUSUM_p, ifelse(r$OLS_CUSUM_p > 0.05, "PASS", "FAIL")))
 }
 
-# Legacy single-model diagnostics table (M2 primary) for backward compatibility
+# Legacy single-model diagnostics table (M2 decomposition) for backward compatibility
 bg_m2    <- bgtest(m2, order = 12)
 bp_m2    <- bptest(m2)
 reset_m2_q <- resettest(m2, power = 2, type = "fitted")
@@ -387,8 +393,8 @@ cat(sprintf("  M2-AIC0 (q=0): AIC=%.2f | CPT+=%.6f (p=%s) | Asym p=%s\n",
 
 comparison <- data.frame(
   Model = c("M0: Symmetric ADL",
-            "M1: Asym INR (benchmark)",
-            "M2: Brent+EXR (primary, q=3 theory)",
+            "M1: Asym INR (recommended headline)",
+            "M2: Brent+EXR (decomposition, q=3 theory)",
             "M2-AIC0: Brent+EXR (q=0 AIC-optimal)",
             "M3: Interaction (post-dereg)"),
   Lag_q = c(1, 3, 3, 0, 2),

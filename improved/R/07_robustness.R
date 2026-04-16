@@ -50,23 +50,47 @@ save_table(nopi_out, "table_15_nopi_robustness.csv")
 cat("\n  --- R2: CPI Fuel & Light (MoSPI API) ---\n")
 fuel_result <- NULL
 tryCatch({
-  fuel_back    <- fetch_mospi_cpi_group(2011:2012, series = "Back",    group_code = 5)
-  fuel_current <- fetch_mospi_cpi_group(2013:2024, series = "Current", group_code = 5)
+  fuel_cache <- file.path(PATHS$processed, "cpi_fuel_light.csv")
 
-  fuel_api <- bind_rows(fuel_back, fuel_current) %>%
-    mutate(
-      year      = as.integer(year),
-      month_num = match(month, month.name),
-      fuel_cpi  = as.numeric(index),
-      date      = as.Date(sprintf("%04d-%02d-01", year, month_num))
-    ) %>%
-    filter(!is.na(date), !is.na(fuel_cpi)) %>%
-    distinct(date, .keep_all = TRUE) %>%
-    arrange(date) %>%
-    select(date, fuel_cpi)
+  build_fuel_api <- function() {
+    fuel_back    <- fetch_mospi_cpi_group(2011:2012, series = "Back",    group_code = 5)
+    fuel_current <- fetch_mospi_cpi_group(2013:2024, series = "Current", group_code = 5)
+    fuel_raw     <- bind_rows(fuel_back, fuel_current)
+
+    if (nrow(fuel_raw) == 0 ||
+        !all(c("year", "month", "index") %in% names(fuel_raw))) {
+      return(data.frame())
+    }
+
+    fuel_raw %>%
+      mutate(
+        year      = as.integer(year),
+        month_num = match(month, month.name),
+        fuel_cpi  = as.numeric(index),
+        date      = as.Date(sprintf("%04d-%02d-01", year, month_num))
+      ) %>%
+      filter(!is.na(date), !is.na(fuel_cpi)) %>%
+      distinct(date, .keep_all = TRUE) %>%
+      arrange(date) %>%
+      select(date, fuel_cpi)
+  }
+
+  fuel_api <- build_fuel_api()
+  fuel_source <- "MoSPI API"
+
+  if (nrow(fuel_api) < 120 && file.exists(fuel_cache)) {
+    cat("  Fuel CPI: MoSPI API unavailable/incomplete; using cached processed file.\n")
+    fuel_api <- read.csv(fuel_cache, stringsAsFactors = FALSE) %>%
+      mutate(date = as.Date(date), fuel_cpi = as.numeric(fuel_cpi)) %>%
+      filter(!is.na(date), !is.na(fuel_cpi)) %>%
+      distinct(date, .keep_all = TRUE) %>%
+      arrange(date) %>%
+      select(date, fuel_cpi)
+    fuel_source <- "MoSPI API cached"
+  }
 
   if (nrow(fuel_api) >= 120) {
-    write.csv(fuel_api, file.path(PATHS$processed, "cpi_fuel_light.csv"), row.names = FALSE)
+    write.csv(fuel_api, fuel_cache, row.names = FALSE)
     cat(sprintf("  Fuel CPI: %s to %s (N=%d)\n", min(fuel_api$date), max(fuel_api$date), nrow(fuel_api)))
 
     df_fuel <- df %>% inner_join(fuel_api, by = "date") %>% arrange(date)
@@ -97,7 +121,7 @@ tryCatch({
         format_p(cpt_fuel$asym_test$p_value)))
 
     fuel_result <- data.frame(
-      DV = "CPI Fuel & Light", Source = "MoSPI API",
+      DV = "CPI Fuel & Light", Source = fuel_source,
       Sample = paste(min(df_fuel_est$date), "to", max(df_fuel_est$date)),
       N = nrow(df_fuel_est),
       CPT_pos = round(cpt_fuel$cpt_pos, 6), CPT_neg = round(cpt_fuel$cpt_neg, 6),
@@ -452,7 +476,7 @@ for (p_try in 1:4) {
       AIC = round(AIC(mod_g), 2), BIC = round(BIC(mod_g), 2),
       CPT_pos = round(cpt_g$cpt_pos, 6), CPT_neg = round(cpt_g$cpt_neg, 6),
       Asym_p = round(cpt_g$asym_test$p_value, 4),
-      Primary = ifelse(p_try == best_p && q_try == 3, "Yes", "No"),
+      Theory_q3 = ifelse(p_try == best_p && q_try == 3, "Yes", "No"),
       stringsAsFactors = FALSE)
     idx <- idx + 1
   }
@@ -460,7 +484,7 @@ for (p_try in 1:4) {
 lag_grid <- bind_rows(grid_results) %>% mutate(AIC_Rank = rank(AIC, ties.method = "first"))
 save_table(lag_grid, "table_20_lag_sensitivity.csv")
 best_g <- lag_grid %>% arrange(AIC) %>% slice(1)
-cat(sprintf("  Primary: ADL(%d,3) AIC=%.2f | Best grid: ADL(%d,%d) AIC=%.2f, Asym p=%s\n",
+cat(sprintf("  Theory q=3: ADL(%d,3) AIC=%.2f | Best grid: ADL(%d,%d) AIC=%.2f, Asym p=%s\n",
     best_p,
     lag_grid %>% filter(p == best_p, q == 3) %>% pull(AIC),
     best_g$p, best_g$q, best_g$AIC, format_p(best_g$Asym_p)))
@@ -471,11 +495,17 @@ cat(sprintf("  Primary: ADL(%d,3) AIC=%.2f | Best grid: ADL(%d,%d) AIC=%.2f, Asy
 cat("\n  --- Comprehensive Robustness Summary ---\n")
 
 robustness_summary <- bind_rows(
-  data.frame(Check = "M2 Primary (Brent+EXR, q=3 theory)",
+  data.frame(Check = "M1 headline (INR oil, q=3 theory)",
+             CPT_pos = round(cpt_m1$cpt_pos, 6),
+             CPT_neg = round(cpt_m1$cpt_neg, 6),
+             Asym_p  = round(cpt_m1$asym_test$p_value, 4),
+             Note    = "Recommended headline model; passes HAC-RESET and CUSUM but asymmetry is not significant at 5%",
+             stringsAsFactors = FALSE),
+  data.frame(Check = "M2 decomposition (Brent+EXR, q=3 theory)",
              CPT_pos = round(cpt_m2$cpt_pos, 6),
              CPT_neg = round(cpt_m2$cpt_neg, 6),
              Asym_p  = round(cpt_m2$asym_test$p_value, 4),
-             Note    = "Primary model; q=3 theory-driven",
+             Note    = "Robustness/decomposition only; HAC-RESET and Rec-CUSUM fail",
              stringsAsFactors = FALSE),
   if (exists("cpt_m2a")) data.frame(
              Check = "M2-AIC0 (Brent+EXR, q=0 AIC-optimal)",

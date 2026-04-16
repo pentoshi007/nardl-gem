@@ -1,4 +1,4 @@
 "Stage","DV","IV","N","CPT_pos","CPT_neg","CPTpos_p","CPTneg_p","Asym_p","Adj_R2","Asym_evidence","Note"
 "Stage 1: Brent → PPAC Petrol","dlnPetrol (Delhi RSP)","dlnBrent ± (Brent USD, q=3)",245,0.345911,0.191205,0,2e-04,0.0999,0.236,"Marginal (p<10%)","Market-linked pricing post-2010/2014; oil shock most direct here"
 "Stage 2: PPAC Petrol → Fuel & Light CPI","dlnFuel (CPI Fuel & Light)","dlnPetrol ± (PPAC Delhi, q=3)",164,0.17923,0.103184,0.002,0.1803,0.4267,0.189,"Weak/None","Retail-to-measured CPI; attenuation expected vs Stage 1"
-"Stage 3: Brent → Headline CPI (M2 primary)","dlnCPI (Headline, All India)","dlnBrent ± (Brent USD + EXR, q=3)",245,0.027458,-0.002116,0.0933,0.7792,0.1443,0.4575,"Suggestive (p<15%)","Attenuation from food/services weight (~70% of CPI basket)"
+"Stage 3: Brent → Headline CPI (M2 decomposition)","dlnCPI (Headline, All India)","dlnBrent ± (Brent USD + EXR, q=3)",245,0.027458,-0.002116,0.0933,0.7792,0.1443,0.4575,"Suggestive (p<15%)","Attenuation from food/services weight; retain as decomposition evidence, not sole primary"

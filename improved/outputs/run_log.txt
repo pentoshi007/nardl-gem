@@ -3,7 +3,7 @@
   IMPROVED DISSERTATION ANALYSIS — FULL PIPELINE
   Oil Price Pass-Through to India's CPI Inflation, 2004-2024
 ================================================================
-  Start time: 2026-04-16 14:50:26.135221
+  Start time: 2026-04-16 15:52:26.055978
   Working dir: /Users/aniketpandey/Documents/dissertationv2
 
 >> Sourcing improved/R/00_helpers.R ...
@@ -11,7 +11,7 @@ Registered S3 method overwritten by 'quantmod':
   method            from
   as.zoo.data.frame zoo 
   [00_helpers] Loaded. Packages:  15 
->> 00_helpers.R completed in 1.2 seconds.
+>> 00_helpers.R completed in 1.5 seconds.
 
 >> Sourcing improved/R/01_data.R ...
 
@@ -55,7 +55,7 @@ Registered S3 method overwritten by 'quantmod':
   Fig 2 saved.
   Fig 3 saved.
   [02_descriptives] Done.
->> 02_descriptives.R completed in 1.8 seconds.
+>> 02_descriptives.R completed in 2.5 seconds.
 
 >> Sourcing improved/R/03_unit_roots.R ...
 
@@ -84,7 +84,7 @@ Registered S3 method overwritten by 'quantmod':
     ln(EXR)       ZA=-4.1349 (cv5%=-5.0800)  break=2011-07-01  Fail to reject (unit root with break)
     ln(IIP)       ZA=-9.7135 (cv5%=-5.0800)  break=2007-11-01  Reject unit root (break-stationary)
   [03_unit_roots] Done.
->> 03_unit_roots.R completed in 1.1 seconds.
+>> 03_unit_roots.R completed in 1.4 seconds.
 
 >> Sourcing improved/R/04_models.R ...
 
@@ -106,12 +106,12 @@ Registered S3 method overwritten by 'quantmod':
   M0: CPT_sym = 0.002843, p = 0.5782, Adj.R2 = 0.4363, N = 247
     -> improved/outputs/tables/table_05_M0_symmetric_adl.csv
 
-  --- M1: Asymmetric ADL — INR Oil (Benchmark) ---
+  --- M1: Asymmetric ADL — INR Oil (Recommended headline model) ---
   M1: CPT+ = 0.021296 (p=0.1220), CPT- = 0.000598 (p=0.9375), Asym p = 0.2408
   M1: Adj.R2 = 0.4492, N = 245
     -> improved/outputs/tables/table_06_M1_asym_inr.csv
 
-  --- M2: Asymmetric ADL — Brent+EXR (PRIMARY) ---
+  --- M2: Asymmetric ADL — Brent+EXR (Decomposition robustness) ---
   M2: CPT+ = 0.027458 (p=0.0933), CPT- = -0.002116 (p=0.7792), Asym p = 0.1443
   M2: EXR coef = 0.039619 (p=0.0287), EXR_L1 = -0.033484 (p=0.0883)
   M2: AIC = 438.79, Adj.R2 = 0.4575, N = 245
@@ -157,18 +157,18 @@ Registered S3 method overwritten by 'quantmod':
   Estimating AIC-optimal ADL(best_p, 0) for comparison...
   M2-AIC0 (q=0): AIC=434.67 | CPT+=-0.002481 (p=0.7036) | Asym p=0.3731
     -> improved/outputs/tables/table_10_model_comparison.csv
-                                 Model Lag_q             q_choice   N    AIC
-1                    M0: Symmetric ADL     1                AIC p 247 441.10
-2             M1: Asym INR (benchmark)     3               Theory 245 440.77
-3  M2: Brent+EXR (primary, q=3 theory)     3 Theory (AIC+4 units) 245 438.79
-4 M2-AIC0: Brent+EXR (q=0 AIC-optimal)     0                  AIC 245 434.67
-5         M3: Interaction (post-dereg)     2               Theory 245 445.06
-  Adj_R2   CPT_pos   CPT_neg CPTpos_p Asym_p
-1 0.4363  0.002843        NA   0.5782     NA
-2 0.4492  0.021296  0.000598   0.1220 0.2408
-3 0.4575  0.027458 -0.002116   0.0933 0.1443
-4 0.4549 -0.002481  0.006147   0.7036 0.3731
-5 0.4511 -0.007837  0.006385   0.6024 0.4532
+                                      Model Lag_q             q_choice   N
+1                         M0: Symmetric ADL     1                AIC p 247
+2       M1: Asym INR (recommended headline)     3               Theory 245
+3 M2: Brent+EXR (decomposition, q=3 theory)     3 Theory (AIC+4 units) 245
+4      M2-AIC0: Brent+EXR (q=0 AIC-optimal)     0                  AIC 245
+5              M3: Interaction (post-dereg)     2               Theory 245
+     AIC Adj_R2   CPT_pos   CPT_neg CPTpos_p Asym_p
+1 441.10 0.4363  0.002843        NA   0.5782     NA
+2 440.77 0.4492  0.021296  0.000598   0.1220 0.2408
+3 438.79 0.4575  0.027458 -0.002116   0.0933 0.1443
+4 434.67 0.4549 -0.002481  0.006147   0.7036 0.3731
+5 445.06 0.4511 -0.007837  0.006385   0.6024 0.4532
   [04_models] Done.
 >> 04_models.R completed in 0.5 seconds.
 
@@ -242,8 +242,8 @@ ln_iip_4     -0.25788468 0.15418423 -1.6725749 9.441101e-02
 
   Dynamic multiplier generation: checking ECT validity...
     ECT extracted from 'ln_cpi_1' = 0.176013
-  NARDL-A: ECT = +%.6f (positive) — dynamic multipliers SUPPRESSED.
- 0.1760125  Reason: convergent multipliers require ECT < 0 (Pesaran et al. 2001).
+  NARDL-A: ECT = +0.176013 (positive) — dynamic multipliers SUPPRESSED.
+  Reason: convergent multipliers require ECT < 0 (Pesaran et al. 2001).
   Including multiplier figures from an invalid ECM would be scientifically misleading.
   NARDL-B: ECT positive — dynamic multipliers SUPPRESSED.
 
@@ -253,9 +253,9 @@ ln_iip_4     -0.25788468 0.15418423 -1.6725749 9.441101e-02
     ECT extracted from 'ln_cpi_1' = 0.115965
   NARDL-B: ECT = 0.115965  [INVALID — positive ECT]
   Recommendation: report NARDL as appendix exploratory only.
-  Primary inference relies on short-run asymmetric ADL (04_models.R).
+  Main inference relies on the short-run asymmetric ADL hierarchy in 04_models.R.
   [05_nardl] Done.
->> 05_nardl.R completed in 4.6 seconds.
+>> 05_nardl.R completed in 6.7 seconds.
 
 >> Sourcing improved/R/06_bootstrap.R ...
 
@@ -289,7 +289,7 @@ ln_iip_4     -0.25788468 0.15418423 -1.6725749 9.441101e-02
 2            4        4999 Restricted-residuals (valid inference under H0)
 3            4        4999 Restricted-residuals (valid inference under H0)
   [06_bootstrap] Done.
->> 06_bootstrap.R completed in 100.6 seconds.
+>> 06_bootstrap.R completed in 135.1 seconds.
 
 >> Sourcing improved/R/07_robustness.R ...
 
@@ -303,6 +303,7 @@ ln_iip_4     -0.25788468 0.15418423 -1.6725749 9.441101e-02
     -> improved/outputs/tables/table_15_nopi_robustness.csv
 
   --- R2: CPI Fuel & Light (MoSPI API) ---
+  Fuel CPI: MoSPI API unavailable/incomplete; using cached processed file.
   Fuel CPI: 2011-01-01 to 2024-12-01 (N=168)
   Fuel CPI: CPT+ = 0.060848 (p=0.0337), CPT- = 0.010808 (p=0.6649), Asym p = 0.2647
     -> improved/outputs/tables/table_16_fuel_light_appendix.csv
@@ -341,34 +342,36 @@ New names:
 
   --- R9: Lag Grid Sensitivity (Brent+EXR) ---
     -> improved/outputs/tables/table_20_lag_sensitivity.csv
-  Primary: ADL(3,3) AIC=436.54 | Best grid: ADL(3,0) AIC=432.49, Asym p=0.3457
+  Theory q=3: ADL(3,3) AIC=436.54 | Best grid: ADL(3,0) AIC=432.49, Asym p=0.3457
 
   --- Comprehensive Robustness Summary ---
     -> improved/outputs/tables/table_21_robustness_summary.csv
-                                  Check   CPT_pos   CPT_neg Asym_p
-1    M2 Primary (Brent+EXR, q=3 theory)  0.027458 -0.002116 0.1443
-2  M2-AIC0 (Brent+EXR, q=0 AIC-optimal) -0.002481  0.006147 0.3731
-3                  NOPI (Hamilton 2003) -0.000441  0.015978 0.4824
-4                      Fuel & Light CPI  0.060848  0.010808 0.2647
-5               PPAC Petrol (Delhi RSP)  0.345911  0.191205 0.0999
-6                   Post-2011 subsample  0.003979 -0.002210 0.7379
-7                  Pre-2014 (Brent+EXR)  0.038993  0.000573 0.3527
-8                 Post-2014 (Brent+EXR)  0.007632 -0.003109 0.5137
-9                        No COVID dummy  0.027013 -0.001553 0.1504
-10                      Winsorized (1%)  0.029703 -0.003516 0.1287
-                                                            Note
-1                               Primary model; q=3 theory-driven
-2   AIC-optimal; contemporaneous only; reported for transparency
-3    Sensitivity only; Kilian & Vigfusson (2011) caution applies
-4  Mechanism: oil->fuel sub-index; stronger signal than headline
-5    Mechanism: oil->retail petrol; strongest asymmetry evidence
-6              Addresses OECD-reconstructed pre-2011 CPI concern
-7                                 Pre-diesel deregulation period
-8     Post-diesel deregulation; Pradeep (2022) comparison period
-9                   Robustness to Apr-2020 outlier specification
-10                  Robustness to extreme oil price observations
+                                      Check   CPT_pos   CPT_neg Asym_p
+1         M1 headline (INR oil, q=3 theory)  0.021296  0.000598 0.2408
+2  M2 decomposition (Brent+EXR, q=3 theory)  0.027458 -0.002116 0.1443
+3      M2-AIC0 (Brent+EXR, q=0 AIC-optimal) -0.002481  0.006147 0.3731
+4                      NOPI (Hamilton 2003) -0.000441  0.015978 0.4824
+5                          Fuel & Light CPI  0.060848  0.010808 0.2647
+6                   PPAC Petrol (Delhi RSP)  0.345911  0.191205 0.0999
+7                       Post-2011 subsample  0.003979 -0.002210 0.7379
+8                      Pre-2014 (Brent+EXR)  0.038993  0.000573 0.3527
+9                     Post-2014 (Brent+EXR)  0.007632 -0.003109 0.5137
+10                           No COVID dummy  0.027013 -0.001553 0.1504
+11                          Winsorized (1%)  0.029703 -0.003516 0.1287
+                                                                                            Note
+1  Recommended headline model; passes HAC-RESET and CUSUM but asymmetry is not significant at 5%
+2                                    Robustness/decomposition only; HAC-RESET and Rec-CUSUM fail
+3                                   AIC-optimal; contemporaneous only; reported for transparency
+4                                    Sensitivity only; Kilian & Vigfusson (2011) caution applies
+5                                  Mechanism: oil->fuel sub-index; stronger signal than headline
+6                                    Mechanism: oil->retail petrol; strongest asymmetry evidence
+7                                              Addresses OECD-reconstructed pre-2011 CPI concern
+8                                                                 Pre-diesel deregulation period
+9                                     Post-diesel deregulation; Pradeep (2022) comparison period
+10                                                  Robustness to Apr-2020 outlier specification
+11                                                  Robustness to extreme oil price observations
   [07_robustness] Done.
->> 07_robustness.R completed in 4.2 seconds.
+>> 07_robustness.R completed in 1.1 seconds.
 
 >> Sourcing improved/R/08_figures.R ...
 
@@ -385,7 +388,7 @@ New names:
   Fig 11: Zivot-Andrews break dates...
   Fig 12: Bootstrap Wald distribution (M2)...
   [08_figures] Done.
->> 08_figures.R completed in 2.9 seconds.
+>> 08_figures.R completed in 3.1 seconds.
 
 >> Sourcing improved/R/09_dilution.R ...
 
@@ -404,17 +407,17 @@ New names:
   --- Stage 2: PPAC Petrol => CPI Fuel & Light ---
   N=164 | CPT+= 0.1792 (p=0.0020) | CPT-= 0.1032 (p=0.1803) | Asym p=0.4267
 
-  --- Stage 3: Brent => Headline CPI (from M2) ---
+  --- Stage 3: Brent => Headline CPI (M2 decomposition) ---
   CPT+ = 0.0275 (p=0.0933) | CPT- = -0.0021 (p=0.7792) | Asym p = 0.1443
   Headline CPI dilutes fuel shocks: food + services weight ~70%.
 
   === DILUTION HYPOTHESIS SUMMARY ===
     -> improved/outputs/tables/table_23_dilution_hypothesis.csv
 
-                                       Stage  CPT_pos   CPT_neg Asym_p
-1               Stage 1: Brent → PPAC Petrol 0.345911  0.191205 0.0999
-2    Stage 2: PPAC Petrol → Fuel & Light CPI 0.179230  0.103184 0.4267
-3 Stage 3: Brent → Headline CPI (M2 primary) 0.027458 -0.002116 0.1443
+                                             Stage  CPT_pos   CPT_neg Asym_p
+1                     Stage 1: Brent → PPAC Petrol 0.345911  0.191205 0.0999
+2          Stage 2: PPAC Petrol → Fuel & Light CPI 0.179230  0.103184 0.4267
+3 Stage 3: Brent → Headline CPI (M2 decomposition) 0.027458 -0.002116 0.1443
        Asym_evidence
 1   Marginal (p<10%)
 2          Weak/None
@@ -427,15 +430,34 @@ New names:
   => Headline CPI captures ~7.9% of the retail petrol pass-through.
   Dilution chain figure saved.
   [09_dilution] Done.
->> 09_dilution.R completed in 0.6 seconds.
+>> 09_dilution.R completed in 0.4 seconds.
+
+>> Sourcing improved/R/10_publication_decision.R ...
+
+========================================================
+  STEP 10: PUBLICATION READINESS TRIAGE
+========================================================
+
+  Building publication decision tables...
+    -> improved/outputs/tables/table_24_publication_decision.csv
+    -> improved/outputs/tables/table_25_headline_specification_triage.csv
+    -> improved/outputs/tables/table_26_channel_diagnostics.csv
+  Publication triage complete.
+  [10_publication_decision] Done.
+>> 10_publication_decision.R completed in 0.8 seconds.
+Warning messages:
+1: In file(con, "r") :
+  URL 'https://api.mospi.gov.in/api/cpi/getCPIIndex?base_year=2012&series=Back&year=2011%2C2012&month_code=1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%2C9%2C10%2C11%2C12&state_code=99&group_code=5&sector_code=3&page=1&Format=JSON': status was 'Couldn't resolve host name'
+2: In file(con, "r") :
+  URL 'https://api.mospi.gov.in/api/cpi/getCPIIndex?base_year=2012&series=Current&year=2013%2C2014%2C2015%2C2016%2C2017%2C2018%2C2019%2C2020%2C2021%2C2022%2C2023%2C2024&month_code=1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%2C9%2C10%2C11%2C12&state_code=99&group_code=5&sector_code=3&page=1&Format=JSON': status was 'Couldn't resolve host name'
 
 ================================================================
   ANALYSIS COMPLETE
 ================================================================
-  Total runtime: 117.6 seconds (2.0 minutes)
-  End time: 2026-04-16 14:52:23.753287
+  Total runtime: 153.4 seconds (2.6 minutes)
+  End time: 2026-04-16 15:54:59.485438
 
-  Tables (25 files):
+  Tables (28 files):
     rolling_window_data.csv
     table_01_descriptive_stats.csv
     table_02_variable_definitions.csv
@@ -461,8 +483,11 @@ New names:
     table_21_robustness_summary.csv
     table_22_ppac_retail_fuel.csv
     table_23_dilution_hypothesis.csv
+    table_24_publication_decision.csv
+    table_25_headline_specification_triage.csv
+    table_26_channel_diagnostics.csv
 
-  Figures (14 files):
+  Figures (13 files):
     fig_01_raw_series.png
     fig_02_log_diff_series.png
     fig_03_oil_decomposition.png
@@ -476,10 +501,11 @@ New names:
     fig_11_zivot_andrews_breaks.png
     fig_12_bootstrap_distribution.png
     fig_dilution_chain.png
-    fig_nardl_dynamic_multiplier.png
 
   === KEY RESULTS SUMMARY ===
-  M2 (Primary, q=3 theory): CPT+ = 0.027458 (p=0.0933), CPT- = -0.002116 (p=0.7792)
+  M1 (recommended headline): CPT+ = 0.021296 (p=0.1220), CPT- = 0.000598 (p=0.9375)
+  M1 Asymmetry Wald: p = 0.2408
+  M2 (Brent+EXR decomposition robustness): CPT+ = 0.027458 (p=0.0933), CPT- = -0.002116 (p=0.7792)
   M2 Asymmetry Wald: p = 0.1443
   M2-AIC0 (q=0, AIC-optimal): CPT+ = -0.002481, Asym p = 0.3731
   M3 Post-dereg: CPT+ = -0.007837, Asym p = 0.4532
@@ -494,6 +520,6 @@ New names:
     CPT+= 0.3459 (p=<0.001)  CPT-= 0.1912 (p=<0.001)  Asym=Marginal (p<10%)
   Stage 2: PPAC Petrol → Fuel & Light CPI
     CPT+= 0.1792 (p=0.0020)  CPT-= 0.1032 (p=0.1803)  Asym=Weak/None
-  Stage 3: Brent → Headline CPI (M2 primary)
+  Stage 3: Brent → Headline CPI (M2 decomposition)
     CPT+= 0.0275 (p=0.0933)  CPT-= -0.0021 (p=0.7792)  Asym=Suggestive (p<15%)
 ================================================================
