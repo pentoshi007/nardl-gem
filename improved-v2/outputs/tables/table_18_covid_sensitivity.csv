@@ -1,0 +1,4 @@
+"Variant","N","CPT_pos","CPT_neg","Asym_p"
+"M1 with D_covid",245,0.021296,0.000598,0.2408
+"M1 without D_covid",245,0.020582,0.001737,0.2673
+"M1 excl Mar-Jun 2020",241,0.022303,-0.002433,0.1713

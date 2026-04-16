@@ -1,0 +1,6 @@
+"Model","Lag_q","q_choice","N","AIC","Adj_R2","CPT_pos","CPT_neg","CPTpos_p","Asym_p"
+"M0: Symmetric ADL",1,"AIC p",247,441.1,0.4363,0.002843,NA,0.5782,NA
+"M1: Asym INR (recommended headline)",3,"Theory",245,440.77,0.4492,0.021296,0.000598,0.122,0.2408
+"M2: Brent+EXR (decomposition, q=3)",3,"Theory",245,438.79,0.4575,0.027458,-0.002116,0.0933,0.1443
+"M2-AIC0: Brent+EXR (q=0 AIC-optimal)",0,"AIC",245,434.67,0.4549,-0.002481,0.006147,0.7036,0.3731
+"M3: Interaction (post-dereg)",2,"Theory",245,445.06,0.4511,-0.007837,0.006385,0.6024,0.4532

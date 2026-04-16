@@ -1,0 +1,5 @@
+"Variable","ZA_stat","Break_date","CV_1pct","CV_5pct","CV_10pct","Result"
+"ln(CPI)",-3.9395,"2009-05-01",-5.57,-5.08,-4.82,"Fail to reject"
+"ln(Oil INR)",-4.3144,"2014-08-01",-5.57,-5.08,-4.82,"Fail to reject"
+"ln(Brent USD)",-4.1293,"2014-07-01",-5.57,-5.08,-4.82,"Fail to reject"
+"ln(EXR)",-4.1349,"2011-07-01",-5.57,-5.08,-4.82,"Fail to reject"
