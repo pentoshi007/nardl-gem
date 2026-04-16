@@ -33,7 +33,8 @@ modules <- c(
   "improved/R/05_nardl.R",
   "improved/R/06_bootstrap.R",
   "improved/R/07_robustness.R",
-  "improved/R/08_figures.R"
+  "improved/R/08_figures.R",
+  "improved/R/09_dilution.R"
 )
 
 for (mod in modules) {
@@ -70,26 +71,45 @@ for (f in figures_list) cat(sprintf("    %s\n", f))
 
 cat("\n  === KEY RESULTS SUMMARY ===\n")
 if (exists("cpt_m2")) {
-  cat(sprintf("  M2 (Primary): CPT+ = %.6f (p=%s), CPT- = %.6f (p=%s)\n",
+  cat(sprintf("  M2 (Primary, q=3 theory): CPT+ = %.6f (p=%s), CPT- = %.6f (p=%s)\n",
       cpt_m2$cpt_pos, format_p(cpt_m2$pos_test$p_value),
       cpt_m2$cpt_neg, format_p(cpt_m2$neg_test$p_value)))
   cat(sprintf("  M2 Asymmetry Wald: p = %s\n", format_p(cpt_m2$asym_test$p_value)))
+}
+if (exists("cpt_m2a")) {
+  cat(sprintf("  M2-AIC0 (q=0, AIC-optimal): CPT+ = %.6f, Asym p = %s\n",
+      cpt_m2a$cpt_pos, format_p(cpt_m2a$asym_test$p_value)))
 }
 if (exists("cpt_post")) {
   cat(sprintf("  M3 Post-dereg: CPT+ = %.6f, Asym p = %s\n",
       cpt_post$cpt_pos, format_p(cpt_post$asym_test$p_value)))
   cat(sprintf("  M3 Regime change: F = %.4f, p = %s\n", regime_f, format_p(regime_p)))
 }
-if (exists("nardl_a") && !is.null(nardl_a)) {
-  cat(sprintf("  NARDL-A: Bounds F = %.4f, LR Wald p = %s\n",
-      nardl_a$fstat, format_p(nardl_a$wldq[1, 2])))
+if (exists("nardl_a_valid")) {
+  cat(sprintf("  NARDL-A: ECT valid = %s  [APPENDIX EXPLORATORY ONLY]\n",
+      ifelse(nardl_a_valid, "YES", "NO — positive ECT; ECM invalid")))
 }
-if (exists("nardl_b") && !is.null(nardl_b)) {
-  cat(sprintf("  NARDL-B: Bounds F = %.4f, LR Wald p = %s\n",
-      nardl_b$fstat, format_p(nardl_b$wldq[1, 2])))
+if (exists("nardl_b_valid")) {
+  cat(sprintf("  NARDL-B: ECT valid = %s  [APPENDIX EXPLORATORY ONLY]\n",
+      ifelse(nardl_b_valid, "YES", "NO — positive ECT; ECM invalid")))
 }
 if (exists("boot_m2")) {
-  cat(sprintf("  Bootstrap (M2): asymptotic p = %s, block-bootstrap p = %.4f\n",
+  cat(sprintf("  Bootstrap (M2): Wald F = %.4f | asymptotic p = %s | bootstrap p = %.4f\n",
+      boot_m2$obs_wald,
       format_p(cpt_m2$asym_test$p_value), boot_m2$boot_p))
+  cat(sprintf("  Bootstrap method: %s\n", boot_m2$method))
 }
 cat("================================================================\n")
+cat("  === DILUTION HYPOTHESIS (table_23) ===\n")
+dil_file <- file.path("improved/outputs/tables", "table_23_dilution_hypothesis.csv")
+if (file.exists(dil_file)) {
+  dil <- read.csv(dil_file, stringsAsFactors = FALSE)
+  for (i in seq_len(nrow(dil))) {
+    cat(sprintf("  %s\n    CPT+= %.4f (p=%s)  CPT-= %.4f (p=%s)  Asym=%s\n",
+        dil$Stage[i], dil$CPT_pos[i], format_p(dil$CPTpos_p[i]),
+        dil$CPT_neg[i], format_p(dil$CPTneg_p[i]),
+        dil$Asym_evidence[i]))
+  }
+}
+cat("================================================================\n")
+

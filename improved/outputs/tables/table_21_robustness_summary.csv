@@ -1,10 +1,11 @@
-"Check","CPT_pos","CPT_neg","Asym_p"
-"M2 Primary (Brent+EXR)",0.027458,-0.002116,0.1443
-"NOPI (Hamilton 2003)",-0.000441,0.015978,0.4824
-"Fuel & Light CPI",0.060848,0.010808,0.2647
-"PPAC Petrol (Delhi RSP)",0.345911,0.191205,0.0999
-"Post-2011 subsample",0.003979,-0.00221,0.7379
-"Pre-2014 (Brent+EXR)",0.038993,0.000573,0.3527
-"Post-2014 (Brent+EXR)",0.007632,-0.003109,0.5137
-"No COVID dummy",0.027013,-0.001553,0.1504
-"Winsorized (1%)",0.029703,-0.003516,0.1287
+"Check","CPT_pos","CPT_neg","Asym_p","Note"
+"M2 Primary (Brent+EXR, q=3 theory)",0.027458,-0.002116,0.1443,"Primary model; q=3 theory-driven"
+"M2-AIC0 (Brent+EXR, q=0 AIC-optimal)",-0.002481,0.006147,0.3731,"AIC-optimal; contemporaneous only; reported for transparency"
+"NOPI (Hamilton 2003)",-0.000441,0.015978,0.4824,"Sensitivity only; Kilian & Vigfusson (2011) caution applies"
+"Fuel & Light CPI",0.060848,0.010808,0.2647,"Mechanism: oil->fuel sub-index; stronger signal than headline"
+"PPAC Petrol (Delhi RSP)",0.345911,0.191205,0.0999,"Mechanism: oil->retail petrol; strongest asymmetry evidence"
+"Post-2011 subsample",0.003979,-0.00221,0.7379,"Addresses OECD-reconstructed pre-2011 CPI concern"
+"Pre-2014 (Brent+EXR)",0.038993,0.000573,0.3527,"Pre-diesel deregulation period"
+"Post-2014 (Brent+EXR)",0.007632,-0.003109,0.5137,"Post-diesel deregulation; Pradeep (2022) comparison period"
+"No COVID dummy",0.027013,-0.001553,0.1504,"Robustness to Apr-2020 outlier specification"
+"Winsorized (1%)",0.029703,-0.003516,0.1287,"Robustness to extreme oil price observations"

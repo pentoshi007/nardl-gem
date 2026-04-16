@@ -471,39 +471,87 @@ cat(sprintf("  Primary: ADL(%d,3) AIC=%.2f | Best grid: ADL(%d,%d) AIC=%.2f, Asy
 cat("\n  --- Comprehensive Robustness Summary ---\n")
 
 robustness_summary <- bind_rows(
-  data.frame(Check = "M2 Primary (Brent+EXR)", CPT_pos = round(cpt_m2$cpt_pos, 6),
-             CPT_neg = round(cpt_m2$cpt_neg, 6), Asym_p = round(cpt_m2$asym_test$p_value, 4),
+  data.frame(Check = "M2 Primary (Brent+EXR, q=3 theory)",
+             CPT_pos = round(cpt_m2$cpt_pos, 6),
+             CPT_neg = round(cpt_m2$cpt_neg, 6),
+             Asym_p  = round(cpt_m2$asym_test$p_value, 4),
+             Note    = "Primary model; q=3 theory-driven",
              stringsAsFactors = FALSE),
-  data.frame(Check = "NOPI (Hamilton 2003)", CPT_pos = round(cpt_nopi$cpt_pos, 6),
-             CPT_neg = round(cpt_nopi$cpt_neg, 6), Asym_p = round(cpt_nopi$asym_test$p_value, 4),
+  if (exists("cpt_m2a")) data.frame(
+             Check = "M2-AIC0 (Brent+EXR, q=0 AIC-optimal)",
+             CPT_pos = round(cpt_m2a$cpt_pos, 6),
+             CPT_neg = round(cpt_m2a$cpt_neg, 6),
+             Asym_p  = round(cpt_m2a$asym_test$p_value, 4),
+             Note    = "AIC-optimal; contemporaneous only; reported for transparency",
              stringsAsFactors = FALSE),
-  if (!is.null(fuel_result)) data.frame(Check = "Fuel & Light CPI",
-    CPT_pos = fuel_result$CPT_pos, CPT_neg = fuel_result$CPT_neg,
-    Asym_p = fuel_result$Asym_p, stringsAsFactors = FALSE),
-  if (!is.null(ppac_result)) data.frame(Check = "PPAC Petrol (Delhi RSP)",
-    CPT_pos = ppac_result$CPT_pos, CPT_neg = ppac_result$CPT_neg,
-    Asym_p = ppac_result$Asym_p, stringsAsFactors = FALSE),
-  data.frame(Check = "Post-2011 subsample", CPT_pos = round(cpt_2011$cpt_pos, 6),
-             CPT_neg = round(cpt_2011$cpt_neg, 6), Asym_p = round(cpt_2011$asym_test$p_value, 4),
+  data.frame(Check = "NOPI (Hamilton 2003)",
+             CPT_pos = round(cpt_nopi$cpt_pos, 6),
+             CPT_neg = round(cpt_nopi$cpt_neg, 6),
+             Asym_p  = round(cpt_nopi$asym_test$p_value, 4),
+             Note    = "Sensitivity only; Kilian & Vigfusson (2011) caution applies",
              stringsAsFactors = FALSE),
-  data.frame(Check = "Pre-2014 (Brent+EXR)", CPT_pos = sub_pre14$CPT_pos,
-             CPT_neg = sub_pre14$CPT_neg, Asym_p = sub_pre14$Asym_p, stringsAsFactors = FALSE),
-  data.frame(Check = "Post-2014 (Brent+EXR)", CPT_pos = sub_post14$CPT_pos,
-             CPT_neg = sub_post14$CPT_neg, Asym_p = sub_post14$Asym_p, stringsAsFactors = FALSE),
-  data.frame(Check = "No COVID dummy", CPT_pos = round(cpt_nc$cpt_pos, 6),
-             CPT_neg = round(cpt_nc$cpt_neg, 6), Asym_p = round(cpt_nc$asym_test$p_value, 4),
+  if (!is.null(fuel_result)) data.frame(
+             Check = "Fuel & Light CPI",
+             CPT_pos = fuel_result$CPT_pos,
+             CPT_neg = fuel_result$CPT_neg,
+             Asym_p  = fuel_result$Asym_p,
+             Note    = "Mechanism: oil->fuel sub-index; stronger signal than headline",
              stringsAsFactors = FALSE),
-  data.frame(Check = "Winsorized (1%)", CPT_pos = round(cpt_win$cpt_pos, 6),
-             CPT_neg = round(cpt_win$cpt_neg, 6), Asym_p = round(cpt_win$asym_test$p_value, 4),
+  if (!is.null(ppac_result)) data.frame(
+             Check = "PPAC Petrol (Delhi RSP)",
+             CPT_pos = ppac_result$CPT_pos,
+             CPT_neg = ppac_result$CPT_neg,
+             Asym_p  = ppac_result$Asym_p,
+             Note    = "Mechanism: oil->retail petrol; strongest asymmetry evidence",
+             stringsAsFactors = FALSE),
+  data.frame(Check = "Post-2011 subsample",
+             CPT_pos = round(cpt_2011$cpt_pos, 6),
+             CPT_neg = round(cpt_2011$cpt_neg, 6),
+             Asym_p  = round(cpt_2011$asym_test$p_value, 4),
+             Note    = "Addresses OECD-reconstructed pre-2011 CPI concern",
+             stringsAsFactors = FALSE),
+  data.frame(Check = "Pre-2014 (Brent+EXR)",
+             CPT_pos = sub_pre14$CPT_pos,
+             CPT_neg = sub_pre14$CPT_neg,
+             Asym_p  = sub_pre14$Asym_p,
+             Note    = "Pre-diesel deregulation period",
+             stringsAsFactors = FALSE),
+  data.frame(Check = "Post-2014 (Brent+EXR)",
+             CPT_pos = sub_post14$CPT_pos,
+             CPT_neg = sub_post14$CPT_neg,
+             Asym_p  = sub_post14$Asym_p,
+             Note    = "Post-diesel deregulation; Pradeep (2022) comparison period",
+             stringsAsFactors = FALSE),
+  data.frame(Check = "No COVID dummy",
+             CPT_pos = round(cpt_nc$cpt_pos, 6),
+             CPT_neg = round(cpt_nc$cpt_neg, 6),
+             Asym_p  = round(cpt_nc$asym_test$p_value, 4),
+             Note    = "Robustness to Apr-2020 outlier specification",
+             stringsAsFactors = FALSE),
+  data.frame(Check = "Winsorized (1%)",
+             CPT_pos = round(cpt_win$cpt_pos, 6),
+             CPT_neg = round(cpt_win$cpt_neg, 6),
+             Asym_p  = round(cpt_win$asym_test$p_value, 4),
+             Note    = "Robustness to extreme oil price observations",
              stringsAsFactors = FALSE)
 )
 save_table(robustness_summary, "table_21_robustness_summary.csv")
 print(robustness_summary)
 
 # Store sub-sample results for figures
-assign("sub_pre14", sub_pre14, envir = .GlobalEnv)
+assign("sub_pre14",  sub_pre14,  envir = .GlobalEnv)
 assign("sub_post14", sub_post14, envir = .GlobalEnv)
-assign("cpt_nopi", cpt_nopi, envir = .GlobalEnv)
-assign("cpt_2011", cpt_2011, envir = .GlobalEnv)
+assign("cpt_nopi",   cpt_nopi,   envir = .GlobalEnv)
+assign("cpt_2011",   cpt_2011,   envir = .GlobalEnv)
+
+# Store PPAC and fuel models for dilution test (09_dilution.R)
+if (exists("m_ppac") && !is.null(m_ppac)) {
+  assign("m_ppac",     m_ppac,     envir = .GlobalEnv)
+  assign("ppac_result", ppac_result, envir = .GlobalEnv)
+}
+if (exists("m_fuel") && !is.null(m_fuel)) {
+  assign("m_fuel",     m_fuel,     envir = .GlobalEnv)
+  assign("fuel_result", fuel_result, envir = .GlobalEnv)
+}
 
 cat("  [07_robustness] Done.\n")
