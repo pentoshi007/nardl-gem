@@ -44,6 +44,8 @@ RUNWAY_START <- as.Date("2003-01-01")  # pre-sample for lag construction
 
 # Expected observation count (Apr 2004 to Dec 2024 inclusive)
 EXPECTED_N <- 249
+MIN_MAIN_YEARS <- 20
+MIN_MAIN_MONTHS <- 12 * MIN_MAIN_YEARS
 
 # ── Model design constants ───────────────────────────────────────────────────
 # AR lag p: selected by AIC in 06_models.R (typically 1)

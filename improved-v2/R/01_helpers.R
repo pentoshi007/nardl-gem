@@ -147,4 +147,49 @@ safe_lm <- function(formula, data) {
   m
 }
 
+# ── Sample-span helpers ──────────────────────────────────────────────────────
+sample_span_months <- function(data, date_col = "date") {
+  if (!date_col %in% names(data) || nrow(data) == 0) return(NA_real_)
+  dates <- sort(unique(as.Date(data[[date_col]])))
+  if (length(dates) == 0) return(NA_real_)
+  start <- dates[1]
+  end   <- dates[length(dates)]
+  12 * (as.integer(format(end, "%Y")) - as.integer(format(start, "%Y"))) +
+    (as.integer(format(end, "%m")) - as.integer(format(start, "%m"))) + 1
+}
+
+sample_span_years <- function(data, date_col = "date") {
+  months <- sample_span_months(data, date_col = date_col)
+  if (is.na(months)) return(NA_real_)
+  months / 12
+}
+
+sample_window <- function(data, date_col = "date") {
+  if (!date_col %in% names(data) || nrow(data) == 0) {
+    return(list(start = as.Date(NA), end = as.Date(NA)))
+  }
+  dates <- sort(unique(as.Date(data[[date_col]])))
+  list(start = dates[1], end = dates[length(dates)])
+}
+
+duration_ok <- function(data, min_years = MIN_MAIN_YEARS, date_col = "date") {
+  months <- sample_span_months(data, date_col = date_col)
+  !is.na(months) && months >= (12 * min_years)
+}
+
+diagnostic_pass_count <- function(diag_row) {
+  sum(c(
+    diag_row$BG12_pass == "PASS",
+    diag_row$RESET_HAC_pass == "PASS",
+    diag_row$RecCUSUM_pass == "PASS"
+  ), na.rm = TRUE)
+}
+
+diagnostic_verdict <- function(diag_row) {
+  passes <- diagnostic_pass_count(diag_row)
+  if (passes == 3) return("ACCEPT for main text")
+  if (passes == 2) return("CAUTION — robustness only")
+  "REJECT for main text"
+}
+
 cat("  [01_helpers] Loaded.\n")

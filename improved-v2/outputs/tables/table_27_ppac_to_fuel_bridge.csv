@@ -1,0 +1,2 @@
+"Specification","Requested_role","Sample_start","Sample_end","N","Span_years","Duration_20Y","CPT_pos","CPT_neg","CPTpos_p","CPTneg_p","Asym_p","Adj_R2","Note"
+"PPAC petrol to Fuel & Light bridge model","Dilution-chain bridge","2011-05-01","2024-12-01",164,13.67,"NO",0.177711,0.10584,0.0021,0.1741,0.4554,0.1817,"Bridge equation only; not eligible as mandatory because sample begins in 2011"

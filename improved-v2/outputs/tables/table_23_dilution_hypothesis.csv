@@ -1,4 +1,4 @@
 "Stage","DV","IV","N","CPT_pos","CPT_neg","CPTpos_p","CPTneg_p","Asym_p","Adj_R2","Asym_evidence","Note"
-"Stage 1: Brent -> PPAC Petrol","dlnPetrol (Delhi RSP)","dlnBrent +/- (Brent USD, q=3)",245,0.277514,0.163485,0,0.0138,0.2922,0.1921,"Weak/None","Market-linked pricing post-2010/2014"
-"Stage 2: PPAC Petrol -> Fuel & Light CPI","dlnFuel (CPI Fuel & Light)","dlnPetrol +/- (PPAC Delhi, q=3)",164,0.17923,0.103184,0.002,0.1803,0.4267,0.189,"Weak/None","Retail-to-CPI channel; attenuation expected vs Stage 1"
-"Stage 3: Oil -> Headline CPI (M1)","dlnCPI (Headline, All India)","dlnOil_INR +/- (INR oil, q=3)",245,0.021296,0.000598,0.122,0.9375,0.2408,0.4492,"Weak/None","Headline CPI dilutes fuel shocks (~70% food+services weight)"
+"Stage 1: Brent -> PPAC Petrol","dlnPetrol (Delhi RSP)","dlnBrent +/- (Brent USD, q=3)",245,0.345911,0.191205,0,2e-04,0.0999,0.236,"Marginal (p<10%)","Mandatory 20+ year mechanism stage"
+"Stage 2: PPAC Petrol -> Fuel & Light CPI","dlnFuel (CPI Fuel & Light)","dlnPetrol +/- (PPAC Delhi, q=3)",164,0.177711,0.10584,0.0021,0.1741,0.4554,0.1817,"Weak/None","Bridge stage only; shorter sample than headline/PPAC models"
+"Stage 3: Oil -> Headline CPI (M1)","dlnCPI (Headline, All India)","dlnOil_INR +/- (INR oil, q=3)",245,0.021296,0.000598,0.122,0.9375,0.2408,0.4492,"Weak/None","Mandatory 20+ year headline model"

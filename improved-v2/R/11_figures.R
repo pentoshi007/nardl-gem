@@ -45,19 +45,24 @@ tryCatch({
 # ==============================================================================
 cat("  Fig 02: Log-differenced series...\n")
 tryCatch({
-  p2a <- ggplot(df, aes(date, dlnCPI)) +
+  df_cpi <- df %>% filter(!is.na(dlnCPI))
+  df_oil <- df %>% filter(!is.na(dlnOil))
+  df_brent <- df %>% filter(!is.na(dlnBrent))
+  df_iip <- df %>% filter(!is.na(dlnIIP))
+
+  p2a <- ggplot(df_cpi, aes(date, dlnCPI)) +
     geom_line(color = "#1F3864", linewidth = 0.4) +
     geom_hline(yintercept = 0, linetype = "dashed", color = "grey60") +
     labs(title = "dln(CPI) x100", x = NULL, y = "%") + theme_pub
-  p2b <- ggplot(df, aes(date, dlnOil)) +
+  p2b <- ggplot(df_oil, aes(date, dlnOil)) +
     geom_line(color = "#C0392B", linewidth = 0.4) +
     geom_hline(yintercept = 0, linetype = "dashed", color = "grey60") +
     labs(title = "dln(Oil INR) x100", x = NULL, y = "%") + theme_pub
-  p2c <- ggplot(df, aes(date, dlnBrent)) +
+  p2c <- ggplot(df_brent, aes(date, dlnBrent)) +
     geom_line(color = "#E67E22", linewidth = 0.4) +
     geom_hline(yintercept = 0, linetype = "dashed", color = "grey60") +
     labs(title = "dln(Brent USD) x100", x = NULL, y = "%") + theme_pub
-  p2d <- ggplot(df, aes(date, dlnIIP)) +
+  p2d <- ggplot(df_iip, aes(date, dlnIIP)) +
     geom_line(color = "#8E44AD", linewidth = 0.4) +
     geom_hline(yintercept = 0, linetype = "dashed", color = "grey60") +
     labs(title = "dln(IIP) x100", x = NULL, y = "%") + theme_pub
@@ -222,11 +227,11 @@ cat("  Fig 09: Oil price regimes...\n")
 tryCatch({
   fig9 <- ggplot(df, aes(date, oil_inr)) +
     geom_line(color = "#1F3864", linewidth = 0.6) +
-    geom_vline(xintercept = as.numeric(DATE_PETROL_DEREG), linetype = "dashed",
+    geom_vline(xintercept = DATE_PETROL_DEREG, linetype = "dashed",
                color = "#E67E22", linewidth = 0.8) +
-    geom_vline(xintercept = as.numeric(DATE_DIESEL_DEREG), linetype = "dashed",
+    geom_vline(xintercept = DATE_DIESEL_DEREG, linetype = "dashed",
                color = "#C0392B", linewidth = 0.8) +
-    geom_vline(xintercept = as.numeric(DATE_COVID_START), linetype = "dotted",
+    geom_vline(xintercept = DATE_COVID_START, linetype = "dotted",
                color = "#8E44AD", linewidth = 0.8) +
     annotate("text", x = DATE_PETROL_DEREG, y = max(df$oil_inr, na.rm = TRUE) * 0.95,
              label = "Petrol\nDereg", hjust = -0.1, size = 3, color = "#E67E22") +
@@ -285,7 +290,7 @@ tryCatch({
 
     for (i in seq_len(nrow(za_df))) {
       fig11 <- fig11 +
-        geom_vline(xintercept = as.numeric(za_df$Break_date[i]),
+        geom_vline(xintercept = za_df$Break_date[i],
                    linetype = "dashed", color = "#C0392B", linewidth = 0.7) +
         annotate("text", x = za_df$Break_date[i],
                  y = max(df$ln_oil, na.rm = TRUE) * (1 - 0.05 * i),

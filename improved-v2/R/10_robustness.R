@@ -12,6 +12,7 @@
 banner("10", "ROBUSTNESS CHECKS")
 
 robustness_rows <- list()
+subsample_rows <- list()
 dummy_terms_str <- paste0("M", 1:11, collapse = " + ")
 
 # ==============================================================================
@@ -75,6 +76,14 @@ tryCatch({
       CPT_pos = round(cpt_post2011$cpt_pos, 6), CPT_neg = round(cpt_post2011$cpt_neg, 6),
       Asym_p = round(cpt_post2011$asym_test$p_value, 4),
       stringsAsFactors = FALSE)
+
+    subsample_rows[["Post2011"]] <- data.frame(
+      Period = "Post-2011 subsample", N = nrow(df_post2011),
+      CPT_pos = round(cpt_post2011$cpt_pos, 6), CPT_neg = round(cpt_post2011$cpt_neg, 6),
+      CPTpos_p = round(cpt_post2011$pos_test$p_value, 4),
+      CPTneg_p = round(cpt_post2011$neg_test$p_value, 4),
+      Asym_p = round(cpt_post2011$asym_test$p_value, 4),
+      stringsAsFactors = FALSE)
   }
 }, error = function(e) cat(sprintf("  Post-2011 error: %s\n", e$message)))
 
@@ -109,6 +118,14 @@ for (regime in c("pre", "post")) {
       robustness_rows[[paste0("Regime_", regime)]] <- data.frame(
         Check = label, N = nrow(df_sub),
         CPT_pos = round(cpt_sub$cpt_pos, 6), CPT_neg = round(cpt_sub$cpt_neg, 6),
+        Asym_p = round(cpt_sub$asym_test$p_value, 4),
+        stringsAsFactors = FALSE)
+
+      subsample_rows[[paste0("Regime_", regime)]] <- data.frame(
+        Period = label, N = nrow(df_sub),
+        CPT_pos = round(cpt_sub$cpt_pos, 6), CPT_neg = round(cpt_sub$cpt_neg, 6),
+        CPTpos_p = round(cpt_sub$pos_test$p_value, 4),
+        CPTneg_p = round(cpt_sub$neg_test$p_value, 4),
         Asym_p = round(cpt_sub$asym_test$p_value, 4),
         stringsAsFactors = FALSE)
     }
@@ -282,6 +299,11 @@ tryCatch({
   print(lag_grid_df[, c("p", "q", "AIC", "CPT_pos", "Asym_p")])
 }, error = function(e) cat(sprintf("  Lag grid error: %s\n", e$message)))
 
+if (length(subsample_rows) > 0) {
+  subsample_tbl <- bind_rows(subsample_rows)
+  save_table(subsample_tbl, "table_17_subsample.csv")
+}
+
 # ==============================================================================
 # Robustness summary table
 # ==============================================================================
@@ -293,7 +315,19 @@ if (length(robustness_rows) > 0) {
     Asym_p = round(cpt_m1$asym_test$p_value, 4),
     stringsAsFactors = FALSE)
 
-  rob_summary <- bind_rows(robustness_rows)
+  rob_summary <- bind_rows(robustness_rows) %>%
+    mutate(
+      Note = dplyr::case_when(
+        Check == "NOPI (Hamilton)" ~ "Sensitivity only; alternative oil-shock construction",
+        Check == "Post-2011 subsample" ~ "Addresses reconstructed pre-2011 CPI continuity concern",
+        Check == "Pre-Oct 2014" ~ "Pre-diesel deregulation period",
+        Check == "Post-Oct 2014" ~ "Post-diesel deregulation period",
+        Check == "No COVID dummy" ~ "Checks April 2020 outlier sensitivity",
+        Check == "Winsorized (1%)" ~ "Checks sensitivity to extreme monthly oil shocks",
+        Check == "M1 baseline (headline)" ~ "Reference model for all headline robustness checks",
+        TRUE ~ ""
+      )
+    )
   save_table(rob_summary, "table_21_robustness_summary.csv")
   cat("\n  === ROBUSTNESS SUMMARY ===\n")
   print(rob_summary)

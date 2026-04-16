@@ -18,7 +18,7 @@ cat("\n")
 cat("================================================================\n")
 cat("  IMPROVED-V2 PIPELINE — FULL RUN\n")
 cat("  Oil Price Pass-Through to India's CPI Inflation, 2004-2024\n")
-cat("  Model hierarchy: M1 headline | M2 robustness | No NARDL\n")
+cat("  Model hierarchy: M1 headline | PPAC mechanism | M2 robustness | No NARDL\n")
 cat("================================================================\n")
 cat(sprintf("  Start time: %s\n", Sys.time()))
 cat(sprintf("  Working dir: %s\n", getwd()))
@@ -36,8 +36,11 @@ modules <- c(
   "improved-v2/R/08_bootstrap.R",
   "improved-v2/R/09_mechanism_chain.R",
   "improved-v2/R/10_robustness.R",
-  "improved-v2/R/11_figures.R"
+  "improved-v2/R/11_figures.R",
+  "improved-v2/R/12_publication_triage.R"
 )
+
+module_status <- list()
 
 for (mod in modules) {
   mod_start <- proc.time()
@@ -46,11 +49,22 @@ for (mod in modules) {
   tryCatch({
     source(mod, local = FALSE)
     elapsed <- (proc.time() - mod_start)["elapsed"]
+    module_status[[basename(mod)]] <- list(status = "OK", elapsed = elapsed)
     cat(sprintf(">> %s completed in %.1f seconds.\n", basename(mod), elapsed))
   }, error = function(e) {
-    cat(sprintf(">> ERROR in %s: %s\n", basename(mod), e$message))
-    cat(">> Continuing with next module...\n")
+    elapsed <- (proc.time() - mod_start)["elapsed"]
+    module_status[[basename(mod)]] <- list(status = "ERROR", elapsed = elapsed, message = e$message)
+    stop(sprintf("Pipeline aborted in %s: %s", basename(mod), e$message), call. = FALSE)
   })
+}
+
+if (!exists("mandatory_gate")) {
+  stop("Pipeline aborted: mandatory model gate was not created.", call. = FALSE)
+}
+
+if (any(mandatory_gate$Gate_status != "PASS")) {
+  failing_models <- paste(mandatory_gate$Model[mandatory_gate$Gate_status != "PASS"], collapse = ", ")
+  stop(sprintf("Pipeline aborted: mandatory gate failed for %s", failing_models), call. = FALSE)
 }
 
 # ── Final summary ────────────────────────────────────────────────────────────
@@ -62,6 +76,12 @@ cat("  PIPELINE COMPLETE\n")
 cat("================================================================\n")
 cat(sprintf("  Total runtime: %.1f seconds (%.1f minutes)\n", total_elapsed, total_elapsed / 60))
 cat(sprintf("  End time: %s\n\n", Sys.time()))
+
+cat("  Module status:\n")
+for (nm in names(module_status)) {
+  st <- module_status[[nm]]
+  cat(sprintf("    %s: %s (%.1fs)\n", nm, st$status, st$elapsed))
+}
 
 tables_list  <- list.files("improved-v2/outputs/tables", pattern = "\\.csv$")
 figures_list <- list.files("improved-v2/outputs/figures", pattern = "\\.png$")
@@ -123,8 +143,10 @@ if (file.exists(diag_file)) {
 cat("\n================================================================\n")
 cat("  Per suggestions.md:\n")
 cat("  - M1 is the headline model (INR oil, diagnostic-safe)\n")
+cat("  - PPAC is the mandatory 20+ year mechanism model\n")
+cat("  - Fuel & Light is supporting-only unless a 20+ year series is supplied\n")
 cat("  - M2 is robustness only (Brent+EXR decomposition)\n")
-cat("  - NARDL removed (ECT invalid in prior pipeline)\n")
+  cat("  - NARDL removed (ECT invalid in prior pipeline)\n")
 cat("  - Paper framing: transmission + dilution, not pure asymmetry\n")
 cat("================================================================\n")
 
@@ -133,4 +155,6 @@ sink(file.path("improved-v2/outputs", "run_log.txt"))
 cat(sprintf("Run completed: %s\n", Sys.time()))
 cat(sprintf("Runtime: %.1f seconds\n", total_elapsed))
 cat(sprintf("Tables: %d | Figures: %d\n", length(tables_list), length(figures_list)))
+cat("Mandatory gate:\n")
+print(mandatory_gate)
 sink()
