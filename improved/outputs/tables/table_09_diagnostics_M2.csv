@@ -1,0 +1,6 @@
+"Test","Statistic","P_Value","Result"
+"Breusch-Godfrey LM (12)",16.8241,0.1563,"PASS"
+"Breusch-Pagan",49.8026,0.0068,"FAIL (HAC used)"
+"Ramsey RESET (quadratic)",8.1667,0.0047,"FAIL"
+"Rec-CUSUM",0.9994,0.0337,"BORDERLINE"
+"OLS-CUSUM",0.8904,0.4061,"PASS"

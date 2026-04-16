@@ -1,0 +1,6 @@
+"Variable","ZA_stat","ZA_5pct_cv","Break_Index","Break_Date","Conclusion"
+"ln(CPI)",-3.9395,-5.08,62,"2009-05-01","Fail to reject (unit root with break)"
+"ln(Oil_INR)",-4.3144,-5.08,125,"2014-08-01","Fail to reject (unit root with break)"
+"ln(Brent)",-4.1293,-5.08,124,"2014-07-01","Fail to reject (unit root with break)"
+"ln(EXR)",-4.1349,-5.08,88,"2011-07-01","Fail to reject (unit root with break)"
+"ln(IIP)",-9.7135,-5.08,44,"2007-11-01","Reject unit root (break-stationary)"

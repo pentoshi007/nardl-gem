@@ -1,0 +1,4 @@
+"Model","Asymptotic_Wald_F","Asymptotic_p","Block_Bootstrap_p","Block_Length","B_Effective"
+"M1: Asym INR",1.3835,0.2408,0.4995,4,4999
+"M2: Brent+EXR",2.1471,0.1443,0.5785,4,4999
+"M3: Interaction (post-dereg)",0.5648,0.4532,0.6159,4,4999
