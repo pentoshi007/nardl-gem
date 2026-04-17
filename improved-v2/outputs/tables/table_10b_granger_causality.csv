@@ -1,0 +1,5 @@
+"Direction","N","Lags","F_stat","HAC_p","Verdict"
+"dlnOil -> dlnCPI (headline)",245,3,2.2861,0.0794,"Reject H0 (10%)"
+"dlnCPI -> dlnOil (reverse)",245,3,0.6199,0.6028,"Fail to reject (no Granger cause)"
+"dlnBrent -> dlnPetrol (first-stage)",245,3,10.7127,0,"Reject H0 (strong)"
+"dlnPetrol -> dlnFuel (bridge)",164,3,2.0253,0.1126,"Fail to reject (no Granger cause)"

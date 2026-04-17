@@ -1,0 +1,2 @@
+"Specification","Sample_start","Sample_end","N","Span_years","Adj_R2","CPT_pos","CPT_neg","CPTpos_p","CPTneg_p","Asym_p"
+"Headline WPI ADL: Brent +/- , EXR, AR(12), lags 0:6, month FE","1983-05-01","2026-03-01",515,42.92,0.4214,0.030882,0.03745,0.0234,9e-04,0.7039

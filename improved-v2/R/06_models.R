@@ -9,7 +9,9 @@
 # ==============================================================================
 banner("06", "CORE MODELS (M0 to M3)")
 
-dummy_terms <- paste0("M", 1:11, collapse = " + ")
+month_dummy_names <- paste0("mo_", c("Jan","Feb","Mar","Apr","May","Jun",
+                                     "Jul","Aug","Sep","Oct","Nov"))
+dummy_terms <- paste(month_dummy_names, collapse = " + ")
 
 # ==============================================================================
 # AIC-based AR lag selection (p = 1..4, common sample with L4)
@@ -21,6 +23,8 @@ df_aic <- df %>% filter(complete.cases(
   dlnOil_pos_L3, dlnOil_neg_L3, dlnIIP))
 
 aic_vals <- numeric(MAX_AR_P)
+bic_vals <- numeric(MAX_AR_P)
+hqc_vals <- numeric(MAX_AR_P)
 for (p in 1:MAX_AR_P) {
   ar <- paste0("dlnCPI_L", 1:p, collapse = " + ")
   f <- as.formula(paste0(
@@ -28,11 +32,33 @@ for (p in 1:MAX_AR_P) {
     " + dlnOil_pos_L0 + dlnOil_pos_L1 + dlnOil_pos_L2 + dlnOil_pos_L3",
     " + dlnOil_neg_L0 + dlnOil_neg_L1 + dlnOil_neg_L2 + dlnOil_neg_L3",
     " + dlnIIP + D_petrol + D_diesel + D_covid + ", dummy_terms))
-  aic_vals[p] <- AIC(lm(f, data = df_aic))
-  cat(sprintf("    p=%d: AIC=%.2f\n", p, aic_vals[p]))
+  m_tmp <- lm(f, data = df_aic)
+  n_tmp <- nobs(m_tmp)
+  k_tmp <- length(coef(m_tmp)) + 1
+  ll_tmp <- as.numeric(logLik(m_tmp))
+  aic_vals[p] <- AIC(m_tmp)
+  bic_vals[p] <- BIC(m_tmp)
+  hqc_vals[p] <- -2 * ll_tmp + 2 * k_tmp * log(log(n_tmp))
+  cat(sprintf("    p=%d: AIC=%.2f  BIC=%.2f  HQC=%.2f\n",
+              p, aic_vals[p], bic_vals[p], hqc_vals[p]))
 }
 best_p <- which.min(aic_vals)
-cat(sprintf("  => Selected p = %d (AIC = %.2f)\n", best_p, aic_vals[best_p]))
+best_p_bic <- which.min(bic_vals)
+best_p_hqc <- which.min(hqc_vals)
+cat(sprintf("  => Selected p = %d (AIC min). BIC picks p=%d; HQC picks p=%d.\n",
+            best_p, best_p_bic, best_p_hqc))
+
+lag_selection_tbl <- data.frame(
+  p = 1:MAX_AR_P,
+  AIC = round(aic_vals, 2),
+  BIC = round(bic_vals, 2),
+  HQC = round(hqc_vals, 2),
+  AIC_min = ifelse(seq_len(MAX_AR_P) == best_p, "*", ""),
+  BIC_min = ifelse(seq_len(MAX_AR_P) == best_p_bic, "*", ""),
+  HQC_min = ifelse(seq_len(MAX_AR_P) == best_p_hqc, "*", ""),
+  stringsAsFactors = FALSE
+)
+save_table(lag_selection_tbl, "table_05b_lag_selection.csv")
 
 ar_terms <- paste0("dlnCPI_L", 1:best_p, collapse = " + ")
 lag_col  <- paste0("dlnCPI_L", best_p)

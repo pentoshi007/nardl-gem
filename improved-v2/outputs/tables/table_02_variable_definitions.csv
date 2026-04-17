@@ -19,4 +19,4 @@
 "D_diesel","1 if date >= Oct 2014 (diesel deregulation)","Policy event"
 "D_covid","1 if date == Apr 2020 (COVID lockdown)","Policy event"
 "D_post","1 if date >= Oct 2014 (post-deregulation regime)","Policy event"
-"M1-M11","Monthly dummies (Jan-Nov; Dec = reference)","Constructed"
+"mo_Jan..mo_Nov","Monthly dummies (Jan-Nov; Dec = reference)","Constructed"

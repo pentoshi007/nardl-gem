@@ -1,0 +1,39 @@
+"Specification","Coefficient","Estimate","SE","t_value","p_value"
+"NARDL headline: ln(WPI) ~ ln(Brent)","ln_wpi_2",1.073039,0.032882,32.633,0
+"NARDL headline: ln(WPI) ~ ln(Brent)","ln_brent_p",-0.039394,0.028972,-1.3597,0.1739
+"NARDL headline: ln(WPI) ~ ln(Brent)","ln_brent_p_1",-0.08773,0.046543,-1.8849,0.0594
+"NARDL headline: ln(WPI) ~ ln(Brent)","ln_brent_p_2",0.112397,0.034703,3.2388,0.0012
+"NARDL headline: ln(WPI) ~ ln(Brent)","ln_brent_n",-0.082263,0.028312,-2.9056,0.0037
+"NARDL headline: ln(WPI) ~ ln(Brent)","ln_brent_n_1",0.000997,0.038632,0.0258,0.9794
+"NARDL headline: ln(WPI) ~ ln(Brent)","ln_brent_n_2",0.072726,0.030326,2.3982,0.0165
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_wpi_2",1.076377,0.037876,28.4182,0
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_brent_p",-0.044877,0.030726,-1.4605,0.1441
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_brent_p_1",-0.089691,0.048739,-1.8403,0.0657
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_brent_p_2",0.122024,0.037488,3.255,0.0011
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_brent_n",-0.097102,0.032314,-3.005,0.0027
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_brent_n_1",5.9e-05,0.040527,0.0014,0.9988
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_brent_n_2",0.092585,0.035501,2.6079,0.0091
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_exr",-0.099237,0.091067,-1.0897,0.2758
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_exr_1",-0.253787,0.151861,-1.6712,0.0947
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_exr_2",0.510518,0.170599,2.9925,0.0028
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","ln_exr_3",-0.139019,0.089072,-1.5607,0.1186
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","ln_wpi_2",1.254175,0.186645,6.7196,0
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","ln_wpi_3",-0.191193,0.184588,-1.0358,0.3003
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","ln_oil_inr_p",-0.0501,0.028115,-1.7819,0.0748
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","ln_oil_inr_p_1",-0.078393,0.043491,-1.8025,0.0715
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","ln_oil_inr_p_2",0.12584,0.040648,3.0958,0.002
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","ln_oil_inr_p_3",-0.050265,0.03543,-1.4187,0.156
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","ln_oil_inr_p_4",0.038632,0.026326,1.4675,0.1423
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","ln_oil_inr_n",-0.080864,0.028904,-2.7977,0.0051
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","ln_oil_inr_n_1",-0.009671,0.037908,-0.2551,0.7986
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","ln_oil_inr_n_2",0.080627,0.031248,2.5802,0.0099
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","ln_fuel_2",1.964811,0.460676,4.2651,0
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","ln_fuel_3",-0.426539,0.335517,-1.2713,0.2036
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","ln_oil_inr_p",-0.087439,0.145529,-0.6008,0.548
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","ln_oil_inr_p_1",-0.755849,0.343141,-2.2027,0.0276
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","ln_oil_inr_p_2",0.62527,0.262899,2.3784,0.0174
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","ln_oil_inr_n",-0.46279,0.207926,-2.2257,0.026
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","ln_oil_inr_n_1",-0.481641,0.277173,-1.7377,0.0823
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","ln_oil_inr_n_2",0.79175,0.312134,2.5366,0.0112
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","ln_oil_inr_n_3",-0.047866,0.193466,-0.2474,0.8046
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","ln_oil_inr_n_4",0.008891,0.131004,0.0679,0.9459

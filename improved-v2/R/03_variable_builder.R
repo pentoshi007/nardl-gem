@@ -56,8 +56,11 @@ cat(sprintf("  Policy dummies: D_petrol from %s, D_diesel from %s, D_covid at %s
     DATE_PETROL_DEREG, DATE_DIESEL_DEREG, DATE_COVID_START))
 
 # ── 3.7 Monthly dummies (December = reference) ──────────────────────────────
+# NOTE: names prefixed "mo_" to avoid collision with model labels M0/M1/M2/M3.
 df$month <- as.integer(format(df$date, "%m"))
-for (m in 1:11) df[[paste0("M", m)]] <- as.integer(df$month == m)
+MONTH_LABELS <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                  "Jul", "Aug", "Sep", "Oct", "Nov")
+for (m in 1:11) df[[paste0("mo_", MONTH_LABELS[m])]] <- as.integer(df$month == m)
 
 # ── 3.8 Lags ────────────────────────────────────────────────────────────────
 # CPI AR lags (up to 4 for AIC selection)

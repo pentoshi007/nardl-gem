@@ -1,0 +1,5 @@
+"Specification","Sample_start","Sample_end","N","Bounds_F","ECT_coef","ECT_p","SR_Wald_p","LR_Wald_p","ECT_valid","Verdict"
+"NARDL headline: ln(WPI) ~ ln(Brent)","1997-04-01","2025-03-01",333,27.6628,-0.018878,0.0052,0.6184,8e-04,"YES","Valid NARDL ECM"
+"NARDL headline: ln(WPI) ~ ln(Brent) | ln(EXR)","1997-04-01","2025-03-01",333,21.4034,-0.018511,0.0059,0.522,0,"YES","Valid NARDL ECM"
+"NARDL headline: ln(WPI) ~ ln(INR-oil)","1997-04-01","2025-03-01",331,21.4284,-0.017,0.0105,0.76,0.0231,"YES","Valid NARDL ECM"
+"NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)","1997-04-01","2025-03-01",331,34.1471,-0.081148,0,0.2331,0,"YES","Valid NARDL ECM"

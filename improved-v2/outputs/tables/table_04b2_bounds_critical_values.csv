@@ -1,0 +1,4 @@
+"Level","I0_lower","I1_upper","F_statistic","Verdict"
+"10%",3.17,4.14,3.6268,"Inconclusive"
+"5%",3.79,4.85,3.6268,"Fail to reject (no levels relation)"
+"1%",5.15,6.36,3.6268,"Fail to reject (no levels relation)"

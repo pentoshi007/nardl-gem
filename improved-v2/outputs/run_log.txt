@@ -1,6 +1,6 @@
-Run completed: 2026-04-16 17:30:22.395882
-Runtime: 47.6 seconds
-Tables: 30 | Figures: 13
+Run completed: 2026-04-17 16:41:24.364739
+Runtime: 74.2 seconds
+Tables: 37 | Figures: 14
 Mandatory gate:
            Model Mandatory   N Sample_start Sample_end Span_years Duration_20Y
 1    M1 headline       YES 245   2004-08-01 2024-12-01      20.42          YES

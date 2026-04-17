@@ -1,0 +1,4 @@
+"Stage","N","CPT_pos","CPT_neg","CPTpos_p","CPTneg_p","Asym_p","Adj_R2"
+"Stage 1: Brent -> PPAC Petrol (common sample)",165,0.400742,0.226347,1e-04,7e-04,0.1123,0.2667
+"Stage 2: PPAC -> Fuel & Light (common sample)",164,0.177711,0.10584,0.0021,0.1741,0.4554,0.1817
+"Stage 3: Oil -> Headline CPI (common sample)",168,0.006441,-0.000104,0.6355,0.9923,0.734,0.5068

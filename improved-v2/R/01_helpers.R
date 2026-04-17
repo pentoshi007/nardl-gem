@@ -119,6 +119,42 @@ reset_hac <- function(model, data, formula, power = 2:3, label = "") {
   )
 }
 
+# ── ARCH-LM test (Engle 1982) — auxiliary regression on squared residuals ───
+arch_lm_test <- function(resid, lags = 12) {
+  r2 <- as.numeric(resid)^2
+  n  <- length(r2)
+  if (n <= lags + 2) return(list(statistic = NA_real_, p.value = NA_real_, lag = lags))
+  lag_mat <- sapply(1:lags, function(k) dplyr::lag(r2, k))
+  colnames(lag_mat) <- paste0("r2_L", 1:lags)
+  dat  <- as.data.frame(cbind(r2 = r2, lag_mat))
+  dat  <- dat[complete.cases(dat), , drop = FALSE]
+  if (nrow(dat) <= lags + 1) return(list(statistic = NA_real_, p.value = NA_real_, lag = lags))
+  aux  <- lm(as.formula(paste("r2 ~", paste(colnames(lag_mat), collapse = " + "))),
+             data = dat)
+  r2_aux <- summary(aux)$r.squared
+  stat   <- nrow(dat) * r2_aux
+  p_val  <- pchisq(stat, df = lags, lower.tail = FALSE)
+  list(statistic = stat, p.value = p_val, lag = lags)
+}
+
+# ── Jarque-Bera normality test ───────────────────────────────────────────────
+jarque_bera <- function(x) {
+  x  <- as.numeric(x)
+  x  <- x[is.finite(x)]
+  n  <- length(x)
+  if (n < 8) return(list(statistic = NA_real_, p.value = NA_real_,
+                         skewness = NA_real_, kurtosis = NA_real_))
+  mu <- mean(x)
+  m2 <- sum((x - mu)^2) / n
+  m3 <- sum((x - mu)^3) / n
+  m4 <- sum((x - mu)^4) / n
+  sk <- m3 / m2^1.5
+  kt <- m4 / m2^2
+  jb <- n * (sk^2 / 6 + (kt - 3)^2 / 24)
+  list(statistic = jb, p.value = pchisq(jb, df = 2, lower.tail = FALSE),
+       skewness = sk, kurtosis = kt)
+}
+
 # ── Coefficient table formatter ──────────────────────────────────────────────
 coef_table <- function(model, vcov_mat) {
   ct <- coeftest(model, vcov. = vcov_mat)

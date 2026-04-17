@@ -35,6 +35,13 @@ run_diagnostics <- function(model, formula, data, label) {
   cusum_ols    <- efp(formula, data = data, type = "OLS-CUSUM")
   cusum_ols_sc <- sctest(cusum_ols)
 
+  # ARCH-LM(4) and ARCH-LM(12) on residuals (Engle 1982)
+  arch4  <- arch_lm_test(residuals(model), lags = 4)
+  arch12 <- arch_lm_test(residuals(model), lags = 12)
+
+  # Jarque-Bera normality
+  jb <- jarque_bera(residuals(model))
+
   data.frame(
     Model          = label,
     N              = n,
@@ -54,6 +61,14 @@ run_diagnostics <- function(model, formula, data, label) {
     OLS_CUSUM_stat = round(cusum_ols_sc$statistic, 4),
     OLS_CUSUM_p    = round(cusum_ols_sc$p.value, 4),
     OLS_CUSUM_pass = ifelse(cusum_ols_sc$p.value > 0.05, "PASS", "FAIL"),
+    ARCH4_stat     = round(arch4$statistic, 4),
+    ARCH4_p        = round(arch4$p.value, 4),
+    ARCH12_stat    = round(arch12$statistic, 4),
+    ARCH12_p       = round(arch12$p.value, 4),
+    JB_stat        = round(jb$statistic, 4),
+    JB_p           = round(jb$p.value, 4),
+    Skewness       = round(jb$skewness, 4),
+    Kurtosis       = round(jb$kurtosis, 4),
     stringsAsFactors = FALSE, row.names = NULL
   )
 }
@@ -81,6 +96,12 @@ for (i in 1:nrow(diag_all)) {
       ifelse(is.na(r$RESET_HAC_F), 0, r$RESET_HAC_F), hac_p_str, r$RESET_HAC_pass))
   cat(sprintf("    Rec-CUSUM:   p=%.4f [%s]\n", r$RecCUSUM_p, r$RecCUSUM_pass))
   cat(sprintf("    OLS-CUSUM:   p=%.4f [%s]\n", r$OLS_CUSUM_p, r$OLS_CUSUM_pass))
+  cat(sprintf("    ARCH-LM(4):  stat=%.3f p=%.4f [%s]  (report-only, HAC handles)\n",
+      r$ARCH4_stat, r$ARCH4_p, ifelse(r$ARCH4_p > 0.05, "no ARCH", "ARCH present")))
+  cat(sprintf("    ARCH-LM(12): stat=%.3f p=%.4f [%s]  (report-only, HAC handles)\n",
+      r$ARCH12_stat, r$ARCH12_p, ifelse(r$ARCH12_p > 0.05, "no ARCH", "ARCH present")))
+  cat(sprintf("    Jarque-Bera: stat=%.3f p=%.4f [%s]  (report-only)\n",
+      r$JB_stat, r$JB_p, ifelse(r$JB_p > 0.05, "normal", "non-normal")))
 }
 
 # ── Store CUSUM objects for figures ──────────────────────────────────────────

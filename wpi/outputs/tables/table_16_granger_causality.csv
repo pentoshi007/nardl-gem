@@ -1,0 +1,6 @@
+"Direction","N","Lags","F_stat","HAC_p","Verdict"
+"dlnOil -> dlnWPI (headline)",523,4,7.4288,0,"Reject H0 (strong)"
+"dlnWPI -> dlnOil (reverse)",523,4,0.9502,0.4345,"Fail to reject (no Granger cause)"
+"dlnOil -> dlnFuelWPI (sector)",379,4,15.2231,0,"Reject H0 (strong)"
+"dlnBrent -> dlnWPI (USD oil)",523,4,7.3784,0,"Reject H0 (strong)"
+"dlnEXR -> dlnWPI (exchange rate)",523,4,2.3771,0.051,"Reject H0 (10%)"

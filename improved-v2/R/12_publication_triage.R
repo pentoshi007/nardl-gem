@@ -246,7 +246,9 @@ fit_headline_spec <- function(label, oil_prefix, q, add_exr = FALSE, p = best_p)
   rhs <- c(
     ar, pos, neg,
     if (add_exr) c("dlnEXR", "dlnEXR_L1") else character(0),
-    "dlnIIP", "D_petrol", "D_diesel", "D_covid", paste0("M", 1:11)
+    "dlnIIP", "D_petrol", "D_diesel", "D_covid",
+    paste0("mo_", c("Jan","Feb","Mar","Apr","May","Jun",
+                    "Jul","Aug","Sep","Oct","Nov"))
   )
   rhs <- rhs[rhs %in% names(df)]
   dat <- df[complete.cases(df[, c("dlnCPI", rhs)]), ]
@@ -426,10 +428,22 @@ v2_upgrade_audit <- data.frame(
     "Runner fails on errors",
     "PPAC summary and coefficient outputs both saved",
     "Fuel summary and coefficient outputs both saved",
-    "Separate bridge model saved"
+    "Separate bridge model saved",
+    "ARDL bounds F-test (Pesaran-Shin-Smith 2001)",
+    "ARCH-LM(4) and ARCH-LM(12) reported",
+    "Jarque-Bera normality reported",
+    "Bai-Perron multiple structural breaks",
+    "AIC / BIC / HQC all reported for lag selection",
+    "Common-sample dilution table (2011+)",
+    "Formal attenuation Wald test across stages",
+    "Granger causality along the transmission chain",
+    "Month dummies renamed to mo_Jan..mo_Nov (no collision with M0-M3)",
+    "fig 13 dilution chart on log scale (headline stage visible)"
   ),
-  improved_v1 = c("YES", "YES", "YES", "NO", "NO", "PARTIAL", "PARTIAL", "NO"),
-  improved_v2 = c("YES", "YES", "YES", "YES", "YES", "YES", "YES", "YES"),
+  improved_v1 = c("YES", "YES", "YES", "NO", "NO", "PARTIAL", "PARTIAL", "NO",
+                  "NO", "NO", "NO", "NO", "NO", "NO", "NO", "NO", "NO", "NO"),
+  improved_v2 = c("YES", "YES", "YES", "YES", "YES", "YES", "YES", "YES",
+                  "YES", "YES", "YES", "YES", "YES", "YES", "YES", "YES", "YES", "YES"),
   stringsAsFactors = FALSE
 )
 save_table(v2_upgrade_audit, "table_29_v2_upgrade_audit.csv")

@@ -140,4 +140,58 @@ if (length(za_results) > 0) {
   save_table(za_table, "table_04_zivot_andrews.csv")
 }
 
+# ── Bai-Perron multiple breakpoints ──────────────────────────────────────────
+# Uses strucchange::breakpoints which implements Bai & Perron (1998, 2003)
+# optimal segmentation (BIC-minimizing number of breaks).
+cat("\n  Bai-Perron multiple structural breaks (BIC-optimal)...\n")
+
+bp_series <- list(
+  list(name = "dlnCPI", label = "dln(CPI) [headline inflation]"),
+  list(name = "dlnOil", label = "dln(Oil INR) [rupee oil change]")
+)
+
+bp_results <- list()
+bp_objects <- list()
+
+for (s in bp_series) {
+  y_vec <- df[[s$name]]
+  date_vec <- df$date[!is.na(y_vec)]
+  y_vec <- y_vec[!is.na(y_vec)]
+  if (length(y_vec) < 60) next
+
+  bp_fit <- tryCatch(
+    breakpoints(y_vec ~ 1, h = 0.15),  # at least 15% of obs in each segment
+    error = function(e) NULL
+  )
+  if (is.null(bp_fit)) next
+
+  # Summary: F-stats, BIC at k=0..5
+  bp_sum <- summary(bp_fit)
+  best_k <- bp_fit$breakpoints
+  if (all(is.na(best_k))) {
+    bp_dates <- "None"
+    n_breaks <- 0
+  } else {
+    bp_dates <- paste(format(date_vec[best_k], "%Y-%m"), collapse = "; ")
+    n_breaks <- length(best_k)
+  }
+
+  bp_results[[length(bp_results) + 1]] <- data.frame(
+    Series = s$label,
+    N = length(y_vec),
+    N_breaks_BIC = n_breaks,
+    Break_dates = bp_dates,
+    stringsAsFactors = FALSE
+  )
+
+  bp_objects[[s$name]] <- list(fit = bp_fit, dates = date_vec)
+
+  cat(sprintf("    %-28s -> %d breaks at: %s\n", s$label, n_breaks, bp_dates))
+}
+
+if (length(bp_results) > 0) {
+  bp_table <- bind_rows(bp_results)
+  save_table(bp_table, "table_04c_bai_perron.csv")
+}
+
 cat("  [05_unit_roots] Done.\n")

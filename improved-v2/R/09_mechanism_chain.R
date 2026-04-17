@@ -92,7 +92,9 @@ if (ppac_available) {
     paste0("dlnPetrol_L", 1:best_p),
     paste0("dlnBrent_pos_L", 0:3),
     paste0("dlnBrent_neg_L", 0:3),
-    "dlnIIP", "D_petrol", "D_diesel", "D_covid", paste0("M", 1:11)
+    "dlnIIP", "D_petrol", "D_diesel", "D_covid",
+    paste0("mo_", c("Jan","Feb","Mar","Apr","May","Jun",
+                    "Jul","Aug","Sep","Oct","Nov"))
   )
   ppac_rhs <- ppac_rhs[vapply(ppac_rhs, function(term) {
     term %in% names(df_ppac_est) && length(unique(df_ppac_est[[term]])) > 1
@@ -172,7 +174,9 @@ if (fuel_available) {
     paste0("dlnFuel_L", 1:best_p),
     paste0("dlnOil_pos_L", 0:3),
     paste0("dlnOil_neg_L", 0:3),
-    "dlnIIP", "D_petrol", "D_diesel", "D_covid", paste0("M", 1:11)
+    "dlnIIP", "D_petrol", "D_diesel", "D_covid",
+    paste0("mo_", c("Jan","Feb","Mar","Apr","May","Jun",
+                    "Jul","Aug","Sep","Oct","Nov"))
   )
   fuel_rhs <- fuel_rhs[vapply(fuel_rhs, function(term) {
     term %in% names(df_fuel_est) && length(unique(df_fuel_est[[term]])) > 1

@@ -32,9 +32,12 @@ modules <- c(
   "improved-v2/R/04_descriptives.R",
   "improved-v2/R/05_unit_roots.R",
   "improved-v2/R/06_models.R",
+  "improved-v2/R/05b_cointegration.R",
+  "improved-v2/R/06b_granger.R",
   "improved-v2/R/07_diagnostics.R",
   "improved-v2/R/08_bootstrap.R",
   "improved-v2/R/09_mechanism_chain.R",
+  "improved-v2/R/09b_attenuation_test.R",
   "improved-v2/R/10_robustness.R",
   "improved-v2/R/11_figures.R",
   "improved-v2/R/12_publication_triage.R"
@@ -120,6 +123,34 @@ if (file.exists(dil_file)) {
         dil$Stage[i], dil$CPT_pos[i], format_p(dil$CPTpos_p[i]),
         dil$CPT_neg[i], format_p(dil$CPTneg_p[i]),
         dil$Asym_evidence[i]))
+  }
+}
+
+# ── ARDL bounds test ─────────────────────────────────────────────────────────
+cat("\n  === ARDL BOUNDS F-TEST (long-run relationship) ===\n")
+if (exists("bounds_F")) {
+  cat(sprintf("  F = %.4f | 5%% verdict: %s\n", bounds_F, bounds_verdict_5pct))
+}
+
+# ── Attenuation Wald test ────────────────────────────────────────────────────
+cat("\n  === ATTENUATION WALD TEST (Stage 1 vs Stage 3) ===\n")
+att_file <- file.path("improved-v2/outputs/tables", "table_23c_attenuation_wald.csv")
+if (file.exists(att_file)) {
+  att <- read.csv(att_file, stringsAsFactors = FALSE)
+  for (i in seq_len(nrow(att))) {
+    cat(sprintf("  %s\n    F=%.3f, p=%s -> %s\n",
+        att$Hypothesis[i], att$F_stat[i], format_p(att$HAC_p[i]), att$Verdict[i]))
+  }
+}
+
+# ── Granger causality ────────────────────────────────────────────────────────
+cat("\n  === GRANGER CAUSALITY ===\n")
+grg_file <- file.path("improved-v2/outputs/tables", "table_10b_granger_causality.csv")
+if (file.exists(grg_file)) {
+  grg <- read.csv(grg_file, stringsAsFactors = FALSE)
+  for (i in seq_len(nrow(grg))) {
+    cat(sprintf("  %s: F=%.3f, p=%s [%s]\n",
+        grg$Direction[i], grg$F_stat[i], format_p(grg$HAC_p[i]), grg$Verdict[i]))
   }
 }
 

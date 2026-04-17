@@ -1,0 +1,25 @@
+Run completed: 2026-04-17 16:50:20.385352
+Runtime: 103.1 seconds
+Tables: 20 | Figures: 12
+
+Publication decision:
+                            Model                       Role
+1      Headline WPI ADL (INR oil)            Main WPI result
+2  Headline WPI ADL (Brent + EXR) Robustness / decomposition
+3            Fuel & Power WPI ADL    Sector mechanism result
+4 Literature-style NARDL appendix              Appendix only
+                    Sample Span_years
+1 1983-05-01 to 2026-03-01      42.92
+2 1983-05-01 to 2026-03-01      42.92
+3 1995-05-01 to 2026-03-01      30.92
+4 1997-04-01 to 2025-03-01      28.00
+                                                             Key_result
+1         CPT+=0.0301 (p=0.0240); CPT-=0.0374 (p=0.0012); asym p=0.6727
+2         CPT+=0.0309 (p=0.0234); CPT-=0.0375 (p=<0.001); asym p=0.7039
+3         CPT+=0.2866 (p=<0.001); CPT-=0.2677 (p=<0.001); asym p=0.7832
+4 Valid NARDL ECM | Valid NARDL ECM | Valid NARDL ECM | Valid NARDL ECM
+                              Diagnostics                            Verdict
+1 BG=PASS; HAC-RESET=PASS; Rec-CUSUM=PASS                 Use as main result
+2 BG=PASS; HAC-RESET=PASS; Rec-CUSUM=PASS    Use as decomposition robustness
+3 BG=PASS; HAC-RESET=FAIL; Rec-CUSUM=PASS Report with functional-form caveat
+4        ECT sign governs appendix triage                   Keep as appendix

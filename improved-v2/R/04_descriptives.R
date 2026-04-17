@@ -36,7 +36,7 @@ var_defs <- data.frame(
                "dlnOil_pos", "dlnOil_neg", "dlnBrent_pos", "dlnBrent_neg",
                "nopi_pos", "nopi_neg",
                "D_petrol", "D_diesel", "D_covid", "D_post",
-               "M1-M11"),
+               "mo_Jan..mo_Nov"),
   Definition = c(
     "India CPI All Items (OECD via FRED: INDCPIALLMINMEI)",
     "Brent Crude Oil Price, USD/barrel (FRED: POILBREUSDM)",

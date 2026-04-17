@@ -1,0 +1,2 @@
+"Specification","Sample_start","Sample_end","N","Span_years","Adj_R2","CPT_pos","CPT_neg","CPTpos_p","CPTneg_p","Asym_p"
+"Fuel & Power WPI ADL: INR oil +/- , AR(12), oil lags 0:6, month FE","1995-05-01","2026-03-01",371,30.92,0.4633,0.286578,0.267672,0,0,0.7832

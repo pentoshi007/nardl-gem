@@ -1,0 +1,5 @@
+"Model","Role","Sample","Span_years","Key_result","Diagnostics","Verdict"
+"Headline WPI ADL (INR oil)","Main WPI result","1983-05-01 to 2026-03-01",42.92,"CPT+=0.0301 (p=0.0240); CPT-=0.0374 (p=0.0012); asym p=0.6727","BG=PASS; HAC-RESET=PASS; Rec-CUSUM=PASS","Use as main result"
+"Headline WPI ADL (Brent + EXR)","Robustness / decomposition","1983-05-01 to 2026-03-01",42.92,"CPT+=0.0309 (p=0.0234); CPT-=0.0375 (p=<0.001); asym p=0.7039","BG=PASS; HAC-RESET=PASS; Rec-CUSUM=PASS","Use as decomposition robustness"
+"Fuel & Power WPI ADL","Sector mechanism result","1995-05-01 to 2026-03-01",30.92,"CPT+=0.2866 (p=<0.001); CPT-=0.2677 (p=<0.001); asym p=0.7832","BG=PASS; HAC-RESET=FAIL; Rec-CUSUM=PASS","Report with functional-form caveat"
+"Literature-style NARDL appendix","Appendix only","1997-04-01 to 2025-03-01",28,"Valid NARDL ECM | Valid NARDL ECM | Valid NARDL ECM | Valid NARDL ECM","ECT sign governs appendix triage","Keep as appendix"

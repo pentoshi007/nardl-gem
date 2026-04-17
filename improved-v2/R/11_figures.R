@@ -335,33 +335,86 @@ tryCatch({
 
 # ==============================================================================
 # Figure 13: Dilution chain
+# Stage 1 CPT is ~0.35 but Stage 3 is ~0.02. Using linear scale collapses the
+# headline stage to invisibility. Use a log10 scale with labels on bars.
 # ==============================================================================
 cat("  Fig 13: Dilution chain...\n")
 tryCatch({
   if (exists("dilution_tbl") && nrow(dilution_tbl) >= 2) {
-    dt <- dilution_tbl %>%
-      mutate(Stage_short = paste0("Stage ", seq_len(n()), "\n",
-        c("Brent ->\nPPAC Petrol", "PPAC ->\nFuel & Light", "Oil ->\nHeadline CPI")[seq_len(n())]))
+    stage_lbls <- c("Brent ->\nPPAC Petrol",
+                    "PPAC ->\nFuel & Light",
+                    "Oil ->\nHeadline CPI")[seq_len(nrow(dilution_tbl))]
 
-    fig13 <- ggplot(dt, aes(x = Stage_short)) +
-      geom_col(aes(y = CPT_pos), fill = "#C0392B", alpha = 0.85, width = 0.4,
-               position = position_nudge(x = -0.22)) +
-      geom_col(aes(y = abs(CPT_neg)), fill = "#2980B9", alpha = 0.85, width = 0.4,
-               position = position_nudge(x = 0.22)) +
-      geom_text(aes(y = CPT_pos + max(CPT_pos) * 0.05,
-                    label = sprintf("CPT+\n%.3f", CPT_pos)),
-                position = position_nudge(x = -0.22), size = 3, color = "#C0392B") +
-      geom_text(aes(y = abs(CPT_neg) + max(abs(CPT_neg)) * 0.05,
-                    label = sprintf("|CPT-|\n%.3f", abs(CPT_neg))),
-                position = position_nudge(x = 0.22), size = 3, color = "#2980B9") +
+    dt_long <- dilution_tbl %>%
+      mutate(Stage_short = paste0("Stage ", seq_len(n()), "\n", stage_lbls)) %>%
+      tidyr::pivot_longer(c(CPT_pos, CPT_neg), names_to = "Type", values_to = "Value") %>%
+      mutate(
+        Type_label = ifelse(Type == "CPT_pos", "CPT+", "|CPT-|"),
+        AbsValue = abs(Value),
+        Stage_short = factor(Stage_short, levels = unique(Stage_short))
+      )
+
+    fig13 <- ggplot(dt_long, aes(x = Stage_short, y = AbsValue, fill = Type_label)) +
+      geom_col(position = position_dodge(width = 0.75), width = 0.65, alpha = 0.88) +
+      geom_text(aes(label = sprintf("%.3f", Value)),
+                position = position_dodge(width = 0.75),
+                vjust = -0.4, size = 3.2) +
+      scale_fill_manual(values = c("CPT+" = "#C0392B", "|CPT-|" = "#2980B9")) +
+      scale_y_log10(
+        labels = scales::label_number(accuracy = 0.001),
+        breaks = c(0.001, 0.01, 0.05, 0.1, 0.5),
+        expand = expansion(mult = c(0, 0.15))
+      ) +
       labs(title = "The Dilution Hypothesis: Oil-to-CPI Pass-Through Chain",
-           subtitle = "CPT estimates shrink from retail fuel to headline inflation",
-           x = NULL, y = "Cumulative Pass-Through Coefficient",
-           caption = "Asymmetry weakens at headline CPI due to ~70% food & services weight") +
+           subtitle = "CPT on a log10 scale so Stage 1 (retail fuel) and Stage 3 (headline) are jointly visible",
+           x = NULL, y = "|CPT| (log10 scale)", fill = NULL,
+           caption = "Headline CPI captures only a fraction of retail-fuel pass-through (dilution)") +
       theme_pub
-    ggsave(save_figure_path("fig_13_dilution_chain.png"), fig13, width = 10, height = 6, dpi = 300)
+    ggsave(save_figure_path("fig_13_dilution_chain.png"),
+           fig13, width = 10, height = 6, dpi = 300)
   }
 }, error = function(e) cat(sprintf("  Fig 13 error: %s\n", e$message)))
+
+# ==============================================================================
+# Figure 13b: Common-sample dilution chain (Stage 1, 2, 3 on one window)
+# ==============================================================================
+cat("  Fig 13b: Common-sample dilution...\n")
+tryCatch({
+  cs_file <- file.path(PATHS$tables, "table_23b_dilution_common_sample.csv")
+  if (file.exists(cs_file)) {
+    cs <- read.csv(cs_file, stringsAsFactors = FALSE)
+    cs$Stage_num <- paste0("Stage ", seq_len(nrow(cs)))
+    cs_long <- cs %>%
+      tidyr::pivot_longer(c(CPT_pos, CPT_neg), names_to = "Type", values_to = "Value") %>%
+      mutate(
+        Type_label = ifelse(Type == "CPT_pos", "CPT+", "|CPT-|"),
+        AbsValue = abs(Value) + 1e-6,
+        Stage_num = factor(Stage_num, levels = unique(Stage_num))
+      )
+
+    fig13b <- ggplot(cs_long, aes(x = Stage_num, y = AbsValue, fill = Type_label)) +
+      geom_col(position = position_dodge(width = 0.75), width = 0.65, alpha = 0.88) +
+      geom_text(aes(label = sprintf("%.3f", Value)),
+                position = position_dodge(width = 0.75),
+                vjust = -0.4, size = 3.2) +
+      scale_fill_manual(values = c("CPT+" = "#C0392B", "|CPT-|" = "#2980B9")) +
+      scale_y_log10(
+        labels = scales::label_number(accuracy = 0.001),
+        breaks = c(0.001, 0.01, 0.05, 0.1, 0.5),
+        expand = expansion(mult = c(0, 0.15))
+      ) +
+      labs(title = "Dilution Chain on the Common Sample",
+           subtitle = sprintf("All three stages estimated on the same window (%d/%d/%d obs)",
+                              cs$N[1],
+                              if (nrow(cs) >= 2) cs$N[2] else NA_integer_,
+                              if (nrow(cs) >= 3) cs$N[3] else NA_integer_),
+           x = NULL, y = "|CPT| (log10 scale)", fill = NULL,
+           caption = "Stage 1: Brent -> PPAC | Stage 2: PPAC -> F&L | Stage 3: Oil -> Headline CPI") +
+      theme_pub
+    ggsave(save_figure_path("fig_13b_dilution_common_sample.png"),
+           fig13b, width = 10, height = 6, dpi = 300)
+  }
+}, error = function(e) cat(sprintf("  Fig 13b error: %s\n", e$message)))
 
 # ── Count saved figures ──────────────────────────────────────────────────────
 n_figs <- length(list.files(PATHS$figures, pattern = "\\.png$"))

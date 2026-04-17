@@ -13,7 +13,9 @@ banner("10", "ROBUSTNESS CHECKS")
 
 robustness_rows <- list()
 subsample_rows <- list()
-dummy_terms_str <- paste0("M", 1:11, collapse = " + ")
+month_dummy_names_rob <- paste0("mo_", c("Jan","Feb","Mar","Apr","May","Jun",
+                                         "Jul","Aug","Sep","Oct","Nov"))
+dummy_terms_str <- paste(month_dummy_names_rob, collapse = " + ")
 
 # ==============================================================================
 # R1: NOPI (Hamilton 2003) specification

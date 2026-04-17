@@ -1,0 +1,4 @@
+"Hypothesis","F_stat","HAC_p","Gap_S1_minus_S3","Verdict"
+"H0: CPT+_Stage1 = CPT+_Stage3",14.3499,2e-04,0.272245,"Reject equality (attenuation present)"
+"H0: CPT-_Stage1 = CPT-_Stage3",4.3436,0.038,0.136191,"Reject equality"
+"H0: All pos & neg CPT equal across stages",20.4785,0,NA,"Reject (stages differ)"
