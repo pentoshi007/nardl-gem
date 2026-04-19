@@ -93,6 +93,93 @@ model_gate <- data.frame(
   stringsAsFactors = FALSE
 )
 
+# ── KPSS Footnote: dln(WPI) anomaly ──────────────────────────────────────────
+# dln(WPI) KPSS = 0.90 > 5% CV (0.463), but ADF/PP strongly reject I(1).
+# This is a known finite-sample KPSS issue in long series with structural breaks.
+ur_tbl <- tryCatch(
+  read.csv(file.path(PATHS$tables, "table_13_unit_root_battery.csv"), stringsAsFactors = FALSE),
+  error = function(e) NULL
+)
+kpss_footnotes <- NULL
+if (!is.null(ur_tbl)) {
+  dln_wpi <- ur_tbl[ur_tbl$Variable == "dln(WPI)", ]
+  if (nrow(dln_wpi) > 0 && !is.na(dln_wpi$KPSS_stat) && !is.na(dln_wpi$KPSS_cv5)) {
+    if (dln_wpi$KPSS_stat > dln_wpi$KPSS_cv5) {
+      kpss_footnotes <- data.frame(
+        Variable = "dln(WPI)",
+        KPSS_stat = dln_wpi$KPSS_stat,
+        KPSS_cv5 = dln_wpi$KPSS_cv5,
+        ADF_stat = dln_wpi$ADF_stat,
+        PP_stat = dln_wpi$PP_stat,
+        Footnote = paste0(
+          "KPSS on dln(WPI) = ", round(dln_wpi$KPSS_stat, 4),
+          " exceeds the 5% CV (", round(dln_wpi$KPSS_cv5, 3), "). ",
+          "However, ADF (", round(dln_wpi$ADF_stat, 2), ") and PP (", round(dln_wpi$PP_stat, 2), ") ",
+          "strongly reject I(1). This is a known KPSS over-rejection issue in long samples ",
+          "with structural breaks (see Mueller 2005). The Bai-Perron break at 2013-09 confirms ",
+          "a structural shift in WPI inflation."
+        ),
+        stringsAsFactors = FALSE
+      )
+      save_table(kpss_footnotes, "table_11b_kpss_footnotes.csv")
+      cat("  KPSS footnote generated for dln(WPI).\n")
+    }
+  }
+  # Also check dln(EXR) borderline
+  dln_exr <- ur_tbl[ur_tbl$Variable == "dln(EXR)", ]
+  if (nrow(dln_exr) > 0 && !is.na(dln_exr$KPSS_stat) && !is.na(dln_exr$KPSS_cv5)) {
+    if (abs(dln_exr$KPSS_stat - dln_exr$KPSS_cv5) < 0.05) {
+      exr_note <- data.frame(
+        Variable = "dln(EXR)",
+        KPSS_stat = dln_exr$KPSS_stat,
+        KPSS_cv5 = dln_exr$KPSS_cv5,
+        ADF_stat = dln_exr$ADF_stat,
+        PP_stat = dln_exr$PP_stat,
+        Footnote = paste0(
+          "KPSS on dln(EXR) = ", round(dln_exr$KPSS_stat, 4),
+          " is borderline relative to 5% CV (", round(dln_exr$KPSS_cv5, 3), "). ",
+          "ADF (", round(dln_exr$ADF_stat, 2), ") and PP (", round(dln_exr$PP_stat, 2), ") ",
+          "strongly confirm stationarity. EXR is a control variable."
+        ),
+        stringsAsFactors = FALSE
+      )
+      if (!is.null(kpss_footnotes)) kpss_footnotes <- bind_rows(kpss_footnotes, exr_note)
+      save_table(kpss_footnotes, "table_11b_kpss_footnotes.csv")
+      cat("  KPSS borderline note generated for dln(EXR).\n")
+    }
+  }
+}
+
+# ── NARDL ECT Speed Framing ─────────────────────────────────────────────────
+# ECT headline ≈ −0.02/month (slow) vs fuel ≈ −0.08/month (faster)
+# Frame: administered pricing dampens headline adjustment
+nardl_ect_framing <- data.frame(
+  Specification = c("Headline (Brent)", "Headline (INR-oil)", "Fuel & Power (INR-oil)"),
+  ECT_coef = round(c(
+    nardl_summary$ECT_coef[nardl_summary$Specification == "NARDL headline: ln(WPI) ~ ln(Brent)"],
+    nardl_summary$ECT_coef[nardl_summary$Specification == "NARDL headline: ln(WPI) ~ ln(INR-oil)"],
+    nardl_summary$ECT_coef[nardl_summary$Specification == "NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)"]
+  ), 4),
+  Adjustment_pct_month = round(abs(c(
+    nardl_summary$ECT_coef[nardl_summary$Specification == "NARDL headline: ln(WPI) ~ ln(Brent)"],
+    nardl_summary$ECT_coef[nardl_summary$Specification == "NARDL headline: ln(WPI) ~ ln(INR-oil)"],
+    nardl_summary$ECT_coef[nardl_summary$Specification == "NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)"]
+  )) * 100, 1),
+  Half_life_months = round(log(0.5) / log(1 - abs(c(
+    nardl_summary$ECT_coef[nardl_summary$Specification == "NARDL headline: ln(WPI) ~ ln(Brent)"],
+    nardl_summary$ECT_coef[nardl_summary$Specification == "NARDL headline: ln(WPI) ~ ln(INR-oil)"],
+    nardl_summary$ECT_coef[nardl_summary$Specification == "NARDL fuel: ln(Fuel&Power) ~ ln(INR-oil)"]
+  ))), 1),
+  Framing = c(
+    "Slow adjustment: consistent with administered pricing dampening equilibrium restoration",
+    "Slow adjustment: consistent with administered pricing dampening equilibrium restoration",
+    "Faster adjustment: deregulated sector responds more quickly to disequilibrium"
+  ),
+  stringsAsFactors = FALSE
+)
+save_table(nardl_ect_framing, "table_11c_nardl_ect_framing.csv")
+cat("  NARDL ECT speed framing table generated.\n")
+
 save_table(publication_decision, "table_10_publication_decision.csv")
 save_table(model_gate, "table_11_model_gate.csv")
 

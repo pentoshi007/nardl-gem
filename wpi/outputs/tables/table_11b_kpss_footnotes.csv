@@ -1,0 +1,3 @@
+"Variable","KPSS_stat","KPSS_cv5","ADF_stat","PP_stat","Footnote"
+"dln(WPI)",0.8999,0.463,-12.2226,-14.3946,"KPSS on dln(WPI) = 0.8999 exceeds the 5% CV (0.463). However, ADF (-12.22) and PP (-14.39) strongly reject I(1). This is a known KPSS over-rejection issue in long samples with structural breaks (see Mueller 2005). The Bai-Perron break at 2013-09 confirms a structural shift in WPI inflation."
+"dln(EXR)",0.4624,0.463,-14.4185,-17.7787,"KPSS on dln(EXR) = 0.4624 is borderline relative to 5% CV (0.463). ADF (-14.42) and PP (-17.78) strongly confirm stationarity. EXR is a control variable."

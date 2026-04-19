@@ -1,6 +1,6 @@
-Run completed: 2026-04-17 16:50:20.385352
-Runtime: 103.1 seconds
-Tables: 20 | Figures: 12
+Run completed: 2026-04-17 22:32:13.681981
+Runtime: 70.3 seconds
+Tables: 22 | Figures: 12
 
 Publication decision:
                             Model                       Role
