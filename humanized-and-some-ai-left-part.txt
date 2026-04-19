@@ -1,0 +1,719 @@
+From crude oil to consumer inflation:
+
+transmission and attenuation across India’s price system
+
+Aniket Pandey
+
+April 2026
+
+Abstract
+
+India sources over four-fifths of the crude oil it consumes from abroad. Nevertheless, the external cost shock appears to only transmit unevenly into domestic prices. This paper conceptualizes oil pass-through as a multi-tiered mechanism. It tracks its propagation through four price strata: the headline wholesale price index, producer prices at the pump for retail petrol, wholesale/retail price indices that are most sensitive to fuel expenditures, and the overarching consumer price index. Our base estimates adapt the short-run asymmetric autoregressive distributed lag technique and use Newey–West standard errors, fit to pre–post chain-weighted monthly series reaching back to 1983 for the headline WPI and to 1995 for the fuel and power component. A suite of complementary nonlinear ARDL models in the levels are presented in an appendix. Three patterns steadily emerge. Pass-through into the headline WPI is both statistically distinguishable but very small (cumulative ~0.030 in response to positive oil price shocks); it is roughly an magnitude higher at the pump and in fuel-sensitive prices, and notably tapers well before entering the CPI, where the response is indistinguishable from zero. A pre/post 2010 split reveals material headline pass-through has been more pronounced in the deregulated era post the turn of the millennium, roughly coinciding with the era of more liberalized, rules-based, administered pricing of motor fuels. Short-run asymmetry is largely elusive. The results are interpreted as pointing to the sequential absorption and institutionalization of the shock by pricing and market basket institutions.
+
+Keywords: oil price pass-through; imported inflation; India; wholesale inflation; consumer inflation; retail fuel pricing; deregulation; asymmetry.
+
+Introduction
+
+India depends on imports for crude oil structurally. In 2023–24, nearly 87% of the crude requirements came from external sources. As a result, the rupee value of a barrel of Brent serves as one of the most readily observable external cost shocks that the domestic price system absorbs within a given month (Petroleum Planning and Analysis Cell, 2024). The policy question that follows is simple and as old as the hills: when crude prices move, how much of that movement reaches down to the inflation rate that households face?
+
+The relevant indices in existing recent work on India are shaped to answer this question one at a time. Some recent papers exclusively focus on WPI (Bhoi et al., 2012; Suresh et al., 2026). Others keep their sights trained on certain CPI subgroups or the general index itself (Abu-Bakar and Masih, 2018; Sek, 2019). A further strand tends to the retail fuel pricing channel, documenting its emergence after petrol deregulation in 2010 and diesel deregulation in October 2014 (Pradeep, 2022; Deheri and Carmel, 2024). The existing literature reviewed above is not a list of mutually exclusive propositions. Each of these lines gives us something valuable to take forward. Yet, put together, they still leave an important gap. India’s pricing institutions conceivably operate as simple causal chain (international price → exchange rate → import domestic price → wholesale price → retail currency price → CPI). Within a single design, the literature has scarcely traced that chain end to end. Hence in policy discussion, two seemingly contradictory urgencies co-exist: oil shocks pass through to WPI, but they hardly shift the price index. Both are correct, just not for the same part of the chain. The real item that we still do not understand, then, is where the mechanism breaks down.
+
+The paper answers this question by estimating price pass-through at four levels of the price system. The headline WPI series is constructed by chaining together four official base years (1981-82, 1993-94, 2004-05, 2011-12) into a single 528-observation monthly series spanning from April 1982 to March 2026, which is the longest historically consistent wholesale inflation horizon available for India as of now. The WPI Fuel and Power subindex is chained across three base years and is operational from April 1994 to March 2026. The retail fuel layer is the PPAC monthly Delhi retail selling price for petrol from August 2004 and onwards. The consumer endpoint is the headline CPI on the All-India 2010=100 base. The CPI Fuel and Light subgroup is also used as a shorter bridge series. Due to the CPI rebase after 2011, this bridge series is considered as supplementary evidence.
+
+While developing this empirical strategy, we intentionally opted to define our research narrowly and limit the specifications to short-run asymmetrical models of the order of autoregressive distributed lag (ADL) in log differences. Each model comprised up to twelve of its lags, zero to six lags of the positive and negative oil change components, fixed month effects, and Newey-West HAC standard errors. Cumulative passthrough is presented as the sum of the positive (CPT+) and negative (CPT−) passthrough coefficients, and we report Wald tests for each of the sums as well as for the symmetry restriction CPT+ = CPT−. Finite sample inference is undertaken using a circular block bootstrap method based on a restricted-residuals, symmetry test. Along with this, we document a non-linear ARDL methodology in levels, which Pesaran et al. (2001) and Shin et al. (2014) have demonstrated, and we present this in the appendix as supplementary long-run evidence, as opposed to designating this as the core identification strategy of the paper.
+
+The results support a clear layered reading. In the long historical sample, headline wholesale inflation responds to rupee oil shocks with CPT+ = 0.030 (p = 0.024) and CPT− = 0.037 (p = 0.001). These coefficients are small but precisely estimated, and asymmetry is not rejected (asymptotic p = 0.673, bootstrap p = 0.746). Pre/post-2010 splits show that most of the headline signal is concentrated in the post-deregulation period, where CPT+ rises to 0.074 and CPT− to 0.081. At the fuel-sensitive layer, the magnitudes change substantially. WPI Fuel and Power has CPT+= 0.287 and CPT− = 0.268, both with p < 0.001. PPAC retail petrol responds even more strongly, with CPT+= 0.346 and CPT− = 0.191 on a 245-month sample beginning in August 2004. By contrast, once the shock reaches headline CPI, the cumulative effect is very small: CPT+= 0.021 with p= 0.122, while CPT− is effectively zero (p= 0.94). In other words, much of the upstream movement is absorbed before it reaches the consumer aggregate.
+
+This paper has three main contributions. First, it offers an integrated map of the attenuation and survival oil-price signal, providing a more holistic understanding than the existing literature that views WPI and CPI as competing answers to the same problem. Second, the main pass-through estimate has a 43-year window and this is anchored by the long historical wholesale sample. This is a significant contribution to the literature on India as it is common to see studies that conclude in the 2010s. Third, the paper provides a new lens to the asymmetry question. While short-run asymmetry is tested, and is an empirical feature of the data, it in fact the most robust feature. The empirical feature of asymmetry in this data is the more stable result of attenuation across layers. This contribution is more about integration and comparative mapping than it is about a novel approach and the argument is constructed in this manner.
+
+The remainder of the paper is structured as follows: Section 2 outlines the institutional background and situates the paper in the literature. Section 3 provides the data and discusses the empirical approach. Section 4 offers the historical wholesale findings. Section 5 discusses the mechanism as well as omission and attenuation across the four layers. Section 6 covers the robustness checks and provides a summary of the results from the NARDL appendix. Section 7 offers the main policy interpretation as a conclusion.
+
+Institutional background and focused literature
+
+There are two features of India's economy that define how oil crises affect inflation in the economy. First, look at the foreign exchange market. Oil is priced in dollars, and subsequently, India pays for oil in dollars. Therefore, the price of oil in rupees is equal to the price of oil in dollars times the rupee to dollar exchange rate. A depreciating rupee results in higher inflation, while a constant price of oil in dollars results in the same effect in a world where the price of oil is increasing. Second, the structure of pricing in India also impacts the refinements in the oil. India operated a price mechanism that first regulated the price of oil and subsided the price oil. The petrol price changed in June 2010, and the price of diesel changed in October 2014.
+
+When considered together, these characteristics are supportive of a tiered throughput. Within a more market-oriented retail fuel environment, an oil shock is expected to be fully transmitted through to petrol and diesel prices fairly promptly; to then multiply through to fuel-intensive components of the wholesale and consumer indices; and to top it off and flow through to headline inflation depending on the fuel share of the relevant basket and co-movement of non-fuel items. Within a more controlled environment, the shock is expected to be almost entirely blocked at the retail stage and release its energy gradually through subsidy/tax adjustments. The pre and post-2010 subsamples thus provide a neat institutional benchmark against which the question of deregulation facilitating a more open pass-through chain might be assessed.
+
+The existing literature on oil pass-through in India provides some preliminary insights into this institutional setting. Early research used linear VAR and cointegration techniques to find that, in general, WPI pass-through coefficients were low but statistically significant (Bhoi et al., 2012; Bhanumurthy et al., 2012). Building on this, a second set of studies employed NARDL models to examine the presence of asymmetric pass-through. Chattopadhyay and Mitra (2015) and Pal and Mitra (2016) found evidence of asymmetries in oil product prices, with asymmetries being more pronounced in cases where market-based pricing was prevalent. Pandey and Shettigar (2019) estimated partial pass-through coefficients from crude to retail fuel prices for the earlier post-deregulation period. Pradeep (2022) examined the diesel deregulation and, post-reform, found evidence of stronger asymmetric pass-through to both the disaggregated wholesale and consumer prices. Deheri and Carmel (2024) also confirmed asymmetric pass-through from the crude to retail fuel. In addition to these studies, there are two other research projects that are particularly pertinent to our current application. Suresh et al. (2026) estimated a NARDL model for Indian wholesale fuel prices, finding that while asymmetry prevailed in the long-run, the short-run asymmetry was relatively weak—a pattern that qualitatively aligns with our supplementary appendix findings. Sek (2019) presented cross-country panel estimates that revealed that the pass-through gap between the WPI and CPI is wider in fuel-importing economies.
+
+What the literature still needs is a single empirical architecture that follows the complete chain from crude to headline CPI using uniform monthly data. Most papers write and estimate one pass-through family (NARDL, SVAR, or VECM), for one inflation metric, and one aspect of the transmission process. The literature has occasionally referred to the difference between headline and fuel-sensitive indices, but transition across these layers is seldom the primary focus of inference. The existing SVAR work of Sadath and Acharya (2021) comes closest to a layered macro framing, though their paper is more concerned with output dynamics than with pricing mechanisms. This paper’s contribution is thus more architectural than methodological. We retain the short-run asymmetric ADL as our primary workhorse, relegate the NARDL to the appendix, and take the difference between sub-sample estimates of pass-through rates across layers as our main substantive result.
+
+A methodological point is in order. Some pass-through papers in the Indian context have treated headline WPI as a proxy for upstream or input-cost inflation, headline CPI as a proxy for demand-driven, household-facing inflation, and the implied difference in pass through between the two as a market test of the producer pricing vs. consumer pricing model. This paper does not raise those questions in exactly that manner because we do not treat WPI as a proxy for one form of inflation and CPI as a proxy for another. They are in a counting sense different. WPI gives more weight to inputs with a short pipeline to final demand and to globally traded goods and is therefore more informative if the question is how soon an oil price rise enters the price system or the degree to which early pressure comes from imported input prices. CPI gives more weight to goods and services facing the consumer at the retail level and is therefore a better guide to the cost for the typical Indian household. They are not perfect measures of either type of inflation but good approximations in a world with a few dozen goods and services subject to administrative price setting. Studying them jointly, as we do here, still allows deduction along these lines.
+
+Data and empirical strategy
+
+The dataset is built on a monthly time frame. Rupee per US dollar is INR/USD. Brent crude in US dollars per barrel comes from the World Bank Commodity Markets Pink Sheet. The INR/USD spot rate comes from FRED (series EXINUS). The rupee oil price is constructed as the product of Brent and EXR. The inflation series is the Wholesale Price Index (WPI) based in India.1 Both headline WPI and the WPI Fuel and Power subindex are constructed by chain linking the four official OEA base series (1981–82, 1993–94, 2004–05 and 2011–12) from the Office of the Economic Adviser (OEA) under the Department for Promotion of Industry and Internal Trade on the Indian Ministry of Commerce. All series are re-based to 2011–12 = 100. The eight official linking factors and the 1982 linking factor are the linking factors. Headline WPI with Fuel and Power thus forms the current month’s and last three months’ official series (2011–12 = 100) as well as the implementing month’s series. The retail fuel layer is PPAC.ucing date for fuel. The monthly PPAC is the public sector Enterprise Planning and Analysis Cell’s (2016) release on Trends in International Prices of Selected Petroleum Products. The retail fuel layer is the PPAC monthly Delhi retail selling price for petrol. The monthly supplier price of major-oil-company-owned stations for all of India is the relevant pricing date. The oil component CPI sub index is the CPI Fuel and Light subgroup starting with the 2011–12 series. The consumer endpoint is the All-India headline CPI series. After inner joins on common dates, the active estimation samples (i.e. settings endpoints to null to gain consistent beginning and ending dates) cover roughly 43 years for headline WPI, 31 years for WPI Fuel and Power, and 20 years for the PPAC and CPI specifications. Table 1 summarises the series.
+
+All series are converted to month-on-month log differences. Let ∆yt = lnYt − lnYt−1 and ∆xt = lnXt −lnXt−1 where Xt denotes the relevant oil measure. The asymmetric oil change is decomposed into a positive and a negative part:
+
+, . (1)
+
+The main estimating equation is the short-run asymmetric ADL
+
+, (2)
+
+i=1 j=0 j=0
+
+Table 1: Series, sources, transformations, and sample spans.
+
+Series
+
+Source
+
+Transform.
+
+Active sample
+
+Brent crude (USD/bbl)
+
+World Bank Pink Sheet
+
+∆ln
+
+1983-05 to 2026-03
+
+INR/USD spot rate
+
+FRED EXINUS
+
+∆ln
+
+1983-05 to 2026-03
+
+Rupee oil price
+
+Brent × EXR (constructed)
+
+∆ln
+
+1983-05 to 2026-03
+
+Headline WPI (2011-12 =
+
+100)
+
+OEA, chained across four bases
+
+∆ln
+
+1983-05 to 2026-03
+
+WPI Fuel & Power (2011-
+
+12 = 100)
+
+OEA, chained across three bases
+
+∆ln
+
+1995-05 to 2026-03
+
+PPAC retail petrol, Delhi
+
+Petroleum Planning and Analysis
+
+Cell
+
+∆ln
+
+2004-08 to 2024-12
+
+Headline CPI (All-India,
+
+2010 = 100)
+
+MoSPI / FRED
+
+INDCPIALLMINMEI
+
+∆ln
+
+2004-08 to 2024-12
+
+CPI Fuel & Light (post-
+
+2011 base)
+
+MoSPI
+
+∆ln
+
+2011-05 to 2024-12
+
+Notes: Wholesale series chained to a common 2011–12 = 100 base using OEA linking factors. Active samples reported after inner joins on common dates. The CPI Fuel & Light series begins in May 2011 because the post-2011 base is the longest harmonised consumer fuel index currently available.
+
+where Zt collects controls (notably ∆lnEXRt in the Brent decomposition), µm are calendar-month fixed effects, and ut is an error process whose autocorrelation we accommodate through Newey–West standard errors with a Bartlett kernel and Newey–West lag truncation. The cumulative pass-through summaries are
+
+CPT, CPT, (3)
+
+j=0 j=0
+
+with significance assessed using HAC Wald tests on the linear restrictions CPT+= 0, CPT− = 0 and the symmetry restriction CPT+= CPT−. For the symmetry test we also report a finite-sample p-value from a restricted-residual circular block bootstrap with 4,999 replications.
+
+The choice of an ADL in differences rather than a NARDL in levels is deliberate. Standard unit-root tests reject I(1) for all the differenced series we use; ADF and Phillips–Perron statistics on ∆lnWPI are −12.22 and −14.39. KPSS gives a borderline rejection of stationarity for ∆lnWPI (ηˆ = 0.90 against a 5% critical value of 0.46), which we read as a known KPSS over-rejection in long samples with structural breaks rather than as evidence of a unit root in the differences (see Reserve Bank of India, 2014). A Bai–Perron break test finds one break in ∆lnWPI at September 2013, which is the disinflationary regime change familiar from the inflation-targeting transition. With this in mind, ADL in differences with Newey–West inference is the cleaner short-run vehicle. We retain a NARDL-in-levels battery in the appendix for two reasons: it provides a long-run cointegration check, and it is the dominant method in the Indian pass-through literature, so silence on it would be conspicuous.
+
+The retail-fuel mechanism model uses ∆lnPetroltDelhi as the dependent variable and asymmetric Brent
+
+(in USD) as the regressor, with q = 3 lags on each side. Although the petrol pricing regime moved to fortnightly in 2014 and to daily revisions in 2017, monthly averaging is appropriate for the cross-layer comparison and avoids the Brent–EXR averaging mismatch that a daily specification would inherit. The CPI bridge model regresses ∆lnFuel&LighttCPI on asymmetric retail petrol changes; this is reported as a bridge equation only because the available CPI Fuel and Light series begins in May 2011 and falls below the 20-year window we treat as the minimum sample for headline mandates.
+
+Granger predictive precedence is reported alongside the ADL evidence as a complementary check.
+
+We treat Granger statistics as evidence of lead–lag predictability rather than of structural causality, in line with the conservative reading common in the recent literature.
+
+Figure 1: Chained WPI series, 2011-12 = 100. Headline WPI runs from April 1982 (528 monthly observations); Fuel & Power begins April 1994 (384 observations). Splice points across the four official OEA base years are marked.
+
+Table 2: Headline WPI ADL on rupee oil. Cumulative pass-through over lags 0–6.
+
+Specification N Span (yrs) Adj. R2 CPT+
+
+CPT−
+
+Asym. p
+
+Headline WPI ADL, INR oil 515 42.92 0.421 0.030
+
+0.037
+
+0.673
+
+p-value on cumulative coefficient 0.024
+
+0.001
+
+Bootstrap symmetry (B = 4,999, restricted-residual circular block):
+
+Bootstrap p on CPT+ = CPT−
+
+0.746
+
+Notes: Sample 1983-05 to 2026-03. Specification: ∆lnWPIt on twelve own lags, lags 0–6 of ∆lnOilINRt+ and ∆lnOilINRt−, and calendar-month fixed effects. Newey–West HAC standard errors. Cumulative pass-through CPT± is the sum of the corresponding seven coefficients. Asymmetry p is the HAC Wald test of CPT+ = CPT−.
+
+Historical wholesale pass-through
+
+We start with the longest sample. Table 2 reports the headline WPI ADL on rupee oil for May 1983 through March 2026 (N = 515, span 42.92 years).
+
+The picture is consistent across the two cumulative summaries. Positive oil shocks raise wholesale inflation by 3.0 percent of the shock over the seven-month window, with p = 0.024. Negative shocks subtract 3.7 percent, with p = 0.001. Both numbers are small but precise. The Wald symmetry test on the seven-lag restriction yields an asymptotic p-value of 0.673 and a bootstrap p-value of 0.746; the data give no support to short-run asymmetry over the full historical sample. The Brent + EXR decomposition (reported in the next section as a robustness check) returns a near-identical CPT+ of 0.031 and CPT− of 0.037, which suggests that the rupee oil aggregate is not hiding a sign-cancelling combination of price and exchange-rate movements. Adjusted R2 for the headline ADL is 0.42. A Breusch–Godfrey test at twelve lags returns p = 0.84. The HAC RESET test passes (p = 0.35). The recursive CUSUM test passes at conventional levels (p = 0.39).
+
+Figure 2: Decomposition of the rupee oil price into Brent (USD) and the INR/USD rate. Plotted in log levels with each series indexed to its January 2000 value. The two cost-side drivers move out of phase in some windows (notably 2003–2008 and 2014–2016), which is the variation the Brent + EXR robustness specification in Section 6 exploits.
+
+Table 3: Pre/post-2010 subsample comparison. Headline WPI and Fuel & Power ADL.
+
+Model
+
+Subsample
+
+N
+
+CPT+
+
+p
+
+CPT−
+
+p
+
+Headline WPI ADL
+
+Pre-2010 (1983-05 to 2010-03)
+
+323
+
+0.012
+
+0.381
+
+0.025
+
+0.043
+
+Headline WPI ADL
+
+Post-2010 (2010-04 to 2026-03)
+
+192
+
+0.074
+
+0.004
+
+0.081
+
+0.000
+
+Fuel & Power ADL
+
+Pre-2010 (1995-05 to 2010-03)
+
+179
+
+0.092
+
+0.168
+
+0.238
+
+0.000
+
+Fuel & Power ADL
+
+Post-2010 (2010-04 to 2026-03)
+
+192
+
+0.524
+
+0.000
+
+0.438
+
+0.000
+
+Notes: ADL specification as in Table 2. Split point April 2010, the month after India’s June 2010 petrol deregulation. The post-2010 window also contains the October 2014 diesel deregulation. The split should be read as descriptive of the post-deregulation regime and not as a causal identification of reform effects.
+
+The interesting result is the subsample split. Indian petrol prices were deregulated in June 2010 and
+
+diesel in October 2014. We split the sample at April 2010 to run a clean comparison and re-estimate the same ADL on the two windows.
+
+The pre-2010 estimates are weak. Positive shocks pass through with CPT+= 0.012 (p = 0.38) and negative shocks with CPT− = 0.025 (p = 0.04). After deregulation, the same model on the post-2010 sample returns CPT+= 0.074 (p = 0.004) and CPT− = 0.081 (p < 0.001). The post-period magnitudes are roughly six times the pre-period magnitudes on the positive side and three times on the negative side. The fuel-and-power subindex tells the same story with larger magnitudes. Pre-2010 fuel CPT+ is 0.092 and not significant; post-2010 it jumps to 0.524 and is highly significant. We read these comparisons as broadly consistent with the institutional shift toward more market-linked pricing, but we are deliberate about not calling them a causal identification of reform effects. The 2010–2014 window contains both monetary regime changes and global oil cycles, and the split-sample comparison cannot net these out cleanly.
+
+Two simplified observations provide context for the analysis that follows. First, when measured against the largest possible sample available, headline WPI pass-through is minuscule if viewed in absolute terms: a one percent appreciation of the rupee price of oil increases wholesale inflation by roughly three basis points cumulatively over seven months. Second, the absence of short-term asymmetry in our headline series is at odds with the asymmetric short-term results found in a subset of the Indian NARDL literature (Abu-Bakar and Masih, 2018; Suresh et al., 2026). We take up that tension directly in Section 6, where our ADL appendix battery identifies long-term asymmetry even as our baseline short-run ADL does not. The two observations are not in contradiction. They are consuming different vintages. One vintage, the ADL in differences, diagnoses asymmetry by testing whether the seven-month sum of positive shocks is identical to the seven-month sum of negative shocks. The second, the NARDL in levels, tests the sample-long multipliers underlining positive and negative historical shocks for equality. As we show in Section 6, these two notions of asymmetry can peacefully coexist. Our baseline findings in the main text are short-run centered for reasons of readability. The test statistics from the differenced specifications have well-behaved bootstrap distributions, and the implied standard errors will be valid under any assumed cointegrating relationship.
+
+Figure 3: Headline WPI inflation and the rupee oil change, monthly, 1983–2026. Both series are plotted in ∆ln form. The wholesale series tracks the rupee oil change visibly through the 1990s and from 2010 onward, with a quieter middle period that the subsample split picks up.
+
+The long-horizon wholesale evidence, taken together, supports a moderate but credible historical pass-through. It also points to where the action sits in the more recent data. The next section turns to the layers in which the same shock shows up an order of magnitude larger.
+
+Mechanism and attenuation across layers
+
+The objective of the integrated design is set out in this section. We proceed link by link from crude to consumer, and at each link, we ask how much of the upstream signal is passed through.
+
+Figure 6 provides the outline of the sequence we quantify. Brent and the rupee/dollar rate jointly determine the rupee price of oil. The rupee oil price determines PPAC petrol retail at the pump. Retail prices of fuel determine the fuel-sensitive subindices of WPI (Fuel and Power) and CPI (Fuel and Light). The fuel-sensitive subindices and non-fuel cost pressures jointly determine the two headline aggregates. The ADL estimates of cumulative pass-through determine the weights of the arrows in the diagram. For the shock-to-end endpoint, CPI, the arrow is depicted as a dashed thin arrow to indicate the message of the data characterized in the text: very little of the shock remains by the time it shows up in headline CPI.
+
+Figure 4: Cumulative pass-through profile for the headline WPI ADL. Lag-by-lag accumulation of the positive and negative rupee-oil coefficients from lag 0 through lag 6, with HAC bands. Most of the response is loaded onto the first three lags; the seven-lag sum stabilises at the values reported in Table 2.
+
+Retail fuel and the wholesale fuel layer
+
+Table 4 reports the two upstream mechanism models. Panel A is the PPAC Delhi retail petrol model on
+
+August 2004 to December 2024 (N = 245). Panel B is the WPI Fuel and Power ADL on May 1995 to March 2026 (N = 371).
+
+The retail petrol response is the largest in the chain. CPT+= 0.346 (p < 0.001) and CPT− = 0.191
+
+(p < 0.001). Asymmetry is borderline (p = 0.10), with the asymmetry running in the conventional rockets-and-feathers direction: positive shocks are passed through faster and more fully than negative ones. This is the empirical signature most consistent with the descriptive picture of post-deregulation pump pricing in India. It is also broadly consistent with the magnitudes reported by Deheri and Carmel (2024) and Pradeep (2022) for the petrol channel.
+
+The fuel-and-power subindex of WPI sits one step downstream and shows comparable but slightly smaller magnitudes, with CPT+= 0.287 and CPT− = 0.268 (both p < 0.001). Symmetry is not rejected here (p = 0.78), which we read as a sign that the wholesale fuel index aggregates retail and bulk pricing channels in a way that washes out the asymmetry visible at the pump. We flag one diagnostic caveat: HAC RESET fails (p < 0.001) on the fuel and power model, which is most likely picking up a non-linearity in the level relationship that the differenced specification cannot remove. We retain the model in the main results because the cumulative pass-through estimates are stable across alternative lag choices and across COVID-window sensitivity checks (reported in Section 6), but we treat the fuel and power equation as the more fragile of the two upstream models.
+
+Figure 5: Pre/post-2010 subsample comparison of cumulative pass-through. Headline WPI and Fuel & Power
+
+ADL specifications, plotted as cumulative coefficient response over lags 0–6. The post-2010 magnitudes are visibly larger across both panels, broadly consistent with the institutional shift toward market-linked transport-fuel pricing.
+
+Brent (USD)
+
+INR/USD
+
+Rupee oil price
+
+PPAC retail petrol
+
+)
+
+Delhi RSP
+
+(
+
+WPI Fuel & Power
+
+CPI Fuel & Light
+
+Headline WPI
+
+Headline CPI
+
+0.35
+
+0.29
+
+0.18
+
+0.03
+
+0.02
+
+Figure 6: Conceptual transmission map. Edge labels are cumulative positive pass-through estimates (CPT+) from the ADL specifications reported in Tables 2–5. The headline CPI arrow is dashed to mark that the corresponding coefficient is not statistically distinguishable from zero.
+
+The consumer endpoint
+
+Now move to the bottom of the chain. Table 5 reports the headline CPI ADL.
+
+The headline CPI estimates are the smallest and the least precise in the chain. Positive shocks have CPT+= 0.021 with p = 0.12. Negative shocks are essentially flat: CPT− = 0.001, p = 0.94. Symmetry is not rejected (p = 0.24). The bootstrap symmetry p-value is similar at 0.50. Two readings are possible. One is that headline CPI in India is genuinely insulated from oil shocks because the CPI basket is heavily food-weighted, with combined food and beverage weights close to half of the index. The other is that the consumer fuel and tax buffers absorb much of what does come through. Both are likely true, and the data do not let us cleanly separate them.
+
+What the data do let us do is record one institutional fact that any policy reading should not lose. The October 2014 diesel-deregulation dummy in the headline CPI ADL is large and significant in the negative direction (estimate −0.339, p < 0.001). The October 2014 step is, of course, one event, and a single dummy cannot identify a structural channel. But the sign and magnitude are consistent with the institutional reading that diesel-tax revisions have at times moved in a direction that offsets, rather than reinforces, the international price signal in the consumer index.
+
+Table 4: Mechanism layer ADL models. Retail petrol and wholesale fuel.
+
+Specification N Span (yrs) Adj. R2
+
+CPT+
+
+CPT−
+
+Asym. p
+
+Panel A. PPAC Delhi retail petrol on Brent (USD), q = 3:
+
+∆lnPetrolt ADL 245 20.42 0.236
+
+0.346
+
+0.191
+
+0.100
+
+p-value on cumulative coefficient
+
+0.000
+
+0.000
+
+Panel B. WPI Fuel & Power on rupee oil:
+
+∆lnFuel&Powert ADL 371 30.92 0.463
+
+0.287
+
+0.268
+
+0.783
+
+p-value on cumulative coefficient
+
+0.000
+
+0.000
+
+Notes: Panel A sample 2004-08 to 2024-12. Panel B sample 1995-05 to 2026-03. Both panels report HAC (Newey–West) inference on the cumulative pass-through. Panel B includes a post-October-2014 diesel deregulation dummy and an April–September 2020 COVID dummy in addition to month fixed effects. The HAC RESET test fails on Panel B at p < 0.001 (see Section 6); other diagnostics pass.
+
+Table 5: Headline CPI ADL on rupee oil. Consumer endpoint.
+
+Specification N Span (yrs) Adj. R2
+
+CPT+ CPT−
+
+Asym. p
+
+Headline CPI ADL, INR oil 245 20.42 0.449
+
+0.021 0.001
+
+0.241
+
+p-value on cumulative coefficient
+
+0.122 0.938
+
+Selected covariate effects (HAC t-tests on the levels coefficients):
+
+Diesel deregulation step (October 2014) βˆ = −0.339
+
+p < 0.001
+
+Petrol deregulation step (June 2010)
+
+ˆ
+
+β=+0.116
+
+p = 0.307
+
+COVID window (April–September 2020)
+
+ˆ
+
+β= −0.345
+
+p = 0.507
+
+Notes: Sample 2004-08 to 2024-12. Specification analogous to Table 2 with q = 3 on the asymmetric oil components, an IIP control for industrial activity, and step dummies for the petrol and diesel deregulation events. The bootstrap p-value on the symmetry restriction is 0.500.
+
+Putting it together
+
+Table 6 stitches the four CPT+ estimates into a single layered comparison and adds the pre/post-2010 split for the two wholesale models.
+
+The picture is monotone in the obvious direction. Retail petrol has CPT+ = 0.35. The two fuel sensitive subindices come in at 0.29 (WPI Fuel and Power) and 0.18 (CPI Fuel and Light). Headline WPI is at 0.03. Headline CPI is at 0.02 and not significant. Roughly an order of magnitude is lost between the pump and the consumer. Most of that loss happens between the fuel-sensitive subindices and the headline aggregates, which is mechanical: fuel weights in the headline indices are small (about 13 percent in the WPI 2011–12 series and about 7 percent in the CPI 2010 base), so a large move in fuel cannot mathematically produce more than a small move in the aggregate unless non-fuel components correlate with it. The CPI Fuel and Light bridge equation, although it sits on a shorter sample (164 monthly observations beginning May 2011 and therefore not eligible as a headline mandate), confirms the qualitative direction: PPAC petrol passes into CPI Fuel and Light with CPT+= 0.178 (p = 0.002) and a smaller negative-side response.
+
+We pick out one judgement call. The evidence here is more cautious about asymmetry than the
+
+recent Indian NARDL literature, which often headlines asymmetric long-run multipliers as the primary result. We do find asymmetry signals, but they are concentrated at the pump, are borderline at conventional significance (p = 0.10), and are not robust to moving up the chain. The integrated reading is that the most stable and quantitatively meaningful empirical feature in this dataset is attenuation across layers, not asymmetry within any single layer.
+
+Table 6: Integrated attenuation across price layers and pre/post-2010 split.
+
+Layer Dependent variable N
+
+Span
+
+CPT+
+
+CPT+ p
+
+Panel A. Layered cross-section (full available samples):
+
+Retail fuel pump ∆lnPetroltDelhi 245
+
+20.4 yrs
+
+0.346
+
+0.000
+
+Wholesale fuel
+
+∆lnWPI Fuel&Powert
+
+371
+
+30.9 yrs
+
+0.287
+
+0.000
+
+Consumer fuel (bridge)
+
+∆lnCPI Fuel&Lightt
+
+164
+
+13.7 yrs
+
+0.178
+
+0.002
+
+Wholesale headline
+
+∆lnWPIt
+
+515
+
+42.9 yrs
+
+0.030
+
+0.024
+
+Consumer headline
+
+∆lnCPIt
+
+245
+
+20.4 yrs
+
+0.021
+
+0.122
+
+Panel B. Pre/post-2010 spli
+
+Headline WPI, pre-2010
+
+t (wholesale models):
+
+∆lnWPIt
+
+323
+
+1983–2010
+
+0.012
+
+0.381
+
+Headline WPI, post-2010
+
+∆lnWPIt
+
+192
+
+2010–2026
+
+0.074
+
+0.004
+
+Fuel & Power, pre-2010
+
+∆lnFuel&Powert
+
+179
+
+1995–2010
+
+0.092
+
+0.168
+
+Fuel & Power, post-2010
+
+∆lnFuel&Powert
+
+192
+
+2010–2026
+
+0.524
+
+0.000
+
+Notes: All entries are cumulative pass-through estimates from short-run asymmetric ADL specifications, summed over lags 0–q on the relevant positive component. Panel A uses each layer’s full active sample. The CPI Fuel & Light bridge equation is shown for completeness only; its sample begins in 2011 and falls below the 20-year window we treat as the minimum for headline mandates.
+
+Figure 7: Attenuation across layers. Cumulative positive pass-through (CPT+) by stage, from rupee oil through retail petrol, wholesale and consumer fuel-sensitive subindices, and the two headline aggregates. The headline-CPI bar is the smallest and is not statistically distinguishable from zero in the underlying ADL.
+
+Figure 8: Asymmetry gap (CPT+ minus CPT−) by layer with HAC confidence bands. The gap is largest and signed positive at the retail-petrol stage, consistent with the conventional rockets-and-feathers reading. Both upstream-wholesale and headline-CPI gaps straddle zero.
+
+Robustness and supplementary evidence
+
+Three robustness exercises support the main reading.
+
+First, the Brent + EXR decomposition. Replacing rupee oil with separate asymmetric Brent components and a contemporaneous EXR control yields CPT+= 0.031 (p= 0.023) and CPT− = 0.037 (p= 0.001) on the headline WPI sample. Adjusted R2 rises to 0.42 and the symmetry test is not rejected (p = 0.70). The decomposition does not move the substantive conclusion, which suggests that the rupee oil aggregate used in the main specification is not masking offsetting movements in price and exchange rate components.
+
+Figure 9: Bootstrap distribution of the symmetry Wald statistic for the headline WPI ADL. Restricted-residual circular block bootstrap, B= 4,999. The observed Wald statistic sits near the centre of the simulated distribution,
+
+which gives a bootstrap symmetry p-value of 0.746.
+
+Second, the bootstrap symmetry tests. For both the headline WPI ADL and the WPI Fuel and Power
+
+ADL we resample residuals using a restricted-residual circular block bootstrap with 4,999 replications. The bootstrap symmetry p-values are 0.746 for headline WPI and 0.820 for fuel and power. There were no bootstrap failures. The asymptotic Wald conclusions hold up in finite samples on the wholesale models. The headline CPI bootstrap p-value is 0.50, also consistent with the asymptotic test.
+
+Third, predictive precedence. Granger tests at four lags reject the null of no Granger causation from rupee oil to headline WPI (F = 7.43, HAC p < 0.001), from rupee oil to WPI Fuel and Power (F = 15.22, HAC p < 0.001), and from Brent in USD to headline WPI (F = 7.38, HAC p < 0.001). The reverse direction is not Granger-significant for headline WPI (p = 0.43). The exchange rate Granger-causes WPI at the 10% margin (p = 0.05). We treat these statistics as predictive precedence rather than as structural identification, in the conservative reading we adopt throughout.
+
+A few sensitivity exercises round out the picture. Excluding the April–September 2020 COVID window does not materially change any of the headline pass-through estimates. Lag-sensitivity exercises moving the oil lag length between q = 4 and q = 8 leave the qualitative ranking of CPT+ across layers intact. Winsorising the rupee oil change at the 1st and 99th percentiles trims the negative-side coefficient for the WPI Fuel and Power model slightly but does not alter the conclusion.
+
+The appendix battery of NARDL bounds models in levels gives the long-run perspective. All four
+
+NARDL specifications reject the no-cointegration null at the 1% upper bound of Pesaran et al. (2001).
+
+Each specification has a negative and significant error-correction coefficient. The long-run asymmetry
+
+Figure 10: Recursive and OLS-CUSUM stability tests for the headline WPI ADL. Both test statistics stay inside their 5% bands across the 1983–2026 sample, consistent with parameter stability in the differenced specification despite the September 2013 break detected by the Bai–Perron test on the dependent variable.
+
+tests of Shin et al. (2014) reject equality of long-run positive and negative multipliers in three of four specifications, with the headline INR-oil specification on the borderline (p = 0.023). The fuel and power specification has the largest ECT magnitude (-0.081, p < 0.001), which is consistent with the higher pass-through speed in that layer that the ADL also picks up. We read the appendix NARDL evidence as supplementary. It identifies asymmetry that the differenced ADL does not. But the long-run multiplier estimates are sensitive to the assumed lag structure and to the unit-root status of the level series, and we do not want the appendix tail to wag the main-text dog.
+
+The diagnostics are not uniformly clean. The WPI Fuel and Power ADL fails the HAC RESET test at p< 0.001. We have already flagged this. It is the model in which we would invest least in the precise point estimate, and it is one of two models for which the structural-break literature suggests the differenced specification still leaves curvature on the table. The headline WPI ADL passes Breusch–Godfrey at p = 0.84, RESET at p = 0.35 and recursive CUSUM at p = 0.39. The headline CPI ADL passes its diagnostics. The bootstrap symmetry tests, taken together with the diagnostics, support the central empirical claim: the magnitudes of the upstream pass-through estimates are credible, the headline-CPI weakness is not an artefact, and the cross-layer attenuation pattern is the robust feature of the data.
+
+Conclusion
+
+This study examines the Indian oil pass-through as a sequence of stages in the transmission process, rather than presenting a singular summary figure. The procedure commences with the cost of imported crude oil in rupees, progresses to retail petrol prices, incorporates fuel-sensitive components of the wholesale and consumer price indices, and concludes with the aggregate figures pertinent to policy discussions. The transmission is malfunctioning. The cumulative pass-through at the fuel pump is significant, with values of approximately 0.35 for positive oil shocks, 0.29 for the wholesale fuel sector, 0.18 for the consumer fuel sector, 0.03 for the Wholesale Price Index (WPI), and 0.02 for the Consumer Price Index (CPI), the latter being statistically insignificant. The disparity between estimates prior to and subsequent to 2010 indicates that the pricing mechanisms for transportation fuels align more closely with market dynamics. Short-run asymmetry exists at the pump; nonetheless, it is not the most significant nor a critical conclusion in the comprehensive research. The supplementary NARDL evidence in the appendix demonstrates long-run asymmetry, consistent with certain aspects of contemporary research. The primary objective of this research is to elucidate the mechanisms of transmission and attenuation across various layers.
+
+There are several implications for policy. First, different inflation measures may give different information on the impact of oil shocks. WPI provides more information about the upstream cost and external pressures while CPI provides more information about the pass-through to the final consumer. Ignoring this distinction and using them interchangeably could lead to wrong conclusions specifically in the Indian context. Second, the results of a weak CPI pass-through should not be considered as evidence that the shock is exogenous. The estimation results showed that there is an important upstream shock of imported oil in the system market aggregate. However, a substantial share of this shock is absorbed before it reaches the final consumer. Third, some institutional mechanisms could be important in determining the domestic absorption of the oil shock. Consistent with the view that institutional factors are at play, the results of the comparison pre- and post-2010 and the evidence on retail fuel are interpreted as direct and indirect evidence on specific channels for fuel and tax-inefficient pricing reforms buffering part of the shock excessively on the final consumer.
+
+The The study should also be taken with due precaution. The estimates are projections, not theoretical, and the study does not indicate countereffective policy implications. The higher coefficients after 2010 can be explained by the fact that the pass-through has been reinforced during the reform process. However, the comparison between the subsample should not be seen as a full causal identification of the effects of deregulation. The retail fuel sample covers only August 2004. Thus, there is a limitation to the opening pre-deregulation samples of the most accurate of the mechanical models. In addition, one must be cautious of the magnitude of some of the pre-deregulation coefficients on fuel and electricity equation. The NARDL appendix presents a nonlinear level-based approach that, we believe, is relevant but it remains complementary and its depend on the assumption on the proprieties of the level-series that the KPSS tests advise treating with care.
+
+Two extensions are possible in relation to this design. First, the consumer basket could be decomposed into more detailed subcomponents. In this paper, we focus on the Fuel and Light bridge equation as complementary evidence because it is based on a shorter sample. However, other series too, such as housing, transport, and a number of miscellaneous CPI groups, subsume indirect oil exposure which is not detectable in the aggregate series. Further disaggregation of the data to mechanically add further data differentiation to the overall transmission of oil prices to this consumer basket would be warranted if a more consistent long sample is used. A second extension could model state space with time-varying pass-through coefficients, with reform-era pass-through reinforcement appearing as a shift parameter shift increase and potentially improve. This is left to future work.
+
+The main message is simple. The question of policy relevance is not whether WPI or CPI is the correct single inflation measure to study for oil shocks. It is where in the price structure the shock survives and where it dies out. The evidence provided in this paper indicates that the shock is seen in wholesale and fuel-related prices, survives in core consumer prices, but is largely dissipated before reaching the total consumer inflation rate. This layered approach makes the paper’s contribution.
+
+References
+
+Muhammad Abu-Bakar and Mansur Masih. Is the oil price pass-through to domestic inflation symmetric or asymmetric? new evidence from India based on NARDL. MPRA Paper, (87569), 2018.
+
+N. R. Bhanumurthy, Surajit Das, and Sukanya Bose. Oil price shock, pass-through policy and its impact on India. NIPFP Working Paper, (99), 2012.
+
+Barendra Kumar Bhoi, Indranil Bhattacharyya, and Krishnamurthy Mandal. The relationship between international oil prices and inflation in India. Reserve Bank of India Working Paper Series, (WP 09/2012), 2012.
+
+Mrinal Chattopadhyay and Subrata Kumar Mitra. Exploring asymmetric behaviour pattern from Indian oil products prices using NARDL and GHSOM approaches. Energy Policy, 86:262–272, 2015.
+
+Anand Deheri and M. Carmel. Asymmetric pass-through of crude oil to retail fuel prices in India. OPEC Energy Review, 48(2):88–110, 2024.
+
+Debdatta Pal and Subrata K. Mitra. Asymmetric oil product pricing in India: evidence from a multiple threshold nonlinear ARDL model. Economic Modelling, 59:314–328, 2016.
+
+Radhika Pandey and Jagadish Shettigar. Pass-through of crude oil prices to retail fuel prices in India. Margin: The Journal of Applied Economic Research, 13(3):296–314, 2019.
+
+M. Hashem Pesaran, Yongcheol Shin, and Richard J. Smith. Bounds testing approaches to the analysis of level relationships. Journal of Applied Econometrics, 16(3):289–326, 2001.
+
+Petroleum Planning and Analysis Cell. Indian PNG statistics 2023–24. Technical report, Ministry of Petroleum and Natural Gas, Government of India, 2024.
+
+V. Pradeep. Asymmetric pass-through of oil prices to inflation in India: evidence after diesel price reforms. Journal of Economic Asymmetries, 26:e00253, 2022.
+
+Reserve Bank of India. Report of the Expert Committee to revise and strengthen the monetary policy framework. Technical report, Reserve Bank of India, Mumbai, 2014.
+
+Anver C. Sadath and Rajesh H. Acharya. Oil price shocks and Indian economy: an SVAR analysis. International Journal of Energy Sector Management, 15(2):402–424, 2021.
+
+Siok Kun Sek. Unveiling the factors of oil versus non-oil sources in affecting the global commodity prices: a combination of ARDL-NARDL approaches. Panoeconomicus, 66(2):189–206, 2019.
+
+Yongcheol Shin, Byungchul Yu, and Matthew Greenwood-Nimmo. Modelling asymmetric cointegration and dynamic multipliers in a nonlinear ARDL framework. In Robin C. Sickles and William C. Horrace, editors, Festschrift in Honor of Peter Schmidt, pages 281–314. Springer, New York, 2014.
+
+K. Suresh, M. Naveen, and R. V. Naveenan. Long-run asymmetric oil pass-through to India’s wholesale prices: a NARDL analysis. Foreign Trade Review, 61(1):45–72, 2026.
+
+Appendix A. Supplementary nonlinear long-run evidence
+
+The NARDL bounds battery reported in this appendix follows Pesaran et al. (2001) for the bounds test and Shin et al. (2014) for the asymmetric long-run decomposition. Models are estimated with case 3 (unrestricted intercept, no trend) and AIC lag selection up to four lags. All specifications cover April 1997 to March 2025. Table 7 summarises the bounds-F statistic, the error-correction coefficient and its p-value, and short- and long-run asymmetry p-values. Long-run multipliers are reported in the project output file wpi/outputs/tables/table_08_nardl_long_run.csv; we omit the levels coefficients here for space.
+
+Table 7: Appendix NARDL bounds battery. April 1997 to March 2025.
+
+Specification
+
+N
+
+Bounds-F
+
+ECT
+
+ECT p
+
+LR asym. p
+
+lnWPI ∼ lnBrent
+
+333
+
+27.66
+
+−0.019
+
+0.005
+
+0.001
+
+lnWPI ∼ lnBrent | lnEXR
+
+333
+
+21.40
+
+−0.019
+
+0.006
+
+0.000
+
+lnWPI ∼ lnOilINR
+
+331
+
+21.43
+
+−0.017
+
+0.011
+
+0.023
+
+lnFuel&Power ∼ lnOilINR
+
+331
+
+34.15
+
+−0.081
+
+0.000
+
+0.000
+
+Notes: NARDL with case 3 (unrestricted intercept, no trend), AIC lag selection up to four lags. Bounds test critical values from
+
+Pesaran et al. (2001); the 1% upper bound for case 3 with k = 1 is 7.84 and for k = 2 is 6.36. All four bounds-F statistics exceed the 1% upper bound. ECT is the true error-correction coefficient (sum of all y-level-lag coefficients) with a Newey–West
+
+Wald p-value. LR asymmetry p is the long-run Wald test on the equality of positive and negative cumulative multipliers in the spirit of Shin et al. (2014).
+
+A short caveat on KPSS framing is appropriate. KPSS on ∆lnWPI returns ηˆ = 0.90 against a 5% critical value of 0.46, while ADF and Phillips–Perron strongly reject I(1) (statistics of −12.22 and −14.39 respectively). We follow the standard reading that KPSS is known to over-reject in long samples that contain structural breaks, of which the September 2013 Bai–Perron break in headline inflation is one example. A Bai–Perron test on the rupee oil change finds zero breaks. We retain the NARDL specifications because the bounds test is robust to ambiguous integration order, but we report long-run multipliers with caveats and prefer the differenced ADL for the body of the paper.
