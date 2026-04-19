@@ -1,0 +1,30 @@
+\begin{table}[t]
+\centering
+\caption{Integrated attenuation across price layers and pre/post-2010 split.}
+\label{tab:summary}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{threeparttable}
+\begin{tabular}{l l r r r r}
+\toprule
+Layer & Dependent variable & $N$ & Span & CPT$^+$ & CPT$^+$ $p$ \\
+\midrule
+\multicolumn{6}{l}{\emph{Panel A. Layered cross-section (full available samples):}} \\
+Retail fuel pump      & $\Delta \ln \mathrm{Petrol}^{\mathrm{Delhi}}_t$    & 245 & 20.4 yrs & 0.346 & 0.000 \\
+Wholesale fuel        & $\Delta \ln \mathrm{WPI\ Fuel\&Power}_t$           & 371 & 30.9 yrs & 0.287 & 0.000 \\
+Consumer fuel (bridge)& $\Delta \ln \mathrm{CPI\ Fuel\&Light}_t$           & 164 & 13.7 yrs & 0.178 & 0.002 \\
+Wholesale headline    & $\Delta \ln \mathrm{WPI}_t$                        & 515 & 42.9 yrs & 0.030 & 0.024 \\
+Consumer headline     & $\Delta \ln \mathrm{CPI}_t$                        & 245 & 20.4 yrs & 0.021 & 0.122 \\
+\midrule
+\multicolumn{6}{l}{\emph{Panel B. Pre/post-2010 split (wholesale models):}} \\
+Headline WPI, pre-2010   & $\Delta \ln \mathrm{WPI}_t$           & 323 & 1983--2010 & 0.012 & 0.381 \\
+Headline WPI, post-2010  & $\Delta \ln \mathrm{WPI}_t$           & 192 & 2010--2026 & 0.074 & 0.004 \\
+Fuel \& Power, pre-2010  & $\Delta \ln \mathrm{Fuel\&Power}_t$   & 179 & 1995--2010 & 0.092 & 0.168 \\
+Fuel \& Power, post-2010 & $\Delta \ln \mathrm{Fuel\&Power}_t$   & 192 & 2010--2026 & 0.524 & 0.000 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Notes: All entries are cumulative pass-through estimates from short-run asymmetric ADL specifications, summed over lags 0--$q$ on the relevant positive component. Panel A uses each layer's full active sample. The CPI Fuel \& Light bridge equation is shown for completeness only; its sample begins in 2011 and falls below the 20-year window we treat as the minimum for headline mandates.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

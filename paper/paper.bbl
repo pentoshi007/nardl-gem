@@ -1,0 +1,100 @@
+\begin{thebibliography}{15}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abu-Bakar and Masih(2018)]{abubakar2018}
+Muhammad Abu-Bakar and Mansur Masih.
+\newblock Is the oil price pass-through to domestic inflation symmetric or
+  asymmetric? new evidence from {I}ndia based on {NARDL}.
+\newblock \emph{MPRA Paper}, \penalty0 (87569), 2018.
+
+\bibitem[Bhanumurthy et~al.(2012)Bhanumurthy, Das, and Bose]{bhanumurthy2012}
+N.~R. Bhanumurthy, Surajit Das, and Sukanya Bose.
+\newblock Oil price shock, pass-through policy and its impact on {I}ndia.
+\newblock \emph{NIPFP Working Paper}, \penalty0 (99), 2012.
+
+\bibitem[Bhoi et~al.(2012)Bhoi, Bhattacharyya, and Mandal]{bhoi2012}
+Barendra~Kumar Bhoi, Indranil Bhattacharyya, and Krishnamurthy Mandal.
+\newblock The relationship between international oil prices and inflation in
+  {I}ndia.
+\newblock \emph{Reserve Bank of India Working Paper Series}, \penalty0 (WP
+  09/2012), 2012.
+
+\bibitem[Chattopadhyay and Mitra(2015)]{chattopadhyay2015}
+Mrinal Chattopadhyay and Subrata~Kumar Mitra.
+\newblock Exploring asymmetric behaviour pattern from {I}ndian oil products
+  prices using {NARDL} and {GHSOM} approaches.
+\newblock \emph{Energy Policy}, 86:\penalty0 262--272, 2015.
+
+\bibitem[Deheri and Carmel(2024)]{deheri2024}
+Anand Deheri and M.~Carmel.
+\newblock Asymmetric pass-through of crude oil to retail fuel prices in
+  {I}ndia.
+\newblock \emph{OPEC Energy Review}, 48\penalty0 (2):\penalty0 88--110, 2024.
+
+\bibitem[Pal and Mitra(2016)]{pal2016}
+Debdatta Pal and Subrata~K. Mitra.
+\newblock Asymmetric oil product pricing in {I}ndia: evidence from a multiple
+  threshold nonlinear {ARDL} model.
+\newblock \emph{Economic Modelling}, 59:\penalty0 314--328, 2016.
+
+\bibitem[Pandey and Shettigar(2019)]{pandey2019}
+Radhika Pandey and Jagadish Shettigar.
+\newblock Pass-through of crude oil prices to retail fuel prices in {I}ndia.
+\newblock \emph{Margin: The Journal of Applied Economic Research}, 13\penalty0
+  (3):\penalty0 296--314, 2019.
+
+\bibitem[Pesaran et~al.(2001)Pesaran, Shin, and Smith]{pesaran2001}
+M.~Hashem Pesaran, Yongcheol Shin, and Richard~J. Smith.
+\newblock Bounds testing approaches to the analysis of level relationships.
+\newblock \emph{Journal of Applied Econometrics}, 16\penalty0 (3):\penalty0
+  289--326, 2001.
+
+\bibitem[{Petroleum Planning and Analysis Cell}(2024)]{ppac2024}
+{Petroleum Planning and Analysis Cell}.
+\newblock Indian {PNG} statistics 2023--24.
+\newblock Technical report, Ministry of Petroleum and Natural Gas, Government
+  of India, 2024.
+
+\bibitem[Pradeep(2022)]{pradeep2022}
+V.~Pradeep.
+\newblock Asymmetric pass-through of oil prices to inflation in {I}ndia:
+  evidence after diesel price reforms.
+\newblock \emph{Journal of Economic Asymmetries}, 26:\penalty0 e00253, 2022.
+
+\bibitem[{Reserve Bank of India}(2014)]{rbi2014}
+{Reserve Bank of India}.
+\newblock Report of the {E}xpert {C}ommittee to revise and strengthen the
+  monetary policy framework.
+\newblock Technical report, Reserve Bank of India, Mumbai, 2014.
+
+\bibitem[Sadath and Acharya(2021)]{sadath2021}
+Anver~C. Sadath and Rajesh~H. Acharya.
+\newblock Oil price shocks and {I}ndian economy: an {SVAR} analysis.
+\newblock \emph{International Journal of Energy Sector Management}, 15\penalty0
+  (2):\penalty0 402--424, 2021.
+
+\bibitem[Sek(2019)]{sek2019}
+Siok~Kun Sek.
+\newblock Unveiling the factors of oil versus non-oil sources in affecting the
+  global commodity prices: a combination of {ARDL}-{NARDL} approaches.
+\newblock \emph{Panoeconomicus}, 66\penalty0 (2):\penalty0 189--206, 2019.
+
+\bibitem[Shin et~al.(2014)Shin, Yu, and Greenwood-Nimmo]{shin2014}
+Yongcheol Shin, Byungchul Yu, and Matthew Greenwood-Nimmo.
+\newblock Modelling asymmetric cointegration and dynamic multipliers in a
+  nonlinear {ARDL} framework.
+\newblock In Robin~C. Sickles and William~C. Horrace, editors,
+  \emph{Festschrift in Honor of Peter Schmidt}, pages 281--314. Springer, New
+  York, 2014.
+
+\bibitem[Suresh et~al.(2026)Suresh, Naveen, and Naveenan]{suresh2026}
+K.~Suresh, M.~Naveen, and R.~V. Naveenan.
+\newblock Long-run asymmetric oil pass-through to {I}ndia's wholesale prices: a
+  {NARDL} analysis.
+\newblock \emph{Foreign Trade Review}, 61\penalty0 (1):\penalty0 45--72, 2026.
+
+\end{thebibliography}

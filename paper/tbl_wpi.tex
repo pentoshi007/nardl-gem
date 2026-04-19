@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\caption{Headline WPI ADL on rupee oil. Cumulative pass-through over lags 0--6.}
+\label{tab:wpi}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{threeparttable}
+\begin{tabular}{l c c c c c c}
+\toprule
+Specification & $N$ & Span (yrs) & Adj.\ $R^2$ & CPT$^+$ & CPT$^-$ & Asym.\ $p$ \\
+\midrule
+Headline WPI ADL, INR oil & 515 & 42.92 & 0.421 & 0.030 & 0.037 & 0.673 \\
+$p$-value on cumulative coefficient & & & & 0.024 & 0.001 & \\
+\midrule
+\multicolumn{7}{l}{\emph{Bootstrap symmetry} ($B = 4{,}999$, restricted-residual circular block):} \\
+Bootstrap $p$ on CPT$^+$ = CPT$^-$ & & & & & & 0.746 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Notes: Sample 1983-05 to 2026-03. Specification: $\Delta \ln \mathrm{WPI}_t$ on twelve own lags, lags 0--6 of $\Delta \ln \mathrm{Oil^{INR}}_t^{+}$ and $\Delta \ln \mathrm{Oil^{INR}}_t^{-}$, and calendar-month fixed effects. Newey--West HAC standard errors. Cumulative pass-through CPT$^\pm$ is the sum of the corresponding seven coefficients. Asymmetry $p$ is the HAC Wald test of CPT$^+$ = CPT$^-$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

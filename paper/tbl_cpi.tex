@@ -1,0 +1,25 @@
+\begin{table}[t]
+\centering
+\caption{Headline CPI ADL on rupee oil. Consumer endpoint.}
+\label{tab:cpi}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{threeparttable}
+\begin{tabular}{l c c c c c c}
+\toprule
+Specification & $N$ & Span (yrs) & Adj.\ $R^2$ & CPT$^+$ & CPT$^-$ & Asym.\ $p$ \\
+\midrule
+Headline CPI ADL, INR oil & 245 & 20.42 & 0.449 & 0.021 & 0.001 & 0.241 \\
+$p$-value on cumulative coefficient & & & & 0.122 & 0.938 & \\
+\midrule
+\multicolumn{7}{l}{\emph{Selected covariate effects (HAC $t$-tests on the levels coefficients):}} \\
+\multicolumn{2}{l}{Diesel deregulation step (October 2014)} & \multicolumn{2}{l}{$\hat\beta = -0.339$} & \multicolumn{2}{l}{$p < 0.001$} & \\
+\multicolumn{2}{l}{Petrol deregulation step (June 2010)} & \multicolumn{2}{l}{$\hat\beta = +0.116$} & \multicolumn{2}{l}{$p = 0.307$} & \\
+\multicolumn{2}{l}{COVID window (April--September 2020)} & \multicolumn{2}{l}{$\hat\beta = -0.345$} & \multicolumn{2}{l}{$p = 0.507$} & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Notes: Sample 2004-08 to 2024-12. Specification analogous to Table \ref{tab:wpi} with $q = 3$ on the asymmetric oil components, an IIP control for industrial activity, and step dummies for the petrol and diesel deregulation events. The bootstrap $p$-value on the symmetry restriction is $0.500$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

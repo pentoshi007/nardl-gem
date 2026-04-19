@@ -1,0 +1,26 @@
+\begin{table}[t]
+\centering
+\caption{Series, sources, transformations, and sample spans.}
+\label{tab:data}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{threeparttable}
+\begin{tabular}{p{3.4cm} p{4.4cm} p{1.6cm} p{3.0cm}}
+\toprule
+Series & Source & Transform. & Active sample \\
+\midrule
+Brent crude (USD/bbl) & World Bank Pink Sheet & $\Delta \ln$ & 1983-05 to 2026-03 \\
+INR/USD spot rate & FRED \texttt{EXINUS} & $\Delta \ln$ & 1983-05 to 2026-03 \\
+Rupee oil price & Brent $\times$ EXR (constructed) & $\Delta \ln$ & 1983-05 to 2026-03 \\
+Headline WPI (2011-12 = 100) & OEA, chained across four bases & $\Delta \ln$ & 1983-05 to 2026-03 \\
+WPI Fuel \& Power (2011-12 = 100) & OEA, chained across three bases & $\Delta \ln$ & 1995-05 to 2026-03 \\
+PPAC retail petrol, Delhi & Petroleum Planning and Analysis Cell & $\Delta \ln$ & 2004-08 to 2024-12 \\
+Headline CPI (All-India, 2010 = 100) & MoSPI / FRED \texttt{INDCPIALLMINMEI} & $\Delta \ln$ & 2004-08 to 2024-12 \\
+CPI Fuel \& Light (post-2011 base) & MoSPI & $\Delta \ln$ & 2011-05 to 2024-12 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Notes: Wholesale series chained to a common 2011--12 = 100 base using OEA linking factors. Active samples reported after inner joins on common dates. The CPI Fuel \& Light series begins in May 2011 because the post-2011 base is the longest harmonised consumer fuel index currently available.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

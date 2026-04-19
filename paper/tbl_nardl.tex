@@ -1,0 +1,22 @@
+\begin{table}[h]
+\centering
+\caption{Appendix NARDL bounds battery. April 1997 to March 2025.}
+\label{tab:nardl}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\begin{threeparttable}
+\begin{tabular}{l c c c c c}
+\toprule
+Specification & $N$ & Bounds-$F$ & ECT & ECT $p$ & LR asym.\ $p$ \\
+\midrule
+$\ln \mathrm{WPI} \sim \ln \mathrm{Brent}$ & 333 & 27.66 & $-0.019$ & 0.005 & 0.001 \\
+$\ln \mathrm{WPI} \sim \ln \mathrm{Brent} \mid \ln \mathrm{EXR}$ & 333 & 21.40 & $-0.019$ & 0.006 & 0.000 \\
+$\ln \mathrm{WPI} \sim \ln \mathrm{Oil^{INR}}$ & 331 & 21.43 & $-0.017$ & 0.011 & 0.023 \\
+$\ln \mathrm{Fuel\&Power} \sim \ln \mathrm{Oil^{INR}}$ & 331 & 34.15 & $-0.081$ & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Notes: NARDL with case 3 (unrestricted intercept, no trend), AIC lag selection up to four lags. Bounds test critical values from \citet{pesaran2001}; the 1\% upper bound for case 3 with $k=1$ is $7.84$ and for $k=2$ is $6.36$. All four bounds-$F$ statistics exceed the 1\% upper bound. ECT is the true error-correction coefficient (sum of all $y$-level-lag coefficients) with a Newey--West Wald $p$-value. LR asymmetry $p$ is the long-run Wald test on the equality of positive and negative cumulative multipliers in the spirit of \citet{shin2014}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
